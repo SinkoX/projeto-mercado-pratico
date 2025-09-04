@@ -4,32 +4,21 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_cliente")
-public class Cliente {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cliente")
-    private Long idCliente;
+@PrimaryKeyJoinColumn(name = "id_usuario") // chave primaria e estrangeira para herança
+public class Cliente extends Usuario {
 
     @Column(name = "nome_cliente", nullable = false, length = 100)
     private String nomeCliente;
-
-    @Column(name = "email_cliente", nullable = false, unique = true, length = 50)
-    private String emailCliente;
 
     @Column(name = "cpf_cliente", nullable = false, unique = true, length = 11)
     private String cpfCliente;
 
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
-
-    @Column(name = "senha_cliente", nullable = false, length = 255)
-    private String senhaCliente;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco", referencedColumnName = "idEndereco")
@@ -42,50 +31,28 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<PedidoCliente> pedidos;
-
-    // 🔹 Construtor padrão
+    
+    //Construtores
+    
     public Cliente() {
+       
     }
 
-    // 🔹 Construtor com todos os atributos
-    public Cliente(Long idCliente, String nomeCliente, String emailCliente, String cpfCliente,
-                   LocalDate dataNascimento, String senhaCliente, Endereco endereco,
-                   List<TelefoneCliente> telefones, List<PedidoCliente> pedidos) {
-        this.idCliente = idCliente;
+    public Cliente(String emailUsuario, String senhaUsuario, String nomeCliente, String cpfCliente, LocalDate dataNascimento) {
+        super(emailUsuario, senhaUsuario);  // chama o construtor da classe base Usuario
         this.nomeCliente = nomeCliente;
-        this.emailCliente = emailCliente;
         this.cpfCliente = cpfCliente;
         this.dataNascimento = dataNascimento;
-        this.senhaCliente = senhaCliente;
-        this.endereco = endereco;
-        this.telefones = telefones;
-        this.pedidos = pedidos;
     }
 
-    // 🔹 Getters e Setters
 
-    public Long getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
-    }
-
+    // Getters e setters
     public String getNomeCliente() {
         return nomeCliente;
     }
 
     public void setNomeCliente(String nomeCliente) {
         this.nomeCliente = nomeCliente;
-    }
-
-    public String getEmailCliente() {
-        return emailCliente;
-    }
-
-    public void setEmailCliente(String emailCliente) {
-        this.emailCliente = emailCliente;
     }
 
     public String getCpfCliente() {
@@ -102,14 +69,6 @@ public class Cliente {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    public String getSenhaCliente() {
-        return senhaCliente;
-    }
-
-    public void setSenhaCliente(String senhaCliente) {
-        this.senhaCliente = senhaCliente;
     }
 
     public Endereco getEndereco() {

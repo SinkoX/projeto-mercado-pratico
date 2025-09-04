@@ -1,0 +1,57 @@
+package com.senaidev.prjMercadoPratico.entities;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_usuario")
+@Inheritance(strategy = InheritanceType.JOINED)  // Estrategia de herança no banco
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
+    private Long idUsuario;
+
+    @Column(name = "email_usuario", nullable = false, unique = true, length = 50)
+    private String emailUsuario;
+
+    @Column(name = "senha_usuario", nullable = false, length = 255)
+    private String senhaUsuario;
+    
+  //Construtores
+    
+    public Usuario() {
+        
+    }
+
+    public Usuario(String emailUsuario, String senhaUsuario) {
+        this.emailUsuario = emailUsuario;
+        this.senhaUsuario = senhaUsuario;
+    }
+
+
+    // Getters e setters
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getEmailUsuario() {
+        return emailUsuario;
+    }
+
+    public void setEmailUsuario(String emailUsuario) {
+        this.emailUsuario = emailUsuario;
+    }
+
+    public String getSenhaUsuario() {
+        return senhaUsuario;
+    }
+
+    public void setSenhaUsuario(String senhaUsuario) {
+        this.senhaUsuario = senhaUsuario;
+    }
+}
