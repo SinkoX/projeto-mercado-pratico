@@ -19,18 +19,18 @@ public class TelefoneCliente {
     private String numeroTelefone;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
-    private Cliente cliente;
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     // Construtor padrão
     public TelefoneCliente() {
     }
 
     // Construtor com todos os campos
-    public TelefoneCliente(Long idTelefone, String numeroTelefone, Cliente cliente) {
+    public TelefoneCliente(Long idTelefone, String numeroTelefone, Usuario usuario) {
         this.idTelefone = idTelefone;
         this.numeroTelefone = numeroTelefone;
-        this.cliente = cliente;
+        this.usuario = usuario;
     }
 
     // Getters & Setters
@@ -51,11 +51,11 @@ public class TelefoneCliente {
         this.numeroTelefone = numeroTelefone;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

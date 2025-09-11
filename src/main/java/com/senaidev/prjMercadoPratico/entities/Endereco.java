@@ -43,8 +43,8 @@ public class Endereco {
 			
 			@ManyToOne
 		    @JsonBackReference
-		    @JoinColumn(name = "CLIENTE_id_cliente")
-		    private Cliente cliente;
+		    @JoinColumn(name = "USUARIO_id_usuario")
+		    private Usuario usuario;
 
 	public Endereco() {
 
@@ -126,12 +126,12 @@ public class Endereco {
 		this.complemento = complemento;
 	}
 
-	public Cliente getUsuario() {
-		return cliente;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setUsuario(Cliente cliente) {
-		this.cliente = cliente;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	}

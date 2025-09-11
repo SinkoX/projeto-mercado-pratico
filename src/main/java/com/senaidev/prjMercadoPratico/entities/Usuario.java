@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_usuario")
-@Inheritance(strategy = InheritanceType.JOINED)  // Estrategia de herança no banco
+@Inheritance(strategy = InheritanceType.JOINED) 
 public class Usuario {
 
     @Id
@@ -17,18 +17,20 @@ public class Usuario {
 
     @Column(name = "senha_usuario", nullable = false, length = 255)
     private String senhaUsuario;
-    
-  //Construtores
-    
+
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_usuario")
+    private TipoUsuario tipoUsuario;
+
+    // Construtores
     public Usuario() {
-        
     }
 
-    public Usuario(String emailUsuario, String senhaUsuario) {
+    public Usuario(String emailUsuario, String senhaUsuario, TipoUsuario tipoUsuario) {
         this.emailUsuario = emailUsuario;
         this.senhaUsuario = senhaUsuario;
+        this.tipoUsuario = tipoUsuario;
     }
-
 
     // Getters e setters
     public Long getIdUsuario() {
@@ -53,5 +55,13 @@ public class Usuario {
 
     public void setSenhaUsuario(String senhaUsuario) {
         this.senhaUsuario = senhaUsuario;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 }

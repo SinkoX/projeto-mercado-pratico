@@ -19,13 +19,13 @@ public class Funcionario extends Usuario {
         // construtor padrão necessário para JPA
     }
 
-    public Funcionario(String emailUsuario, String senhaUsuario, String nomeFuncionario, String cargo) {
-        super(emailUsuario, senhaUsuario);
+    public Funcionario(String emailUsuario, String senhaUsuario, TipoUsuario tipoUsuario, String nomeFuncionario, String cargo) {
+        super(emailUsuario, senhaUsuario, tipoUsuario);
         this.nomeFuncionario = nomeFuncionario;
         this.cargo = cargo;
     }
-
     
+
 
     // Getters e setters
     public String getNomeFuncionario() {

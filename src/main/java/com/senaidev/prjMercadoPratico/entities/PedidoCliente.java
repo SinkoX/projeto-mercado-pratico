@@ -6,12 +6,12 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tb_pedido_cliente")
+@Table(name = "tb_pedido_usuario")
 public class PedidoCliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pedido_cliente")
+    @Column(name = "id_pedido_usuario")
     private Long idPedidoCliente;
 
     @Column(name = "status", length = 50)
@@ -24,8 +24,8 @@ public class PedidoCliente {
     private Double precoTotal;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
-    private Cliente cliente;
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_entrega")
@@ -41,8 +41,8 @@ public class PedidoCliente {
 
     @ManyToMany
     @JoinTable(
-        name = "pedido_cliente_produto",
-        joinColumns = @JoinColumn(name = "id_pedido_cliente"),
+        name = "pedido_usuario_produto",
+        joinColumns = @JoinColumn(name = "id_pedido_usuario"),
         inverseJoinColumns = @JoinColumn(name = "id_produto")
     )
     private List<Produto> produtos;
@@ -53,13 +53,13 @@ public class PedidoCliente {
 
     // Construtor com todos os campos
     public PedidoCliente(Long idPedidoCliente, String status, LocalDate dataPedido, Double precoTotal, 
-                         Cliente cliente, Entrega entrega, Funcionario funcionario, FormaPagamento formaPagamento, 
+    		Usuario usuario, Entrega entrega, Funcionario funcionario, FormaPagamento formaPagamento, 
                          List<Produto> produtos) {
         this.idPedidoCliente = idPedidoCliente;
         this.status = status;
         this.dataPedido = dataPedido;
         this.precoTotal = precoTotal;
-        this.cliente = cliente;
+        this.usuario = usuario;
         this.entrega = entrega;
         this.funcionario = funcionario;
         this.formaPagamento = formaPagamento;
@@ -100,12 +100,12 @@ public class PedidoCliente {
         this.precoTotal = precoTotal;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Usuario getCliente() {
+        return usuario;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Entrega getEntrega() {
