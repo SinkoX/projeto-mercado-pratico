@@ -14,17 +14,17 @@ public class Entrega {
 
     private LocalDate tempoEntrega;
 
-    // 🔹 Construtor padrão (sem argumentos)
+    //Construtor
     public Entrega() {
     }
 
-    // 🔹 Construtor com todos os argumentos
+    
     public Entrega(Long idEntrega, LocalDate tempoEntrega) {
         this.idEntrega = idEntrega;
         this.tempoEntrega = tempoEntrega;
     }
 
-    // 🔹 Getters & Setters
+    //Getters & Setters
     public Long getIdEntrega() {
         return idEntrega;
     }

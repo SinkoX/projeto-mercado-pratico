@@ -14,17 +14,16 @@ public class FormaPagamento {
     @Column(name = "tipo_pagamento", nullable = false, length = 50)
     private String tipo; // Ex: "Cartão de Crédito", "PIX", "Dinheiro"
 
-    // 🔹 Construtor padrão
+    //Construtor
     public FormaPagamento() {
     }
 
-    // 🔹 Construtor com todos os campos
     public FormaPagamento(Long idFormaPagamento, String tipo) {
         this.idFormaPagamento = idFormaPagamento;
         this.tipo = tipo;
     }
 
-    // 🔹 Getters e Setters
+    //Getters e Setters
 
     public Long getIdFormaPagamento() {
         return idFormaPagamento;

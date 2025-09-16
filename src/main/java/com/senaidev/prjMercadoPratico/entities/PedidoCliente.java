@@ -45,6 +45,9 @@ public class PedidoCliente {
         joinColumns = @JoinColumn(name = "id_pedido_usuario"),
         inverseJoinColumns = @JoinColumn(name = "id_produto")
     )
+    
+    
+    
     private List<Produto> produtos;
 
     // Construtor padrão
@@ -100,7 +103,7 @@ public class PedidoCliente {
         this.precoTotal = precoTotal;
     }
 
-    public Usuario getCliente() {
+    public Usuario getUsuario() {
         return usuario;
     }
 

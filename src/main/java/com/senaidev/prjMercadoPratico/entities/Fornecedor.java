@@ -31,11 +31,11 @@ public class Fornecedor {
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<PedidoFornecedor> pedidos;
 
-    // 🔹 Construtor padrão
+    //Construtor 
     public Fornecedor() {
     }
 
-    // 🔹 Construtor com todos os campos
+   
     public Fornecedor(Long idFornecedor, String nomeFornecedor, String emailFornecedor, String cpfFornecedor,
                       String cnpj, List<TelefoneFornecedor> telefones, List<PedidoFornecedor> pedidos) {
         this.idFornecedor = idFornecedor;
@@ -47,7 +47,7 @@ public class Fornecedor {
         this.pedidos = pedidos;
     }
 
-    // 🔹 Getters e Setters
+    //Getters e Setters
 
     public Long getIdFornecedor() {
         return idFornecedor;

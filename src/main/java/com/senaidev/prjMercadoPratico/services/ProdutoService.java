@@ -5,8 +5,8 @@ import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -14,27 +14,49 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    // 🔍 Listar todos os produtos
     public List<Produto> findAll() {
         return produtoRepository.findAll();
     }
 
+    // 🔍 Buscar por ID
     public Produto findById(Long id) {
-        Optional<Produto> obj = produtoRepository.findById(id);
-        return obj.orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        return produtoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
     }
 
+    // 🔍 Buscar por nome (contém, ignore case)
+    public List<Produto> findByNome(String nome) {
+        return produtoRepository.findByNomeProdutoContainingIgnoreCase(nome);
+    }
+
+    // 🔍 Buscar por categoria
+    public List<Produto> findByCategoria(String categoria) {
+        return produtoRepository.findByCategoriaIgnoreCase(categoria);
+    }
+
+    // 🔍 Buscar produtos com validade menor que hoje (vencidos)
+    public List<Produto> findProdutosVencidos() {
+        return produtoRepository.findByDataValidadeBefore(LocalDate.now());
+    }
+
+    // ✅ Inserir produto
     public Produto insert(Produto produto) {
         return produtoRepository.save(produto);
     }
 
+    // ♻️ Atualizar produto
     public Produto update(Long id, Produto novoProduto) {
-        Produto produto = findById(id);
+        Produto produto = findById(id); // lança exceção se não encontrar
         produto.setNomeProduto(novoProduto.getNomeProduto());
         produto.setPrecoProduto(novoProduto.getPrecoProduto());
-        // outros setters...
+        produto.setQuantidade(novoProduto.getQuantidade());
+        produto.setCategoria(novoProduto.getCategoria());
+        produto.setDataValidade(novoProduto.getDataValidade());
         return produtoRepository.save(produto);
     }
 
+    // ❌ Remover produto
     public void delete(Long id) {
         produtoRepository.deleteById(id);
     }
