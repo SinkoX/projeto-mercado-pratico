@@ -1,9 +1,10 @@
 package com.senaidev.prjMercadoPratico.repositories;
 
-import com.senaidev.prjMercadoPratico.entities.TipoUsuario;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import com.senaidev.prjMercadoPratico.entities.TipoUsuario;
 
 public interface TipoUsuarioRepository extends JpaRepository<TipoUsuario, Long> {
 

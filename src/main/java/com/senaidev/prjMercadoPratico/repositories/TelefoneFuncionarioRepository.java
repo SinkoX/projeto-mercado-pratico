@@ -1,9 +1,10 @@
 package com.senaidev.prjMercadoPratico.repositories;
 
-import com.senaidev.prjMercadoPratico.entities.TelefoneFuncionario;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.senaidev.prjMercadoPratico.entities.TelefoneFuncionario;
 
 public interface TelefoneFuncionarioRepository extends JpaRepository<TelefoneFuncionario, Long> {
 
