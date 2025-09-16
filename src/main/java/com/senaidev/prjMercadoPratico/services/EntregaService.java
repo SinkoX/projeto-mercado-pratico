@@ -14,30 +14,30 @@ public class EntregaService {
     @Autowired
     private EntregaRepository entregaRepository;
 
-    // 🔍 Buscar todas as entregas
+    // Buscar todas as entregas
     public List<Entrega> findAll() {
         return entregaRepository.findAll();
     }
 
-    // 🔍 Buscar por ID
+    // Buscar por ID
     public Entrega findById(Long id) {
         Optional<Entrega> obj = entregaRepository.findById(id);
         return obj.orElseThrow(() -> new RuntimeException("Entrega não encontrada com ID: " + id));
     }
 
-    // ✅ Inserir nova entrega
+    // Inserir nova entrega
     public Entrega insert(Entrega entrega) {
         return entregaRepository.save(entrega);
     }
 
-    // ♻️ Atualizar entrega existente
+    // Atualizar entrega existente
     public Entrega update(Long id, Entrega novaEntrega) {
         Entrega entrega = findById(id);
         entrega.setTempoEntrega(novaEntrega.getTempoEntrega());
         return entregaRepository.save(entrega);
     }
 
-    // ❌ Deletar por ID
+    //Deletar por ID
     public void delete(Long id) {
         entregaRepository.deleteById(id);
     }

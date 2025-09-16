@@ -1,10 +1,19 @@
 package com.senaidev.prjMercadoPratico.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_usuario")
-@Inheritance(strategy = InheritanceType.JOINED) 
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
 
     @Id
@@ -18,6 +27,9 @@ public class Usuario {
     @Column(name = "senha_usuario", nullable = false, length = 255)
     private String senhaUsuario;
 
+    @Column(name = "cpf_usuario", nullable = false, unique = true, length = 11)
+    private String cpfUsuario;
+
     @ManyToOne
     @JoinColumn(name = "id_tipo_usuario")
     private TipoUsuario tipoUsuario;
@@ -26,13 +38,15 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String emailUsuario, String senhaUsuario, TipoUsuario tipoUsuario) {
+    public Usuario(String emailUsuario, String senhaUsuario, String cpfUsuario, TipoUsuario tipoUsuario) {
         this.emailUsuario = emailUsuario;
         this.senhaUsuario = senhaUsuario;
+        this.cpfUsuario = cpfUsuario;
         this.tipoUsuario = tipoUsuario;
     }
 
     // Getters e setters
+
     public Long getIdUsuario() {
         return idUsuario;
     }
@@ -57,6 +71,8 @@ public class Usuario {
         this.senhaUsuario = senhaUsuario;
     }
 
+  
+  
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
@@ -64,4 +80,14 @@ public class Usuario {
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
+
+	public String getCpfUsuario() {
+		return cpfUsuario;
+	}
+
+	public void setCpfUsuario(String cpfUsuario) {
+		this.cpfUsuario = cpfUsuario;
+	}
+
+	
 }

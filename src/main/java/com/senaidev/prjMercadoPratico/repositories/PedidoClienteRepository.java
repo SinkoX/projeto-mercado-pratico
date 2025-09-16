@@ -20,8 +20,7 @@ public interface PedidoClienteRepository extends JpaRepository<PedidoCliente, Lo
     // Buscar pedidos entre duas datas
     List<PedidoCliente> findByDataPedidoBetween(LocalDate dataInicio, LocalDate dataFim);
 
-    // Buscar pedidos por funcionário
-    List<PedidoCliente> findByUsuarioIdUsuario1(Long idUsuario);
+   
 
     // Buscar pedidos por forma de pagamento
     List<PedidoCliente> findByFormaPagamentoIdFormaPagamento(Long idFormaPagamento);
@@ -29,6 +28,7 @@ public interface PedidoClienteRepository extends JpaRepository<PedidoCliente, Lo
     // Buscar pedidos de um cliente por status
     List<PedidoCliente> findByUsuarioIdUsuarioAndStatusIgnoreCase(Long idUsuario, String status);
     
-    List<PedidoCliente> findByFuncionarioIdFuncionario(Long idFuncionario);
+    List<PedidoCliente> findByFuncionarioIdUsuario(Long idUsuario);
+
 
 }

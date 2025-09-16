@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.senaidev.prjMercadoPratico.entities.TelefoneFuncionario;
 
 public interface TelefoneFuncionarioRepository extends JpaRepository<TelefoneFuncionario, Long> {
+    List<TelefoneFuncionario> findByFuncionarioIdUsuario(Long idUsuario);
 
-    // Buscar telefones pelo id do funcionário
-    List<TelefoneFuncionario> findByFuncionarioIdFuncionario(Long idFuncionario);
+    
 
     // Buscar telefone pelo número (exato)
     List<TelefoneFuncionario> findByNumeroTelefone(String numeroTelefone);

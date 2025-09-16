@@ -12,20 +12,17 @@ public class Funcionario extends Usuario {
 
     @Column(name = "cargo", nullable = false, length = 50)
     private String cargo;
-    
-    //Construtores
-    
+
+    // Construtores
     public Funcionario() {
         // construtor padrão necessário para JPA
     }
 
-    public Funcionario(String emailUsuario, String senhaUsuario, TipoUsuario tipoUsuario, String nomeFuncionario, String cargo) {
-        super(emailUsuario, senhaUsuario, tipoUsuario);
+    public Funcionario(String emailUsuario, String senhaUsuario, String cpfUsuario, TipoUsuario tipoUsuario, String nomeFuncionario, String cargo) {
+        super(emailUsuario, senhaUsuario, cpfUsuario, tipoUsuario);
         this.nomeFuncionario = nomeFuncionario;
         this.cargo = cargo;
     }
-    
-
 
     // Getters e setters
     public String getNomeFuncionario() {

@@ -28,13 +28,13 @@ public class EnderecoController {
 	    @Autowired
 	    private UsuarioRepository usuarioRepository;
 
-	    // 🔍 Buscar todos os endereços
+	    // Buscar todos os endereços
 	    @GetMapping
 	    public List<Endereco> listarTodos() {
 	        return enderecoRepository.findAll();
 	    }
 
-	    // 🔍 Buscar endereço por ID
+	    // Buscar endereço por ID
 	    @GetMapping("/{id}")
 	    public ResponseEntity<Endereco> buscarPorId(@PathVariable Long id) {
 	        Optional<Endereco> endereco = enderecoRepository.findById(id);
@@ -42,7 +42,7 @@ public class EnderecoController {
 	                       .orElse(ResponseEntity.notFound().build());
 	    }
 
-	    // ➕ Criar novo endereço (com ID do usuário relacionado)
+	    //Criar novo endereço (com ID do usuário relacionado)
 	    @PostMapping("/usuario/{usuarioId}")
 	    public ResponseEntity<Endereco> criar(@PathVariable Long usuarioId, @RequestBody Endereco endereco) {
 	        Optional<Usuario> usuarioOptional = usuarioRepository.findById(usuarioId);
@@ -55,7 +55,7 @@ public class EnderecoController {
 	        }
 	    }
 
-	    // ✏️ Atualizar endereço
+	    // Atualizar endereço
 	    @PutMapping("/{id}")
 	    public ResponseEntity<Endereco> atualizar(@PathVariable Long id, @RequestBody Endereco enderecoAtualizado) {
 	        Optional<Endereco> enderecoOptional = enderecoRepository.findById(id);

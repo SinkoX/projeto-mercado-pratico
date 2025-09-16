@@ -1,68 +1,70 @@
 package com.senaidev.prjMercadoPratico.controllers;
 
 import com.senaidev.prjMercadoPratico.entities.Usuario;
-import com.senaidev.prjMercadoPratico.repositories.UsuarioRepository;
-
+import com.senaidev.prjMercadoPratico.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService usuarioService;
 
-    // 🔍 Buscar todos os usuários
+    // GET /usuarios
     @GetMapping
-    public List<Usuario> listarTodos() {
-        return usuarioRepository.findAll();
+    public ResponseEntity<List<Usuario>> findAll() {
+        return ResponseEntity.ok(usuarioService.findAll());
     }
 
-    // 🔍 Buscar usuário por ID
+    // GET /usuarios/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
-        return usuario.map(ResponseEntity::ok)
-                      .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(usuarioService.findById(id));
     }
 
-    // ➕ Criar novo usuário
+    // POST /usuarios
     @PostMapping
-    public Usuario criar(@RequestBody Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public ResponseEntity<Usuario> insert(@RequestBody Usuario usuario) {
+        Usuario novo = usuarioService.insert(usuario);
+        return ResponseEntity.ok(novo);
     }
 
-    // ✏️ Atualizar usuário
+    // PUT /usuarios/{id}
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
-        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
-
-        if (usuarioOptional.isPresent()) {
-            Usuario usuarioExistente = usuarioOptional.get();
-            usuarioExistente.setEmailUsuario(usuarioAtualizado.getEmailUsuario());
-            usuarioExistente.setSenhaUsuario(usuarioAtualizado.getSenhaUsuario());
-            usuarioExistente.setTipoUsuario(usuarioAtualizado.getTipoUsuario());
-
-            usuarioRepository.save(usuarioExistente);
-            return ResponseEntity.ok(usuarioExistente);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario usuarioAtualizado) {
+        Usuario atualizado = usuarioService.update(id, usuarioAtualizado);
+        return ResponseEntity.ok(atualizado);
     }
 
-    // ❌ Deletar usuário
+    // DELETE /usuarios/{id}
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        if (usuarioRepository.existsById(id)) {
-            usuarioRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        usuarioService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // GET /usuarios/email?value=example@email.com
+    @GetMapping("/email")
+    public ResponseEntity<Usuario> findByEmail(@RequestParam("value") String email) {
+        Usuario usuario = usuarioService.findByEmail(email);
+        if (usuario == null) {
             return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(usuario);
+    }
+
+    // GET /usuarios/cpf?value=12345678900
+    @GetMapping("/cpf")
+    public ResponseEntity<Usuario> findByCpf(@RequestParam("value") String cpf) {
+        Usuario usuario = usuarioService.findByCpf(cpf);
+        if (usuario == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(usuario);
     }
 }

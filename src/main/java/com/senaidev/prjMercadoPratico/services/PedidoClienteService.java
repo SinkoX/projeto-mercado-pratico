@@ -41,7 +41,7 @@ public class PedidoClienteService {
     }
 
     public List<PedidoCliente> findByFuncionarioId(Long idFuncionario) {
-        return pedidoClienteRepository.findByFuncionarioIdFuncionario(idFuncionario);
+        return pedidoClienteRepository.findByFuncionarioIdUsuario(idFuncionario);
     }
 
     public List<PedidoCliente> findByFormaPagamentoId(Long idFormaPagamento) {

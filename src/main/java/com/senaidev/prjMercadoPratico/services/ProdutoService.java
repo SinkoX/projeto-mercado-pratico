@@ -14,38 +14,38 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    // 🔍 Listar todos os produtos
+    // Listar todos os produtos
     public List<Produto> findAll() {
         return produtoRepository.findAll();
     }
 
-    // 🔍 Buscar por ID
+    // Buscar por ID
     public Produto findById(Long id) {
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
     }
 
-    // 🔍 Buscar por nome (contém, ignore case)
+    // Buscar por nome (contém, ignore case)
     public List<Produto> findByNome(String nome) {
         return produtoRepository.findByNomeProdutoContainingIgnoreCase(nome);
     }
 
-    // 🔍 Buscar por categoria
+    // Buscar por categoria
     public List<Produto> findByCategoria(String categoria) {
         return produtoRepository.findByCategoriaIgnoreCase(categoria);
     }
 
-    // 🔍 Buscar produtos com validade menor que hoje (vencidos)
+    // Buscar produtos com validade menor que hoje (vencidos)
     public List<Produto> findProdutosVencidos() {
         return produtoRepository.findByDataValidadeBefore(LocalDate.now());
     }
 
-    // ✅ Inserir produto
+    // Inserir produto
     public Produto insert(Produto produto) {
         return produtoRepository.save(produto);
     }
 
-    // ♻️ Atualizar produto
+    // Atualizar produto
     public Produto update(Long id, Produto novoProduto) {
         Produto produto = findById(id); // lança exceção se não encontrar
         produto.setNomeProduto(novoProduto.getNomeProduto());
@@ -56,7 +56,7 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    // ❌ Remover produto
+    // Remover produto
     public void delete(Long id) {
         produtoRepository.deleteById(id);
     }
