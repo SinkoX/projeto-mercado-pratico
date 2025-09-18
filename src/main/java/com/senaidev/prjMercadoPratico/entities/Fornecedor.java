@@ -10,19 +10,19 @@ public class Fornecedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_fornecedor")
+    @Column(name = "id_Fornecedor")
     private Long idFornecedor;
 
-    @Column(name = "nome_fornecedor", nullable = false, length = 100)
+    @Column(name = "nome_Fornecedor", nullable = false, length = 100)
     private String nomeFornecedor;
 
-    @Column(name = "email_fornecedor", nullable = false, unique = true, length = 50)
+    @Column(name = "email_Fornecedor", nullable = false, length = 50)
     private String emailFornecedor;
 
-    @Column(name = "cpf_fornecedor", length = 11)
+    @Column(name = "cpf_Fornecedor", nullable = false, unique = true, length = 11)
     private String cpfFornecedor;
 
-    @Column(name = "cnpj", length = 14)
+    @Column(name = "cnpj", unique = true, length = 14)
     private String cnpj;
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)

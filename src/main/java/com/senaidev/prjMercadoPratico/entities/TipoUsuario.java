@@ -15,16 +15,16 @@ import jakarta.persistence.Table;
 public class TipoUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tipo_usuario", nullable = false)
+    @Column(name = "id_Tipo_Usuario", nullable = false)
     private Long idTipoUsuario;
     
-    @Column(name = "nome_tipo_usuario", nullable = false, length = 50)
+    @Column(name = "nome_Tipo_Usuario", nullable = false, length = 50)
     private String nomeTipoUsuario;
     
     @Column(name = "descricao", length = 255)
     private String descricao;
 
-    @OneToMany(mappedBy = "tipoUsuario")
+    @OneToMany(mappedBy = "tipo_Usuario")
     private List<Usuario> usuarios;
 
     // Construtores

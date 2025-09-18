@@ -1,5 +1,6 @@
 package com.senaidev.prjMercadoPratico.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,12 +15,14 @@ public class TelefoneFornecedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idTelefone;
+    @Column(name = "id_Telefone_Fornecedor", nullable = false)
+    private Long idTelefoneFornecedor;
 
-    private String numeroTelefone;
+    @Column(name = "numero_Telefone_Fornecedor", nullable = false, length = 15)
+    private String numeroTelefoneFornecedor;
 
     @ManyToOne
-    @JoinColumn(name = "id_fornecedor")
+    @JoinColumn(name = "id_Fornecedor")
     private Fornecedor fornecedor;
 
     // Construtor padrão
@@ -27,28 +30,28 @@ public class TelefoneFornecedor {
     }
 
     // Construtor com todos os campos
-    public TelefoneFornecedor(Long idTelefone, String numeroTelefone, Fornecedor fornecedor) {
-        this.idTelefone = idTelefone;
-        this.numeroTelefone = numeroTelefone;
+    public TelefoneFornecedor(Long idTelefoneFornecedor, String numeroTelefoneFornecedor, Fornecedor fornecedor) {
+        this.idTelefoneFornecedor = idTelefoneFornecedor;
+        this.numeroTelefoneFornecedor = numeroTelefoneFornecedor;
         this.fornecedor = fornecedor;
     }
 
     // Getters & Setters
 
-    public Long getIdTelefone() {
-        return idTelefone;
+    public Long getIdTelefoneFornecedor() {
+        return idTelefoneFornecedor;
     }
 
-    public void setIdTelefone(Long idTelefone) {
-        this.idTelefone = idTelefone;
+    public void setIdTelefoneFornecedor(Long idTelefoneFornecedor) {
+        this.idTelefoneFornecedor = idTelefoneFornecedor;
     }
 
-    public String getNumeroTelefone() {
-        return numeroTelefone;
+    public String getNumeroTelefoneFornecedor() {
+        return numeroTelefoneFornecedor;
     }
 
-    public void setNumeroTelefone(String numeroTelefone) {
-        this.numeroTelefone = numeroTelefone;
+    public void setNumeroTelefoneFornecedor(String numeroTelefoneFornecedor) {
+        this.numeroTelefoneFornecedor = numeroTelefoneFornecedor;
     }
 
     public Fornecedor getFornecedor() {

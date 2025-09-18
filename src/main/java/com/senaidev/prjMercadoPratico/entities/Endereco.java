@@ -18,21 +18,22 @@ public class Endereco {
 	//Atributos
 			@Id
 			@GeneratedValue(strategy = GenerationType.IDENTITY)
+			@Column(name = "id_Endereco", nullable = false)
 			private Long id_endereco;
 			
-			@Column(name = "cep", length = 100)
+			@Column(name = "cep", nullable = false, length = 100)
 			private String cep;
 			
-			@Column(name = "rua", length = 100)
+			@Column(name = "rua", nullable = false, length = 100)
 			private String rua;
 			
-			@Column(name = "numero",nullable = false)
+			@Column(name = "numero", nullable = false)
 			private String numero;
 			
-			@Column(name = "bairro",length = 100)
+			@Column(name = "bairro", nullable = false, length = 100)
 			private String bairro;
 			
-			@Column(name = "cidade", length = 100)
+			@Column(name = "cidade", nullable = false, length = 100)
 			private String cidade;
 			
 			@Column(name = "estado", nullable = false, length = 50)
@@ -43,7 +44,7 @@ public class Endereco {
 			
 			@ManyToOne
 		    @JsonBackReference
-		    @JoinColumn(name = "USUARIO_id_usuario")
+		    @JoinColumn(name = "USUARIO_id_Usuario")
 		    private Usuario usuario;
 
 	public Endereco() {

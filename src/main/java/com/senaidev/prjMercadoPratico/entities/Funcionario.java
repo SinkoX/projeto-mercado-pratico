@@ -7,7 +7,12 @@ import jakarta.persistence.*;
 @PrimaryKeyJoinColumn(name = "id_usuario")
 public class Funcionario extends Usuario {
 
-    @Column(name = "nome_funcionario", nullable = false, length = 100)
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_Funcionario")
+    private Long idFuncionario;
+	
+    @Column(name = "nome_Funcionario", nullable = false, length = 100)
     private String nomeFuncionario;
 
     @Column(name = "cargo", nullable = false, length = 50)

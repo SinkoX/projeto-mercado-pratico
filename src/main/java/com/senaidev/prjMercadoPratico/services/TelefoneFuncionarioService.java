@@ -34,7 +34,7 @@ public class TelefoneFuncionarioService {
     // Atualizar telefone existente
     public TelefoneFuncionario update(Long id, TelefoneFuncionario novoTelefone) {
         TelefoneFuncionario telefone = findById(id);
-        telefone.setNumeroTelefone(novoTelefone.getNumeroTelefone());
+        telefone.setNumeroTelefoneFuncionario(novoTelefone.getNumeroTelefoneFuncionario());
         telefone.setFuncionario(novoTelefone.getFuncionario());
         return telefoneFuncionarioRepository.save(telefone);
     }

@@ -11,39 +11,39 @@ public class PedidoCliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pedido_usuario")
+    @Column(name = "id_Pedido_Usuario")
     private Long idPedidoCliente;
 
-    @Column(name = "status", length = 50)
-    private String status;
+    @Column(name = "status_Pedido_Cliente", nullable = false, length = 50)
+    private String statusPedidoCliente;
 
-    @Column(name = "data_pedido")
+    @Column(name = "data_Pedido", nullable = false)
     private LocalDate dataPedido;
 
-    @Column(name = "preco_total")
+    @Column(name = "preco_Total", nullable = false)
     private Double precoTotal;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_Usuario")
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_entrega")
+    @JoinColumn(name = "id_Entrega")
     private Entrega entrega;
 
     @ManyToOne
-    @JoinColumn(name = "id_funcionario")
+    @JoinColumn(name = "id_Funcionario")
     private Funcionario funcionario;
 
     @ManyToOne
-    @JoinColumn(name = "id_forma_pagamento")
+    @JoinColumn(name = "id_Forma_Pagamento")
     private FormaPagamento formaPagamento;
 
     @ManyToMany
     @JoinTable(
         name = "pedido_usuario_produto",
-        joinColumns = @JoinColumn(name = "id_pedido_usuario"),
-        inverseJoinColumns = @JoinColumn(name = "id_produto")
+        joinColumns = @JoinColumn(name = "id_Pedido_Usuario"),
+        inverseJoinColumns = @JoinColumn(name = "id_Produto")
     )
     
     
@@ -55,11 +55,11 @@ public class PedidoCliente {
     }
 
     // Construtor com todos os campos
-    public PedidoCliente(Long idPedidoCliente, String status, LocalDate dataPedido, Double precoTotal, 
+    public PedidoCliente(Long idPedidoCliente, String statusPedidoCliente, LocalDate dataPedido, Double precoTotal, 
     		Usuario usuario, Entrega entrega, Funcionario funcionario, FormaPagamento formaPagamento, 
                          List<Produto> produtos) {
         this.idPedidoCliente = idPedidoCliente;
-        this.status = status;
+        this.statusPedidoCliente = statusPedidoCliente;
         this.dataPedido = dataPedido;
         this.precoTotal = precoTotal;
         this.usuario = usuario;
@@ -79,12 +79,12 @@ public class PedidoCliente {
         this.idPedidoCliente = idPedidoCliente;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatusPedidoCliente() {
+        return statusPedidoCliente;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusPedidoCliente(String statusPedidoCliente) {
+        this.statusPedidoCliente = statusPedidoCliente;
     }
 
     public LocalDate getDataPedido() {

@@ -10,18 +10,18 @@ public class PedidoFornecedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pedido_fornecedor")
+    @Column(name = "id_Pedido_Fornecedor")
     private Long idPedidoFornecedor;
 
-    @Column(name = "data_pedido")
-    private LocalDate dataPedido;
+    @Column(name = "data_Pedido_Fornecedor")
+    private LocalDate dataPedidoFornecedor;
 
     @ManyToOne
-    @JoinColumn(name = "id_produto")
+    @JoinColumn(name = "id_Produto")
     private Produto produto;
 
     @ManyToOne
-    @JoinColumn(name = "id_fornecedor")
+    @JoinColumn(name = "id_Fornecedor")
     private Fornecedor fornecedor;
 
     // Construtor padrão
@@ -29,9 +29,9 @@ public class PedidoFornecedor {
     }
 
     // Construtor com todos os campos
-    public PedidoFornecedor(Long idPedidoFornecedor, LocalDate dataPedido, Produto produto, Fornecedor fornecedor) {
+    public PedidoFornecedor(Long idPedidoFornecedor, LocalDate dataPedidoFornecedor, Produto produto, Fornecedor fornecedor) {
         this.idPedidoFornecedor = idPedidoFornecedor;
-        this.dataPedido = dataPedido;
+        this.dataPedidoFornecedor = dataPedidoFornecedor;
         this.produto = produto;
         this.fornecedor = fornecedor;
     }
@@ -45,12 +45,12 @@ public class PedidoFornecedor {
         this.idPedidoFornecedor = idPedidoFornecedor;
     }
 
-    public LocalDate getDataPedido() {
-        return dataPedido;
+    public LocalDate getDataPedidoFornecedor() {
+        return dataPedidoFornecedor;
     }
 
-    public void setDataPedido(LocalDate dataPedido) {
-        this.dataPedido = dataPedido;
+    public void setDataPedidoFornecedor(LocalDate dataPedidoFornecedor) {
+        this.dataPedidoFornecedor = dataPedidoFornecedor;
     }
 
     public Produto getProduto() {

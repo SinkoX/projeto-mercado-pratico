@@ -10,8 +10,10 @@ public class Entrega {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_Entrega", nullable = false)
     private Long idEntrega;
 
+    @Column(name = "tempo_Entrega", nullable = false)
     private LocalDate tempoEntrega;
 
     //Construtor

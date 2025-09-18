@@ -58,7 +58,7 @@ public class PedidoClienteService {
 
     public PedidoCliente update(Long id, PedidoCliente novoPedido) {
         PedidoCliente pedido = findById(id);
-        pedido.setStatus(novoPedido.getStatus());
+        pedido.setStatusPedidoCliente(novoPedido.getStatusPedidoCliente());
         pedido.setDataPedido(novoPedido.getDataPedido());
         pedido.setUsuario(novoPedido.getUsuario());
         pedido.setFuncionario(novoPedido.getFuncionario());

@@ -8,19 +8,23 @@ public class FormaPagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_forma_pagamento")
+    @Column(name = "id_Forma_Pagamento")
     private Long idFormaPagamento;
 
-    @Column(name = "tipo_pagamento", nullable = false, length = 50)
-    private String tipo; // Ex: "Cartão de Crédito", "PIX", "Dinheiro"
+    @Column(name = "forma_Pagamento", nullable = false)
+    private String formaPagamento; // Ex: "Cartão de Crédito", "PIX", "Dinheiro"
+    
+    @Column(name = "status_Pagamento", nullable = false)
+    private String statusPagamento;
 
     //Construtor
     public FormaPagamento() {
     }
 
-    public FormaPagamento(Long idFormaPagamento, String tipo) {
+    public FormaPagamento(Long idFormaPagamento, String formaPagamento, String statusPagamento) {
         this.idFormaPagamento = idFormaPagamento;
-        this.tipo = tipo;
+        this.formaPagamento = formaPagamento;
+        this.statusPagamento = statusPagamento;
     }
 
     //Getters e Setters
@@ -33,11 +37,19 @@ public class FormaPagamento {
         this.idFormaPagamento = idFormaPagamento;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getFormaPagamento() {
+        return formaPagamento;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+    
+    public String getStatusPagamento() {
+        return statusPagamento;
+    }
+
+    public void setStatusPagamento(String statusPagamento) {
+        this.statusPagamento = statusPagamento;
     }
 }

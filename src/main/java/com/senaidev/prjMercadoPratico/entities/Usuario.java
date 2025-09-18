@@ -18,7 +18,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
+    @Column(name = "id_Usuario")
     private Long idUsuario;
 
     @Column(name = "email_usuario", nullable = false, unique = true, length = 50)
@@ -31,7 +31,7 @@ public class Usuario {
     private String cpfUsuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_usuario")
+    @JoinColumn(name = "id_Tipo_Usuario")
     private TipoUsuario tipoUsuario;
 
     // Construtores

@@ -33,7 +33,7 @@ public class TelefoneClienteService {
     // Atualizar telefone existente
     public TelefoneCliente update(Long id, TelefoneCliente novoTelefone) {
         TelefoneCliente telefone = findById(id);
-        telefone.setNumeroTelefone(novoTelefone.getNumeroTelefone());
+        telefone.setNumeroTelefoneCliente(novoTelefone.getNumeroTelefoneCliente());
         telefone.setUsuario(novoTelefone.getUsuario());
         return telefoneClienteRepository.save(telefone);
     }

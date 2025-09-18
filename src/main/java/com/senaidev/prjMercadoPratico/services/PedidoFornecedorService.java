@@ -34,7 +34,7 @@ public class PedidoFornecedorService {
     // Atualizar pedido
     public PedidoFornecedor update(Long id, PedidoFornecedor novoPedido) {
         PedidoFornecedor pedido = findById(id);
-        pedido.setDataPedido(novoPedido.getDataPedido());
+        pedido.setDataPedidoFornecedor(novoPedido.getDataPedidoFornecedor());
         pedido.setFornecedor(novoPedido.getFornecedor());
         pedido.setProduto(novoPedido.getProduto());
         return pedidoFornecedorRepository.save(pedido);

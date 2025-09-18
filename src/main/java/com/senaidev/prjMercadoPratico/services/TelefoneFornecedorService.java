@@ -34,7 +34,7 @@ public class TelefoneFornecedorService {
     // Atualizar telefone existente
     public TelefoneFornecedor update(Long id, TelefoneFornecedor novoTelefone) {
         TelefoneFornecedor telefone = findById(id);
-        telefone.setNumeroTelefone(novoTelefone.getNumeroTelefone());
+        telefone.setNumeroTelefoneFornecedor(novoTelefone.getNumeroTelefoneFornecedor());
         telefone.setFornecedor(novoTelefone.getFornecedor());
         return telefoneFornecedorRepository.save(telefone);
     }

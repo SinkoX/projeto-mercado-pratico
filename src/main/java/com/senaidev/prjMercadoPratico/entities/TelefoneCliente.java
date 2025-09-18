@@ -1,5 +1,6 @@
 package com.senaidev.prjMercadoPratico.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,12 +15,14 @@ public class TelefoneCliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idTelefone;
+    @Column(name = "id_Telefone_Cliente", nullable = false)
+    private Long idTelefoneCliente;
 
-    private String numeroTelefone;
+    @Column(name = "numero_Telefone_Cliente", nullable = false, length = 15)
+    private String numeroTelefoneCliente;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_Usuario")
     private Usuario usuario;
 
     // Construtor padrão
@@ -27,28 +30,28 @@ public class TelefoneCliente {
     }
 
     // Construtor com todos os campos
-    public TelefoneCliente(Long idTelefone, String numeroTelefone, Usuario usuario) {
-        this.idTelefone = idTelefone;
-        this.numeroTelefone = numeroTelefone;
+    public TelefoneCliente(Long idTelefoneCliente, String numeroTelefoneCliente, Usuario usuario) {
+        this.idTelefoneCliente = idTelefoneCliente;
+        this.numeroTelefoneCliente = numeroTelefoneCliente;
         this.usuario = usuario;
     }
 
     // Getters & Setters
 
-    public Long getIdTelefone() {
-        return idTelefone;
+    public Long getIdTelefoneCliente() {
+        return idTelefoneCliente;
     }
 
-    public void setIdTelefone(Long idTelefone) {
-        this.idTelefone = idTelefone;
+    public void setIdTelefoneCliente(Long idTelefoneCliente) {
+        this.idTelefoneCliente = idTelefoneCliente;
     }
 
-    public String getNumeroTelefone() {
-        return numeroTelefone;
+    public String getNumeroTelefoneCliente() {
+        return numeroTelefoneCliente;
     }
 
-    public void setNumeroTelefone(String numeroTelefone) {
-        this.numeroTelefone = numeroTelefone;
+    public void setNumeroTelefoneCliente(String numeroTelefoneCliente) {
+        this.numeroTelefoneCliente = numeroTelefoneCliente;
     }
 
     public Usuario getUsuario() {
