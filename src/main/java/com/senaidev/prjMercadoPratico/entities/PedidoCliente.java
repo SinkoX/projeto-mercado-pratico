@@ -22,6 +22,9 @@ public class PedidoCliente {
 
     @Column(name = "preco_Total", nullable = false)
     private Double precoTotal;
+    
+    @Column(name = "status", nullable = false)
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "id_Usuario")
@@ -55,13 +58,14 @@ public class PedidoCliente {
     }
 
     // Construtor com todos os campos
-    public PedidoCliente(Long idPedidoCliente, String statusPedidoCliente, LocalDate dataPedido, Double precoTotal, 
+    public PedidoCliente(Long idPedidoCliente, String statusPedidoCliente, LocalDate dataPedido, Double precoTotal, String status,
     		Usuario usuario, Entrega entrega, Funcionario funcionario, FormaPagamento formaPagamento, 
                          List<Produto> produtos) {
         this.idPedidoCliente = idPedidoCliente;
         this.statusPedidoCliente = statusPedidoCliente;
         this.dataPedido = dataPedido;
         this.precoTotal = precoTotal;
+        this.status = status;
         this.usuario = usuario;
         this.entrega = entrega;
         this.funcionario = funcionario;
@@ -102,6 +106,15 @@ public class PedidoCliente {
     public void setPrecoTotal(Double precoTotal) {
         this.precoTotal = precoTotal;
     }
+    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
     public Usuario getUsuario() {
         return usuario;

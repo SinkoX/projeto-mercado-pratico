@@ -57,21 +57,6 @@ public class PedidoFornecedorService {
 
     //Buscar por data específica
     public List<PedidoFornecedor> findByData(LocalDate data) {
-        return pedidoFornecedorRepository.findByDataPedido(data);
-    }
-
-    // Buscar por data antes de uma data
-    public List<PedidoFornecedor> findBefore(LocalDate dataLimite) {
-        return pedidoFornecedorRepository.findByDataPedidoBefore(dataLimite);
-    }
-
-    // Buscar por data após uma data
-    public List<PedidoFornecedor> findAfter(LocalDate dataInicio) {
-        return pedidoFornecedorRepository.findByDataPedidoAfter(dataInicio);
-    }
-
-    //Buscar por intervalo de datas
-    public List<PedidoFornecedor> findBetween(LocalDate inicio, LocalDate fim) {
-        return pedidoFornecedorRepository.findByDataPedidoBetween(inicio, fim);
+        return pedidoFornecedorRepository.findByDataPedidoFornecedor(data);
     }
 }

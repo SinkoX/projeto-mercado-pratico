@@ -16,36 +16,36 @@ import jakarta.persistence.Table;
 
 public class Endereco {
 	//Atributos
-			@Id
-			@GeneratedValue(strategy = GenerationType.IDENTITY)
-			@Column(name = "id_Endereco", nullable = false)
-			private Long id_endereco;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_Endereco", nullable = false)
+	private Long id_endereco;
 			
-			@Column(name = "cep", nullable = false, length = 100)
-			private String cep;
+	@Column(name = "cep", nullable = false, length = 100)
+	private String cep;
 			
-			@Column(name = "rua", nullable = false, length = 100)
-			private String rua;
+	@Column(name = "rua", nullable = false, length = 100)
+	private String rua;
 			
-			@Column(name = "numero", nullable = false)
-			private String numero;
+	@Column(name = "numero", nullable = false)
+	private String numero;
 			
-			@Column(name = "bairro", nullable = false, length = 100)
-			private String bairro;
+	@Column(name = "bairro", nullable = false, length = 100)
+	private String bairro;
 			
-			@Column(name = "cidade", nullable = false, length = 100)
-			private String cidade;
+	@Column(name = "cidade", nullable = false, length = 100)
+	private String cidade;
 			
-			@Column(name = "estado", nullable = false, length = 50)
-			private String estado;
+	@Column(name = "estado", nullable = false, length = 50)
+	private String estado;
 			
-			@Column(name = "complemento", length = 100)
-			private String complemento;
+	@Column(name = "complemento", length = 100)
+	private String complemento;
 			
-			@ManyToOne
-		    @JsonBackReference
-		    @JoinColumn(name = "USUARIO_id_Usuario")
-		    private Usuario usuario;
+	@ManyToOne
+    @JsonBackReference
+	@JoinColumn(name = "USUARIO_id_Usuario")
+	private Usuario usuario;
 
 	public Endereco() {
 

@@ -8,12 +8,9 @@ import java.util.List;
 
 public interface FormaPagamentoRepository extends JpaRepository<FormaPagamento, Long> {
 
-    //  Buscar uma forma de pagamento pelo tipo (exato)
-    Optional<FormaPagamento> findByTipo(String tipo);
+	Optional<FormaPagamento> findByFormaPagamento(String formaPagamento);
 
-    // Buscar por tipo ignorando maiúsculas/minúsculas
-    List<FormaPagamento> findByTipoIgnoreCase(String tipo);
+    List<FormaPagamento> findByFormaPagamentoIgnoreCase(String formaPagamento);
 
-    // Verificar se já existe um tipo de pagamento
-    boolean existsByTipoIgnoreCase(String tipo);
+    boolean existsByFormaPagamentoIgnoreCase(String formaPagamento);
 }

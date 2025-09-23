@@ -17,11 +17,6 @@ public interface PedidoClienteRepository extends JpaRepository<PedidoCliente, Lo
     // Buscar pedidos por data exata
     List<PedidoCliente> findByDataPedido(LocalDate dataPedido);
 
-    // Buscar pedidos entre duas datas
-    List<PedidoCliente> findByDataPedidoBetween(LocalDate dataInicio, LocalDate dataFim);
-
-   
-
     // Buscar pedidos por forma de pagamento
     List<PedidoCliente> findByFormaPagamentoIdFormaPagamento(Long idFormaPagamento);
 

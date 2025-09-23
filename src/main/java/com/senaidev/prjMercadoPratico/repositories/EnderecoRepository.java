@@ -11,15 +11,5 @@ public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
 
     List<Endereco> findByCep(String cep);
 
-    List<Endereco> findByCidade(String cidade);
-
-    List<Endereco> findByEstado(String estado);
-
-    List<Endereco> findByCidadeAndEstado(String cidade, String estado);
-
-    List<Endereco> findByRuaContainingIgnoreCase(String rua);
-
     boolean existsByUsuarioIdUsuarioAndCep(Long idUsuario, String cep);
-
-    List<Endereco> findAllByOrderByCidadeAsc();
 }

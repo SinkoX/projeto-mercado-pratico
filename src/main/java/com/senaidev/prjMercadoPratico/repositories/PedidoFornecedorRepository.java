@@ -15,14 +15,6 @@ public interface PedidoFornecedorRepository extends JpaRepository<PedidoForneced
     List<PedidoFornecedor> findByProdutoIdProduto(Long idProduto);
 
     // Buscar pedidos feitos em uma data específica
-    List<PedidoFornecedor> findByDataPedido(LocalDate dataPedido);
-
-    // Buscar pedidos feitos antes de uma data
-    List<PedidoFornecedor> findByDataPedidoBefore(LocalDate dataLimite);
-
-    // Buscar pedidos feitos depois de uma data
-    List<PedidoFornecedor> findByDataPedidoAfter(LocalDate dataInicio);
-
-    // Buscar pedidos por faixa de datas
-    List<PedidoFornecedor> findByDataPedidoBetween(LocalDate inicio, LocalDate fim);
+    List<PedidoFornecedor> findByDataPedidoFornecedor(LocalDate dataPedidoFornecedor);
+    
 }

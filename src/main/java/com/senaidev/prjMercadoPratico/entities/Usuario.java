@@ -70,8 +70,6 @@ public class Usuario {
     public void setSenhaUsuario(String senhaUsuario) {
         this.senhaUsuario = senhaUsuario;
     }
-
-  
   
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;

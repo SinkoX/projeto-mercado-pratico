@@ -30,6 +30,7 @@ public class FormaPagamentoService {
     public FormaPagamento update(Long id, FormaPagamento novoFormaPagamento) {
         FormaPagamento formaPagamento = findById(id);
         formaPagamento.setFormaPagamento(novoFormaPagamento.getFormaPagamento());
+        formaPagamento.setStatusPagamento(novoFormaPagamento.getStatusPagamento());
         return formaPagamentoRepository.save(formaPagamento);
     }
 

@@ -75,26 +75,4 @@ public class PedidoFornecedorController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
         return ResponseEntity.ok(pedidoFornecedorService.findByData(data));
     }
-
-    // GET /pedidos-fornecedor/before?data=2025-09-01
-    @GetMapping("/before")
-    public ResponseEntity<List<PedidoFornecedor>> findBefore(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
-        return ResponseEntity.ok(pedidoFornecedorService.findBefore(data));
-    }
-
-    // GET /pedidos-fornecedor/after?data=2025-08-01
-    @GetMapping("/after")
-    public ResponseEntity<List<PedidoFornecedor>> findAfter(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
-        return ResponseEntity.ok(pedidoFornecedorService.findAfter(data));
-    }
-
-    // GET /pedidos-fornecedor/between?inicio=2025-08-01&fim=2025-09-01
-    @GetMapping("/between")
-    public ResponseEntity<List<PedidoFornecedor>> findBetween(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
-        return ResponseEntity.ok(pedidoFornecedorService.findBetween(inicio, fim));
-    }
 }

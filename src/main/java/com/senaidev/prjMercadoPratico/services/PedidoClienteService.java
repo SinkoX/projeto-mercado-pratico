@@ -28,28 +28,8 @@ public class PedidoClienteService {
         return pedidoClienteRepository.findByUsuarioIdUsuario(idUsuario);
     }
 
-    public List<PedidoCliente> findByStatus(String status) {
-        return pedidoClienteRepository.findByStatusIgnoreCase(status);
-    }
-
-    public List<PedidoCliente> findByDataPedido(LocalDate dataPedido) {
-        return pedidoClienteRepository.findByDataPedido(dataPedido);
-    }
-
-    public List<PedidoCliente> findByDataPedidoBetween(LocalDate dataInicio, LocalDate dataFim) {
-        return pedidoClienteRepository.findByDataPedidoBetween(dataInicio, dataFim);
-    }
-
     public List<PedidoCliente> findByFuncionarioId(Long idFuncionario) {
         return pedidoClienteRepository.findByFuncionarioIdUsuario(idFuncionario);
-    }
-
-    public List<PedidoCliente> findByFormaPagamentoId(Long idFormaPagamento) {
-        return pedidoClienteRepository.findByFormaPagamentoIdFormaPagamento(idFormaPagamento);
-    }
-
-    public List<PedidoCliente> findByUsuarioIdAndStatus(Long idUsuario, String status) {
-        return pedidoClienteRepository.findByUsuarioIdUsuarioAndStatusIgnoreCase(idUsuario, status);
     }
 
     public PedidoCliente insert(PedidoCliente pedidoCliente) {

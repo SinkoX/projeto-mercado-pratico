@@ -24,7 +24,7 @@ public class TipoUsuario {
     @Column(name = "descricao", length = 255)
     private String descricao;
 
-    @OneToMany(mappedBy = "tipo_Usuario")
+    @OneToMany(mappedBy = "tipoUsuario")
     private List<Usuario> usuarios;
 
     // Construtores
