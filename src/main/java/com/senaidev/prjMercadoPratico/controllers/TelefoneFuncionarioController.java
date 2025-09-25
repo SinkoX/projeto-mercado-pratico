@@ -38,20 +38,20 @@ public class TelefoneFuncionarioController {
 
     // GET /telefones-funcionarios/funcionario/{idFuncionario}
     @GetMapping("/funcionario/{idFuncionario}")
-    public ResponseEntity<List<TelefoneFuncionario>> findByFuncionarioId(@PathVariable Long idFuncionario) {
-        return ResponseEntity.ok(telefoneFuncionarioService.findByFuncionarioId(idFuncionario));
+    public ResponseEntity<List<TelefoneFuncionario>> findByFuncionarioIdUsuario(@PathVariable Long idFuncionario) {
+        return ResponseEntity.ok(telefoneFuncionarioService.findByFuncionarioIdUsuario(idFuncionario));
     }
 
     // GET /telefones-funcionarios/numero?value=...
     @GetMapping("/numero")
-    public ResponseEntity<List<TelefoneFuncionario>> findByNumero(@RequestParam("value") String numero) {
-        return ResponseEntity.ok(telefoneFuncionarioService.findByNumeroTelefone(numero));
+    public ResponseEntity<List<TelefoneFuncionario>> findByNumeroFuncionario(@RequestParam("value") String numeroTelefoneFuncionario) {
+        return ResponseEntity.ok(telefoneFuncionarioService.findByNumeroTelefoneFuncionario(numeroTelefoneFuncionario));
     }
 
     // GET /telefones-funcionarios/numero-ignore-case?value=...
     @GetMapping("/numero-ignore-case")
-    public ResponseEntity<List<TelefoneFuncionario>> findByNumeroIgnoreCase(@RequestParam("value") String numero) {
-        return ResponseEntity.ok(telefoneFuncionarioService.findByNumeroTelefoneIgnoreCase(numero));
+    public ResponseEntity<List<TelefoneFuncionario>> findByNumeroFuncionarioIgnoreCase(@RequestParam("value") String numeroTelefoneFuncionario) {
+        return ResponseEntity.ok(telefoneFuncionarioService.findByNumeroTelefoneFuncionarioIgnoreCase(numeroTelefoneFuncionario));
     }
 
     // POST /telefones-funcionarios

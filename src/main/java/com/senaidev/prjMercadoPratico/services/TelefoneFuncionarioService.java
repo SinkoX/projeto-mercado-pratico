@@ -45,17 +45,17 @@ public class TelefoneFuncionarioService {
     }
 
     // Buscar telefones por ID do funcionário
-    public List<TelefoneFuncionario> findByFuncionarioId(Long idFuncionario) {
-        return telefoneFuncionarioRepository.findByFuncionarioIdFuncionario(idFuncionario);
+    public List<TelefoneFuncionario> findByFuncionarioIdUsuario(Long idFuncionario) {
+        return telefoneFuncionarioRepository.findByFuncionarioIdUsuario(idFuncionario);
     }
 
     // Buscar telefones por número exato
-    public List<TelefoneFuncionario> findByNumeroTelefone(String numero) {
-        return telefoneFuncionarioRepository.findByNumeroTelefone(numero);
+    public List<TelefoneFuncionario> findByNumeroTelefoneFuncionario(String numeroTelefoneFuncionario) {
+        return telefoneFuncionarioRepository.findByNumeroTelefoneFuncionario(numeroTelefoneFuncionario);
     }
 
     // Buscar telefones por número ignorando maiúsculas/minúsculas
-    public List<TelefoneFuncionario> findByNumeroTelefoneIgnoreCase(String numero) {
-        return telefoneFuncionarioRepository.findByNumeroTelefoneIgnoreCase(numero);
+    public List<TelefoneFuncionario> findByNumeroTelefoneFuncionarioIgnoreCase(String numeroTelefoneFuncionario) {
+        return telefoneFuncionarioRepository.findByNumeroTelefoneFuncionarioIgnoreCase(numeroTelefoneFuncionario);
     }
 }

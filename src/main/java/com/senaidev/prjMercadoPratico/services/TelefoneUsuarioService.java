@@ -50,17 +50,17 @@ public class TelefoneUsuarioService {
     }
 
     // Buscar telefones por número exato
-    public List<TelefoneUsuario> findByNumeroTelefone(String numero) {
-        return telefoneUsuarioRepository.findByNumeroTelefone(numero);
+    public List<TelefoneUsuario> findByNumeroTelefoneUsuario(String numeroTelefoneUsuario) {
+        return telefoneUsuarioRepository.findByNumeroTelefoneUsuario(numeroTelefoneUsuario);
     }
 
     // Buscar telefones por número (ignorando maiúsculas/minúsculas)
-    public List<TelefoneUsuario> findByNumeroTelefoneIgnoreCase(String numero) {
-        return telefoneUsuarioRepository.findByNumeroTelefoneIgnoreCase(numero);
+    public List<TelefoneUsuario> findByNumeroTelefoneUsuarioIgnoreCase(String numeroTelefoneUsuario) {
+        return telefoneUsuarioRepository.findByNumeroTelefoneUsuarioIgnoreCase(numeroTelefoneUsuario);
     }
 
     // Verificar se um número já está cadastrado
-    public boolean existsByNumeroTelefone(String numero) {
-        return telefoneUsuarioRepository.existsByNumeroTelefone(numero);
+    public boolean existsByNumeroTelefoneUsuario(String numeroTelefoneUsuario) {
+        return telefoneUsuarioRepository.existsByNumeroTelefoneUsuario(numeroTelefoneUsuario);
     }
 }

@@ -50,12 +50,12 @@ public class TelefoneFornecedorService {
     }
 
     // Buscar telefones por número exato
-    public List<TelefoneFornecedor> findByNumeroTelefone(String numero) {
-        return telefoneFornecedorRepository.findByNumeroTelefone(numero);
+    public List<TelefoneFornecedor> findByNumeroTelefoneFornecedor(String numeroTelefoneFornecedor) {
+        return telefoneFornecedorRepository.findByNumeroTelefoneFornecedor(numeroTelefoneFornecedor);
     }
 
     // Buscar telefones por número ignorando maiúsculas/minúsculas
-    public List<TelefoneFornecedor> findByNumeroTelefoneIgnoreCase(String numero) {
-        return telefoneFornecedorRepository.findByNumeroTelefoneIgnoreCase(numero);
+    public List<TelefoneFornecedor> findByNumeroTelefoneFornecedorIgnoreCase(String numero) {
+        return telefoneFornecedorRepository.findByNumeroTelefoneFornecedorIgnoreCase(numero);
     }
 }

@@ -44,20 +44,20 @@ public class TelefoneUsuarioController {
 
     // GET /telefones-clientes/numero?value=11999999999
     @GetMapping("/numero")
-    public ResponseEntity<List<TelefoneUsuario>> findByNumero(@RequestParam("value") String numero) {
-        return ResponseEntity.ok(telefoneUsuarioService.findByNumeroTelefone(numero));
+    public ResponseEntity<List<TelefoneUsuario>> findByNumeroTelefoneUsuario(@RequestParam("value") String numeroTelefoneUsuario) {
+        return ResponseEntity.ok(telefoneUsuarioService.findByNumeroTelefoneUsuario(numeroTelefoneUsuario));
     }
 
     // GET /telefones-clientes/numero-ignore-case?value=11999999999
     @GetMapping("/numero-ignore-case")
-    public ResponseEntity<List<TelefoneUsuario>> findByNumeroIgnoreCase(@RequestParam("value") String numero) {
-        return ResponseEntity.ok(telefoneUsuarioService.findByNumeroTelefoneIgnoreCase(numero));
+    public ResponseEntity<List<TelefoneUsuario>> findByNumeroTelefoneUsuarioIgnoreCase(@RequestParam("value") String numeroTelefoneUsuario) {
+        return ResponseEntity.ok(telefoneUsuarioService.findByNumeroTelefoneUsuarioIgnoreCase(numeroTelefoneUsuario));
     }
 
     // GET /telefones-clientes/existe?numero=11999999999
     @GetMapping("/existe")
-    public ResponseEntity<Boolean> existsByNumeroTelefone(@RequestParam("numero") String numero) {
-        return ResponseEntity.ok(telefoneUsuarioService.existsByNumeroTelefone(numero));
+    public ResponseEntity<Boolean> existsByNumeroTelefoneUsuario(@RequestParam("numero") String numeroTelefoneUsuario) {
+        return ResponseEntity.ok(telefoneUsuarioService.existsByNumeroTelefoneUsuario(numeroTelefoneUsuario));
     }
 
     // POST /telefones-clientes

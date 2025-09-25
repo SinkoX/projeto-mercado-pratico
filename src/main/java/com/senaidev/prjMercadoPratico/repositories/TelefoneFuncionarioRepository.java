@@ -7,13 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.senaidev.prjMercadoPratico.entities.TelefoneFuncionario;
 
 public interface TelefoneFuncionarioRepository extends JpaRepository<TelefoneFuncionario, Long> {
-    List<TelefoneFuncionario> findByFuncionarioIdFuncionario(Long idUsuario);
-
-    
+	List<TelefoneFuncionario> findByFuncionarioIdUsuario(Long idUsuario);
 
     // Buscar telefone pelo número (exato)
-    List<TelefoneFuncionario> findByNumeroTelefone(String numeroTelefone);
+    List<TelefoneFuncionario> findByNumeroTelefoneFuncionario(String numeroTelefoneFuncionario);
 
     // Buscar telefone pelo número ignorando maiúsculas/minúsculas
-    List<TelefoneFuncionario> findByNumeroTelefoneIgnoreCase(String numeroTelefone);
+    List<TelefoneFuncionario> findByNumeroTelefoneFuncionarioIgnoreCase(String numeroTelefoneFuncionario);
 }

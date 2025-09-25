@@ -12,11 +12,11 @@ public interface TelefoneUsuarioRepository extends JpaRepository<TelefoneUsuario
     List<TelefoneUsuario> findByUsuarioIdUsuario(Long idUsuario);
 
     // Buscar telefone por número (exato)
-    List<TelefoneUsuario> findByNumeroTelefone(String numeroTelefoneUsuario);
+    List<TelefoneUsuario> findByNumeroTelefoneUsuario(String numeroTelefoneUsuario);
 
     // Buscar telefone por número ignorando maiúsculas/minúsculas
-    List<TelefoneUsuario> findByNumeroTelefoneIgnoreCase(String numeroTelefoneUsuario);
+    List<TelefoneUsuario> findByNumeroTelefoneUsuarioIgnoreCase(String numeroTelefoneUsuario);
 
     // Verificar se um número de telefone já está cadastrado
-    boolean existsByNumeroTelefone(String numeroTelefoneUsuario);
+    boolean existsByNumeroTelefoneUsuario(String numeroTelefoneUsuario);
 }

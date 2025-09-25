@@ -44,14 +44,14 @@ public class TelefoneFornecedorController {
 
     // GET /telefones-fornecedores/numero?value=11999999999
     @GetMapping("/numero")
-    public ResponseEntity<List<TelefoneFornecedor>> findByNumero(@RequestParam("value") String numero) {
-        return ResponseEntity.ok(telefoneFornecedorService.findByNumeroTelefone(numero));
+    public ResponseEntity<List<TelefoneFornecedor>> findByNumeroFornecedor(@RequestParam("value") String numeroTelefoneFornecedor) {
+        return ResponseEntity.ok(telefoneFornecedorService.findByNumeroTelefoneFornecedor(numeroTelefoneFornecedor));
     }
 
     // GET /telefones-fornecedores/numero-ignore-case?value=11999999999
     @GetMapping("/numero-ignore-case")
-    public ResponseEntity<List<TelefoneFornecedor>> findByNumeroIgnoreCase(@RequestParam("value") String numero) {
-        return ResponseEntity.ok(telefoneFornecedorService.findByNumeroTelefoneIgnoreCase(numero));
+    public ResponseEntity<List<TelefoneFornecedor>> findByNumeroFornecedorIgnoreCase(@RequestParam("value") String numeroTelefoneFornecedor) {
+        return ResponseEntity.ok(telefoneFornecedorService.findByNumeroTelefoneFornecedorIgnoreCase(numeroTelefoneFornecedor));
     }
 
     // POST /telefones-fornecedores

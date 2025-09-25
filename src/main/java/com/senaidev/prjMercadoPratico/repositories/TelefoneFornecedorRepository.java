@@ -10,9 +10,9 @@ public interface TelefoneFornecedorRepository extends JpaRepository<TelefoneForn
     // Buscar telefones pelo id do fornecedor
     List<TelefoneFornecedor> findByFornecedorIdFornecedor(Long idFornecedor);
 
-    // Buscar telefones pelo número (exato)
-    List<TelefoneFornecedor> findByNumeroTelefone(String numeroTelefone);
+ // Buscar telefones pelo número (exato)
+    List<TelefoneFornecedor> findByNumeroTelefoneFornecedor(String numeroTelefoneFornecedor);
 
     // Buscar telefones pelo número ignorando maiúsculas/minúsculas
-    List<TelefoneFornecedor> findByNumeroTelefoneIgnoreCase(String numeroTelefone);
+    List<TelefoneFornecedor> findByNumeroTelefoneFornecedorIgnoreCase(String numeroTelefoneFornecedor);
 }
