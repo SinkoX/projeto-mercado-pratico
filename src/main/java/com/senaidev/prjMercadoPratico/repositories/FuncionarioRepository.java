@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.senaidev.prjMercadoPratico.entities.Funcionario;
+
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
@@ -15,12 +16,12 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
     // Buscar por nome ignorando maiúsculas/minúsculas
     List<Funcionario> findByNomeFuncionarioIgnoreCase(String nomeFuncionario);
 
+    // Buscar por cpf
+    List<Funcionario> findByCpfFuncionario(String cpfFuncionario);
+    
     // Buscar por cargo
     List<Funcionario> findByCargoIgnoreCase(String cargo);
 
-    //Buscar por nome contendo (like %nome%)
-    List<Funcionario> findByNomeFuncionarioContainingIgnoreCase(String nomeFragmento);
-
     //Verificar se existe funcionário com determinado e-mail
-    boolean existsByEmailUsuario(String emailUsuario);
+    boolean existsByEmailFuncionario(String emailFuncionario);
 }

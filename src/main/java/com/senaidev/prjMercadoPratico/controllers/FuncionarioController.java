@@ -40,14 +40,20 @@ public class FuncionarioController {
 
     // GET /funcionarios/nome?valor=xxx
     @GetMapping("/nome")
-    public ResponseEntity<List<Funcionario>> findByNome(@RequestParam String valor) {
-        return ResponseEntity.ok(funcionarioService.findByNome(valor));
+    public ResponseEntity<List<Funcionario>> findByNome(@RequestParam String nome) {
+        return ResponseEntity.ok(funcionarioService.findByNome(nome));
+    }
+    
+ // GET /funcionarios/cpf?valor=xxx
+    @GetMapping("/cpf")
+    public ResponseEntity<List<Funcionario>> findByCpf(@RequestParam String cpf) {
+        return ResponseEntity.ok(funcionarioService.findByCpfFuncionario(cpf));
     }
 
     // GET /funcionarios/cargo?valor=xxx
     @GetMapping("/cargo")
-    public ResponseEntity<List<Funcionario>> findByCargo(@RequestParam String valor) {
-        return ResponseEntity.ok(funcionarioService.findByCargo(valor));
+    public ResponseEntity<List<Funcionario>> findByCargo(@RequestParam String cargo) {
+        return ResponseEntity.ok(funcionarioService.findByCargo(cargo));
     }
 
     // GET /funcionarios/email-existe?email=xxx@yyy.com

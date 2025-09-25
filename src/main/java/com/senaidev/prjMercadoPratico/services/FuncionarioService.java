@@ -30,8 +30,13 @@ public class FuncionarioService {
     }
 
     // Buscar por nome 
-    public List<Funcionario> findByNome(String nome) {
-        return funcionarioRepository.findByNomeFuncionarioContainingIgnoreCase(nome);
+    public List<Funcionario> findByNome(String nomeFuncionario) {
+        return funcionarioRepository.findByNomeFuncionarioIgnoreCase(nomeFuncionario);
+    }
+    
+    // Buscar por cpf
+    public List<Funcionario> findByCpfFuncionario(String cpfFuncionario) {
+        return funcionarioRepository.findByCpfFuncionario(cpfFuncionario);
     }
 
     // Cadastrar novo funcionário
@@ -46,8 +51,8 @@ public class FuncionarioService {
             Funcionario funcionarioExistente = optionalFuncionario.get();
             funcionarioExistente.setNomeFuncionario(dadosAtualizados.getNomeFuncionario());
             funcionarioExistente.setCargo(dadosAtualizados.getCargo());
-            funcionarioExistente.setEmailUsuario(dadosAtualizados.getEmailUsuario());
-            funcionarioExistente.setSenhaUsuario(dadosAtualizados.getSenhaUsuario());
+            funcionarioExistente.setEmailFuncionario(dadosAtualizados.getEmailFuncionario());
+            funcionarioExistente.setSenhaFuncionario(dadosAtualizados.getSenhaFuncionario());
             return funcionarioRepository.save(funcionarioExistente);
         } else {
             throw new RuntimeException("Funcionário não encontrado com ID: " + id);
@@ -60,7 +65,7 @@ public class FuncionarioService {
     }
 
     // Verificar se e-mail já está cadastrado
-    public boolean emailExiste(String email) {
-        return funcionarioRepository.existsByEmailUsuario(email);
+    public boolean emailExiste(String emailFuncionario) {
+        return funcionarioRepository.existsByEmailFuncionario(emailFuncionario);
     }
 }
