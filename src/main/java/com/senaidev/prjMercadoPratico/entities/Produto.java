@@ -2,12 +2,7 @@ package com.senaidev.prjMercadoPratico.entities;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_produto")
@@ -33,22 +28,27 @@ public class Produto {
     @Column(name = "data_Validade", nullable = false)
     private LocalDate dataValidade;
 
+    @Lob
+    @Column(name = "imagem_Produto", columnDefinition = "LONGBLOB")
+    private byte[] imagemProduto;
+
     // Construtor padrão
     public Produto() {
     }
 
-    // Construtor com todos os campos
-    public Produto(Long idProduto, String nomeProduto, Double precoProduto, Integer quantidade, String categoria, LocalDate dataValidade) {
+   
+    // ✅ Construtor com imagem (opcional)
+    public Produto(Long idProduto, String nomeProduto, Double precoProduto, Integer quantidade, String categoria, LocalDate dataValidade, byte[] imagemProduto) {
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto;
         this.precoProduto = precoProduto;
         this.quantidade = quantidade;
         this.categoria = categoria;
         this.dataValidade = dataValidade;
+        this.imagemProduto = imagemProduto;
     }
 
-    // Getters & Setters
-
+    // Getters e Setters
     public Long getIdProduto() {
         return idProduto;
     }
@@ -95,5 +95,13 @@ public class Produto {
 
     public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
+    }
+
+    public byte[] getImagemProduto() {
+        return imagemProduto;
+    }
+
+    public void setImagemProduto(byte[] imagemProduto) {
+        this.imagemProduto = imagemProduto;
     }
 }

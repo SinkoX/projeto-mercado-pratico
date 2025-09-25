@@ -2,6 +2,7 @@ package com.senaidev.prjMercadoPratico.controllers;
 
 import com.senaidev.prjMercadoPratico.entities.Produto;
 import com.senaidev.prjMercadoPratico.services.ProdutoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/produtos")
-public class ProdutoController {
+public class ProdutoController<produtoService> {
 
     @Autowired
     private ProdutoService produtoService;

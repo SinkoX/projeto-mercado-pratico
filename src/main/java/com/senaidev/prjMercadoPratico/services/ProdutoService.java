@@ -4,7 +4,9 @@ import com.senaidev.prjMercadoPratico.entities.Produto;
 import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -59,5 +61,12 @@ public class ProdutoService {
     // Remover produto
     public void delete(Long id) {
         produtoRepository.deleteById(id);
+    }
+
+    // 🆕 Salvar imagem do produto
+    public void salvarImagem(Long idProduto, MultipartFile imagem) throws IOException {
+        Produto produto = findById(idProduto);
+        produto.setImagemProduto(imagem.getBytes());
+        produtoRepository.save(produto);
     }
 }

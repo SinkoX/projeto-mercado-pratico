@@ -29,7 +29,7 @@ public class PedidoClienteService {
     }
 
     public List<PedidoCliente> findByFuncionarioId(Long idFuncionario) {
-        return pedidoClienteRepository.findByFuncionarioIdUsuario(idFuncionario);
+        return pedidoClienteRepository.findByidFuncionario(idFuncionario);
     }
 
     public PedidoCliente insert(PedidoCliente pedidoCliente) {
