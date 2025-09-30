@@ -1,10 +1,13 @@
 package com.senaidev.prjMercadoPratico.repositories;
 
-import com.senaidev.prjMercadoPratico.entities.TelefoneFornecedor;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.senaidev.prjMercadoPratico.entities.TelefoneFornecedor;
+
+@Repository
 public interface TelefoneFornecedorRepository extends JpaRepository<TelefoneFornecedor, Long> {
 
     // Buscar telefones pelo id do fornecedor

@@ -1,11 +1,14 @@
 package com.senaidev.prjMercadoPratico.repositories;
 
-import com.senaidev.prjMercadoPratico.entities.FormaPagamento;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.senaidev.prjMercadoPratico.entities.FormaPagamento;
+
+@Repository
 public interface FormaPagamentoRepository extends JpaRepository<FormaPagamento, Long> {
 
 	Optional<FormaPagamento> findByFormaPagamento(String formaPagamento);

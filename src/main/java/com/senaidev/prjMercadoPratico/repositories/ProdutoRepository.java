@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.senaidev.prjMercadoPratico.entities.Produto;
 
 @Repository
-
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     List<Produto> findByNomeProdutoContainingIgnoreCase(String nome);

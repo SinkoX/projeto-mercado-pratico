@@ -3,9 +3,11 @@ package com.senaidev.prjMercadoPratico.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.senaidev.prjMercadoPratico.entities.TelefoneUsuario;
 
+@Repository
 public interface TelefoneUsuarioRepository extends JpaRepository<TelefoneUsuario, Long> {
 
     // Buscar todos os telefones de um usuário pelo id do usuário

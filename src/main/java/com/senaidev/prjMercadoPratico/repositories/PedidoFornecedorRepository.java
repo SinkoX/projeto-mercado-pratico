@@ -1,11 +1,14 @@
 package com.senaidev.prjMercadoPratico.repositories;
 
-import com.senaidev.prjMercadoPratico.entities.PedidoFornecedor;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.senaidev.prjMercadoPratico.entities.PedidoFornecedor;
+
+@Repository
 public interface PedidoFornecedorRepository extends JpaRepository<PedidoFornecedor, Long> {
 
     // Buscar pedidos por ID do fornecedor

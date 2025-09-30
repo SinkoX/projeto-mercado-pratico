@@ -7,15 +7,15 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_pedido_usuario")
-public class PedidoCliente {
+public class PedidoUsuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_Pedido_Usuario")
-    private Long idPedidoCliente;
+    private Long idPedidoUsuario;
 
-    @Column(name = "status_Pedido_Cliente", nullable = false, length = 50)
-    private String statusPedidoCliente;
+    @Column(name = "status_Pedido_Usuario", nullable = false, length = 50)
+    private String statusPedidoUsuario;
 
     @Column(name = "data_Pedido", nullable = false)
     private LocalDate dataPedido;
@@ -23,9 +23,6 @@ public class PedidoCliente {
     @Column(name = "preco_Total", nullable = false)
     private Double precoTotal;
     
-    @Column(name = "status", nullable = false)
-    private String status;
-
     @ManyToOne
     @JoinColumn(name = "id_Usuario")
     private Usuario usuario;
@@ -54,18 +51,17 @@ public class PedidoCliente {
     private List<Produto> produtos;
 
     // Construtor padrão
-    public PedidoCliente() {
+    public PedidoUsuario() {
     }
 
     // Construtor com todos os campos
-    public PedidoCliente(Long idPedidoCliente, String statusPedidoCliente, LocalDate dataPedido, Double precoTotal, String status,
+    public PedidoUsuario(Long idPedidoUsuario, String statusPedidoUsuario, LocalDate dataPedido, Double precoTotal,
     		Usuario usuario, Entrega entrega, Funcionario funcionario, FormaPagamento formaPagamento, 
                          List<Produto> produtos) {
-        this.idPedidoCliente = idPedidoCliente;
-        this.statusPedidoCliente = statusPedidoCliente;
+        this.idPedidoUsuario = idPedidoUsuario;
+        this.statusPedidoUsuario = statusPedidoUsuario;
         this.dataPedido = dataPedido;
         this.precoTotal = precoTotal;
-        this.status = status;
         this.usuario = usuario;
         this.entrega = entrega;
         this.funcionario = funcionario;
@@ -75,20 +71,20 @@ public class PedidoCliente {
 
     // Getters e Setters
 
-    public Long getIdPedidoCliente() {
-        return idPedidoCliente;
+    public Long getIdPedidoUsuario() {
+        return idPedidoUsuario;
     }
 
-    public void setIdPedidoCliente(Long idPedidoCliente) {
-        this.idPedidoCliente = idPedidoCliente;
+    public void setIdPedidoUsuario(Long idPedidoUsuario) {
+        this.idPedidoUsuario = idPedidoUsuario;
     }
 
-    public String getStatusPedidoCliente() {
-        return statusPedidoCliente;
+    public String getStatusPedidoUsuario() {
+        return statusPedidoUsuario;
     }
 
-    public void setStatusPedidoCliente(String statusPedidoCliente) {
-        this.statusPedidoCliente = statusPedidoCliente;
+    public void setStatusPedidoUsuario(String statusPedidoUsuario) {
+        this.statusPedidoUsuario = statusPedidoUsuario;
     }
 
     public LocalDate getDataPedido() {
@@ -106,15 +102,6 @@ public class PedidoCliente {
     public void setPrecoTotal(Double precoTotal) {
         this.precoTotal = precoTotal;
     }
-    
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
 
     public Usuario getUsuario() {
         return usuario;
