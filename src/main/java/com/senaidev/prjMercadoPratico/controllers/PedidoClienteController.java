@@ -45,7 +45,7 @@ public class PedidoClienteController {
     // GET /pedidos-cliente/funcionario/{idFuncionario}
     @GetMapping("/funcionario/{idFuncionario}")
     public ResponseEntity<List<PedidoCliente>> findByFuncionarioId(@PathVariable Long idFuncionario) {
-        return ResponseEntity.ok(pedidoClienteService.findByFuncionarioId(idFuncionario));
+        return ResponseEntity.ok(pedidoClienteService.findByUsuarioId(idFuncionario));
     }//
 
     // POST /pedidos-cliente

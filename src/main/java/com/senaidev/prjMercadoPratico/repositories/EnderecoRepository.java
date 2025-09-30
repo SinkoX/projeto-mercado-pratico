@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
     
-    List<Endereco> findByUsuarioIdUsuario(Long idUsuario);
+    List<Endereco> findByUsuarioId(Long id);
 
     List<Endereco> findByCep(String cep);
 
-    boolean existsByUsuarioIdUsuarioAndCep(Long idUsuario, String cep);
+    boolean existsByUsuario_IdAndCep(Long idUsuario, String cep);
+
 }

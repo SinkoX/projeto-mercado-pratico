@@ -8,15 +8,15 @@ import com.senaidev.prjMercadoPratico.entities.TelefoneUsuario;
 
 public interface TelefoneUsuarioRepository extends JpaRepository<TelefoneUsuario, Long> {
 
-    // Buscar todos os telefones de um cliente (usuário)
-    List<TelefoneUsuario> findByUsuarioIdUsuario(Long idUsuario);
+    // Buscar todos os telefones de um usuário pelo id do usuário
+    List<TelefoneUsuario> findByUsuario_Id(Long id);
 
-    // Buscar telefone por número (exato)
+    // Buscar por número exato
     List<TelefoneUsuario> findByNumeroTelefoneUsuario(String numeroTelefoneUsuario);
 
-    // Buscar telefone por número ignorando maiúsculas/minúsculas
+    // Buscar por número ignorando case
     List<TelefoneUsuario> findByNumeroTelefoneUsuarioIgnoreCase(String numeroTelefoneUsuario);
 
-    // Verificar se um número de telefone já está cadastrado
+    // Verificar existência pelo número
     boolean existsByNumeroTelefoneUsuario(String numeroTelefoneUsuario);
 }

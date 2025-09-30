@@ -43,12 +43,11 @@ public class TelefoneFuncionarioService {
     public void delete(Long id) {
         telefoneFuncionarioRepository.deleteById(id);
     }
-
-    // Buscar telefones por ID do funcionário
-    public List<TelefoneFuncionario> findByFuncionarioIdUsuario(Long idFuncionario) {
-        return telefoneFuncionarioRepository.findByFuncionarioIdUsuario(idFuncionario);
+    public List<TelefoneFuncionario> findByFuncionarioId(Long idFuncionario) {
+        return telefoneFuncionarioRepository.findByFuncionario_Id(idFuncionario);
     }
 
+   
     // Buscar telefones por número exato
     public List<TelefoneFuncionario> findByNumeroTelefoneFuncionario(String numeroTelefoneFuncionario) {
         return telefoneFuncionarioRepository.findByNumeroTelefoneFuncionario(numeroTelefoneFuncionario);

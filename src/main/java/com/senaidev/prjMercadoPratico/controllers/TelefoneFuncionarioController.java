@@ -36,10 +36,9 @@ public class TelefoneFuncionarioController {
         return ResponseEntity.ok(telefoneFuncionarioService.findById(id));
     }
 
-    // GET /telefones-funcionarios/funcionario/{idFuncionario}
     @GetMapping("/funcionario/{idFuncionario}")
-    public ResponseEntity<List<TelefoneFuncionario>> findByFuncionarioIdUsuario(@PathVariable Long idFuncionario) {
-        return ResponseEntity.ok(telefoneFuncionarioService.findByFuncionarioIdUsuario(idFuncionario));
+    public ResponseEntity<List<TelefoneFuncionario>> findByFuncionarioId(@PathVariable Long idFuncionario) {
+        return ResponseEntity.ok(telefoneFuncionarioService.findByFuncionarioId(idFuncionario));
     }
 
     // GET /telefones-funcionarios/numero?value=...

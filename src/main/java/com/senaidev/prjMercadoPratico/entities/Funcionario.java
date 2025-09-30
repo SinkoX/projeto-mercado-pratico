@@ -8,9 +8,10 @@ public class Funcionario {
 	
 	// Atributos
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_Funcionario")
-    private Long idFuncionario;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_Funcionario")
+	private Long id;
+
 	
     @Column(name = "nome_Funcionario", nullable = false, length = 100)
     private String nomeFuncionario;
@@ -36,9 +37,9 @@ public class Funcionario {
         // construtor padrão necessário para JPA
     }
 
-    public Funcionario(Long idFuncionario, String nomeFuncionario, String emailFuncionario, String senhaFuncionario, 
+    public Funcionario(Long id, String nomeFuncionario, String emailFuncionario, String senhaFuncionario, 
     		String cpfFuncionario, String cargo, TipoUsuario tipoUsuario) {
-        this.idFuncionario = idFuncionario;
+        this.id = id;
     	this.nomeFuncionario = nomeFuncionario;
         this.emailFuncionario = emailFuncionario;
         this.senhaFuncionario = senhaFuncionario;
@@ -48,13 +49,13 @@ public class Funcionario {
     }
 
     // Getters e Setters
-	public Long getIdFuncionario() {
-		return idFuncionario;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setIdFuncionario(Long idFuncionario) {
-		this.idFuncionario = idFuncionario;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 	public String getNomeFuncionario() {
 		return nomeFuncionario;

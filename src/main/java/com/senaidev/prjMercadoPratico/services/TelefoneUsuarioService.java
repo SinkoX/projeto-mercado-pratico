@@ -15,23 +15,19 @@ public class TelefoneUsuarioService {
     @Autowired
     private TelefoneUsuarioRepository telefoneUsuarioRepository;
 
-    // Buscar todos os telefones
     public List<TelefoneUsuario> findAll() {
         return telefoneUsuarioRepository.findAll();
     }
 
-    // Buscar telefone por ID
     public TelefoneUsuario findById(Long id) {
         Optional<TelefoneUsuario> telefone = telefoneUsuarioRepository.findById(id);
         return telefone.orElseThrow(() -> new RuntimeException("Telefone do cliente não encontrado com ID: " + id));
     }
 
-    // Inserir novo telefone
     public TelefoneUsuario insert(TelefoneUsuario telefone) {
         return telefoneUsuarioRepository.save(telefone);
     }
 
-    // Atualizar telefone existente
     public TelefoneUsuario update(Long id, TelefoneUsuario novoTelefone) {
         TelefoneUsuario telefone = findById(id);
         telefone.setNumeroTelefoneUsuario(novoTelefone.getNumeroTelefoneUsuario());
@@ -39,27 +35,23 @@ public class TelefoneUsuarioService {
         return telefoneUsuarioRepository.save(telefone);
     }
 
-    // Deletar telefone por ID
     public void delete(Long id) {
         telefoneUsuarioRepository.deleteById(id);
     }
 
-    // Buscar todos os telefones de um cliente (usuário)
-    public List<TelefoneUsuario> findByUsuario(Long idUsuario) {
-        return telefoneUsuarioRepository.findByUsuarioIdUsuario(idUsuario);
+    // Corrigido: Retorna lista de telefones do usuário pelo id do usuário
+    public List<TelefoneUsuario> findByUsuario(Long id) {
+        return telefoneUsuarioRepository.findByUsuario_Id(id);
     }
 
-    // Buscar telefones por número exato
     public List<TelefoneUsuario> findByNumeroTelefoneUsuario(String numeroTelefoneUsuario) {
         return telefoneUsuarioRepository.findByNumeroTelefoneUsuario(numeroTelefoneUsuario);
     }
 
-    // Buscar telefones por número (ignorando maiúsculas/minúsculas)
     public List<TelefoneUsuario> findByNumeroTelefoneUsuarioIgnoreCase(String numeroTelefoneUsuario) {
         return telefoneUsuarioRepository.findByNumeroTelefoneUsuarioIgnoreCase(numeroTelefoneUsuario);
     }
 
-    // Verificar se um número já está cadastrado
     public boolean existsByNumeroTelefoneUsuario(String numeroTelefoneUsuario) {
         return telefoneUsuarioRepository.existsByNumeroTelefoneUsuario(numeroTelefoneUsuario);
     }

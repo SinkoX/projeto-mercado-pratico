@@ -19,7 +19,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_Usuario")
-    private Long idUsuario;
+    private Long id;
 
     @Column(name = "email_usuario", nullable = false, unique = true, length = 50)
     private String emailUsuario;
@@ -47,12 +47,12 @@ public class Usuario {
 
     // Getters e setters
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmailUsuario() {

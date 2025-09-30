@@ -12,7 +12,7 @@ import com.senaidev.prjMercadoPratico.entities.PedidoCliente;
 public interface PedidoClienteRepository extends JpaRepository<PedidoCliente, Long> {
 
     // Buscar pedidos por ID de cliente (usuário)
-    List<PedidoCliente> findByUsuarioIdUsuario(Long idUsuario);
+    List<PedidoCliente> findByUsuarioId(Long id);
 
     // Buscar pedidos por status (ignora maiúsculas/minúsculas)
     List<PedidoCliente> findByStatusIgnoreCase(String status);
@@ -24,7 +24,7 @@ public interface PedidoClienteRepository extends JpaRepository<PedidoCliente, Lo
     List<PedidoCliente> findByFormaPagamentoIdFormaPagamento(Long idFormaPagamento);
 
     // Buscar pedidos de um cliente por status
-    List<PedidoCliente> findByUsuarioIdUsuarioAndStatusIgnoreCase(Long idUsuario, String status);
+    List<PedidoCliente> findByUsuarioIdAndStatusIgnoreCase(Long id, String status);
     
 
 
