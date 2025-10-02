@@ -16,14 +16,14 @@ public class Subcategoria{
 	// Atributos
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_Subcategoria")
+    @Column(name = "id_subcategoria")
     private Long idSubcategoria;
 	
-	@Column(name = "nome_Subcategoria", nullable = false, length = 100)
+	@Column(name = "nome_subcategoria", nullable = false, length = 100)
     private String nomeSubcategoria;
 	
 	@ManyToOne
-    @JoinColumn(name = "id_Categoria")
+    @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 	
 	// Construtores

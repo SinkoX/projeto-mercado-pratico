@@ -12,14 +12,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_item_carrinho")
-public class ItemCarrinho {
+@Table(name = "tb_item_pedido")
+public class ItemPedido {
 	
 	//Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_item_carrinho", nullable = false)
-    private Long idItemCarrinho;
+    @Column(name = "id_item_pedido", nullable = false)
+    private Long idItemPedido;
 
     @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
@@ -29,34 +29,33 @@ public class ItemCarrinho {
     private Produto produto;
 
     @ManyToOne
-    @JoinColumn(name = "id_carrinho")
-    private Carrinho carrinho;
+    @JoinColumn(name = "id_pedido_usuario")
+    private PedidoUsuario pedidoUsuario;
 
     @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
     private BigDecimal subTotal;
     
     //Construtores
-    public ItemCarrinho() {
+    public ItemPedido() {
     	
     }
 
-	public ItemCarrinho(Long idItemCarrinho, Integer quantidade, Produto produto, Carrinho carrinho,
-			BigDecimal subTotal) {
+	public ItemPedido(Long idItemPedido, Integer quantidade, Produto produto, PedidoUsuario pedidoUsuario, BigDecimal subTotal) {
 		super();
-		this.idItemCarrinho = idItemCarrinho;
+		this.idItemPedido = idItemPedido;
 		this.quantidade = quantidade;
 		this.produto = produto;
-		this.carrinho = carrinho;
+		this.pedidoUsuario = pedidoUsuario;
 		this.subTotal = subTotal;
 	}
 
 	//Getters e Setters
-	public Long getIdItemCarrinho() {
-		return idItemCarrinho;
+	public Long getIdItemPedido() {
+		return idItemPedido;
 	}
 
-	public void setIdItemCarrinho(Long idItemCarrinho) {
-		this.idItemCarrinho = idItemCarrinho;
+	public void setId(Long idItemPedido) {
+		this.idItemPedido = idItemPedido;
 	}
 
 	public Integer getQuantidade() {
@@ -75,12 +74,12 @@ public class ItemCarrinho {
 		this.produto = produto;
 	}
 
-	public Carrinho getCarrinho() {
-		return carrinho;
+	public PedidoUsuario getPedidoUsuario() {
+		return pedidoUsuario;
 	}
 
-	public void setCarrinho(Carrinho carrinho) {
-		this.carrinho = carrinho;
+	public void setPedidoUsuario(PedidoUsuario pedidoUsuario) {
+		this.pedidoUsuario = pedidoUsuario;
 	}
 
 	public BigDecimal getSubTotal() {
@@ -91,3 +90,4 @@ public class ItemCarrinho {
 		this.subTotal = subTotal;
 	}
 }
+

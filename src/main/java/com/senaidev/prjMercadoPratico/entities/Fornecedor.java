@@ -16,7 +16,7 @@ public class Fornecedor {
     @Column(name = "nome_Fornecedor", nullable = false, length = 100)
     private String nomeFornecedor;
 
-    @Column(name = "email_Fornecedor", nullable = false, length = 50)
+    @Column(name = "email_Fornecedor", nullable = false, length = 50, unique = true)
     private String emailFornecedor;
 
     @Column(name = "cpf_Fornecedor", nullable = false, unique = true, length = 11)

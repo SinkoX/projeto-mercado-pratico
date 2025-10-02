@@ -1,5 +1,6 @@
 package com.senaidev.prjMercadoPratico.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -27,16 +28,22 @@ public class Categoria {
 	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private List<Subcategoria> subcategorias;
 	
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private List<Produto> produtos = new ArrayList<>();
+	
 	//Construtores
 	public Categoria(){
 		
 	}
-	
-	public Categoria(Long idCategoria, String nomeCategoria){
+
+	public Categoria(Long idCategoria, String nomeCategoria, List<Subcategoria> subcategorias, List<Produto> produtos) {
+		super();
 		this.idCategoria = idCategoria;
 		this.nomeCategoria = nomeCategoria;
+		this.subcategorias = subcategorias;
+		this.produtos = produtos;
 	}
-
+	
 	//Getters e Setters
 	public Long getIdCategoria() {
 		return idCategoria;
@@ -60,5 +67,13 @@ public class Categoria {
 
 	public void setSubcategorias(List<Subcategoria> subcategorias) {
 		this.subcategorias = subcategorias;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 }
