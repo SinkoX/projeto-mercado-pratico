@@ -36,8 +36,8 @@ public class PedidoUsuarioService {
 
     public PedidoUsuario update(Long id, PedidoUsuario novoPedido) {
         PedidoUsuario pedido = findById(id);
-        pedido.setStatusPedidoUsuario(novoPedido.getStatusPedidoUsuario());
-        pedido.setDataPedido(novoPedido.getDataPedido());
+        pedido.setStatus(novoPedido.getStatus());
+        pedido.setDataPedidoUsuario(novoPedido.getDataPedidoUsuario());
         pedido.setUsuario(novoPedido.getUsuario());
         pedido.setFuncionario(novoPedido.getFuncionario());
         pedido.setFormaPagamento(novoPedido.getFormaPagamento());

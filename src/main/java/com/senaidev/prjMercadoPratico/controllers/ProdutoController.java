@@ -1,13 +1,22 @@
 package com.senaidev.prjMercadoPratico.controllers;
 
-import com.senaidev.prjMercadoPratico.entities.Produto;
-import com.senaidev.prjMercadoPratico.services.ProdutoService;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.senaidev.prjMercadoPratico.entities.Categoria;
+import com.senaidev.prjMercadoPratico.entities.Produto;
+import com.senaidev.prjMercadoPratico.services.ProdutoService;
 
 @RestController
 @RequestMapping("/produtos")
@@ -35,10 +44,13 @@ public class ProdutoController<produtoService> {
     }
 
     // GET /produtos/categoria?value=Hortifruti
-    @GetMapping("/categoria")
-    public ResponseEntity<List<Produto>> findByCategoria(@RequestParam("value") String categoria) {
+    @GetMapping("/categoria/{id}")
+    public ResponseEntity<List<Produto>> findByCategoria(@PathVariable Long id) {
+        Categoria categoria = new Categoria();
+        categoria.setIdCategoria(id);
         return ResponseEntity.ok(produtoService.findByCategoria(categoria));
     }
+
 
     // GET /produtos/vencidos
     @GetMapping("/vencidos")

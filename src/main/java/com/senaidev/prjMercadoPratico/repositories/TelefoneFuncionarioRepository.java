@@ -10,8 +10,7 @@ import com.senaidev.prjMercadoPratico.entities.TelefoneFuncionario;
 @Repository
 public interface TelefoneFuncionarioRepository extends JpaRepository<TelefoneFuncionario, Long> {
 
-    // CORRETO
-    List<TelefoneFuncionario> findByFuncionario_Id(Long idFuncionario);
+    List<TelefoneFuncionario> findByFuncionario_IdFuncionario(Long idFuncionario);
 
     List<TelefoneFuncionario> findByNumeroTelefoneFuncionario(String numeroTelefoneFuncionario);
 

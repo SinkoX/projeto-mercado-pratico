@@ -43,7 +43,7 @@ public class Produto {
     private byte[] imagemProduto;
     
     @ManyToOne
-    @JoinColumn(name = "id_categoria")
+    @JoinColumn(name = "id_Categoria")
     private Categoria categoria;
     
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)

@@ -1,14 +1,16 @@
 package com.senaidev.prjMercadoPratico.services;
 
-import com.senaidev.prjMercadoPratico.entities.Produto;
-import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
+import com.senaidev.prjMercadoPratico.entities.Categoria;
+import com.senaidev.prjMercadoPratico.entities.Produto;
+import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
 
 @Service
 public class ProdutoService {
@@ -33,8 +35,8 @@ public class ProdutoService {
     }
 
     // Buscar por categoria
-    public List<Produto> findByCategoria(String categoria) {
-        return produtoRepository.findByCategoriaIgnoreCase(categoria);
+    public List<Produto> findByCategoria(Categoria categoria) {
+        return produtoRepository.findByCategoria(categoria);
     }
 
     // Buscar produtos com validade menor que hoje (vencidos)

@@ -19,7 +19,7 @@ public interface PedidoUsuarioRepository extends JpaRepository<PedidoUsuario, Lo
     List<PedidoUsuario> findByStatusIgnoreCase(String status);
 
     // Buscar pedidos por data exata
-    List<PedidoUsuario> findByDataPedido(LocalDate dataPedido);
+    List<PedidoUsuario> findByDataPedidoUsuario(LocalDate dataPedidoUsuario);
 
     // Buscar pedidos por forma de pagamento
     List<PedidoUsuario> findByFormaPagamentoIdFormaPagamento(Long idFormaPagamento);

@@ -44,7 +44,7 @@ public class TelefoneFuncionarioService {
         telefoneFuncionarioRepository.deleteById(id);
     }
     public List<TelefoneFuncionario> findByFuncionarioId(Long idFuncionario) {
-        return telefoneFuncionarioRepository.findByFuncionario_Id(idFuncionario);
+        return telefoneFuncionarioRepository.findByFuncionario_IdFuncionario(idFuncionario);
     }
 
    
