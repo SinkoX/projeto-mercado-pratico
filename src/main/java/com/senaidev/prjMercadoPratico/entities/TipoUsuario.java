@@ -2,6 +2,8 @@ package com.senaidev.prjMercadoPratico.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class TipoUsuario {
     private String descricao;
 
     @OneToMany(mappedBy = "tipoUsuario")
+    @JsonIgnore // ✅ Apenas aqui
     private List<Usuario> usuarios;
 
     // Construtores
