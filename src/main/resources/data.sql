@@ -3,7 +3,6 @@
 -- ======================================
 SET FOREIGN_KEY_CHECKS = 0;
 
-
 DELETE FROM tb_pedido_fornecedor;
 DELETE FROM tb_pedido_usuario;
 DELETE FROM tb_produto;
@@ -25,7 +24,6 @@ ALTER TABLE tb_subcategoria AUTO_INCREMENT = 1;
 ALTER TABLE tb_produto AUTO_INCREMENT = 1;
 ALTER TABLE tb_entrega AUTO_INCREMENT = 1;
 ALTER TABLE tb_forma_pagamento AUTO_INCREMENT = 1;
-ALTER TABLE tb_pedido_usuario AUTO_INCREMENT = 1;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -104,16 +102,18 @@ INSERT INTO tb_forma_pagamento (forma_Pagamento, status_Pagamento) VALUES
 -- ======================================
 -- PEDIDOS DE CLIENTE
 -- ======================================
--- 🔹 Agora que todos os IDs existem (1,1,1,1)
-INSERT INTO tb_pedido_usuario (status_Pedido_Cliente, data_Pedido, preco_Total, status, id_Usuario, id_Entrega, id_Funcionario, id_Forma_Pagamento)
-VALUES ('Finalizado', '2025-09-30', 33.40, 'Pago', 1, 1, 1, 1);
+INSERT INTO tb_pedido_usuario (
+  id_carrinho,
+  valor_total,
+  status_pedido_usuario,
+  data_pedido_usuario,
+  id_Usuario,
+  id_Entrega,
+  id_Funcionario,
+  id_Forma_Pagamento
+)
+VALUES (NULL, 33.40, 'Finalizado', '2025-09-30', 1, 1, 1, 1);
 
--- ======================================
--- ASSOCIAÇÃO PEDIDO - PRODUTO
--- ======================================
-INSERT INTO tb_pedido_usuario_produto (id_Pedido_Usuario, id_Produto) VALUES
-(1, 1),
-(1, 2);
 
 -- ======================================
 -- PEDIDOS DE FORNECEDOR
