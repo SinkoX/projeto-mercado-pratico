@@ -42,7 +42,7 @@ public class SubcategoriaService {
     
     // Atualizar subcategoria existente
     public Subcategoria update(Long id, Subcategoria novaSubcategoria) {
-        Subcategoria subcategoria = subcategoriaRepository.findById(id).orElse(null); // Aqui, evita o Optional
+        Subcategoria subcategoria = subcategoriaRepository.findById(id).orElse(null);
         if (subcategoria != null) {
             subcategoria.setNomeSubcategoria(novaSubcategoria.getNomeSubcategoria());
             return subcategoriaRepository.save(subcategoria);
