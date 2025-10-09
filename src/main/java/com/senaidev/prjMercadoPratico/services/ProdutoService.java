@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.senaidev.prjMercadoPratico.entities.Categoria;
+import com.senaidev.prjMercadoPratico.entities.Subcategoria;
 import com.senaidev.prjMercadoPratico.entities.Produto;
 import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
 
@@ -34,12 +35,17 @@ public class ProdutoService {
         return produtoRepository.findByNomeProdutoContainingIgnoreCase(nome);
     }
 
-    // Buscar por categoria
-    public List<Produto> findByCategoria(Categoria categoria) {
-        return produtoRepository.findByCategoria(categoria);
+    // 🔹 Buscar por subcategoria
+    public List<Produto> findBySubcategoria(Subcategoria subcategoria) {
+        return produtoRepository.findBySubcategoria(subcategoria);
     }
 
-    // Buscar produtos com validade menor que hoje (vencidos)
+    // 🔹 Buscar por categoria (agora via subcategoria)
+    public List<Produto> findByCategoria(Categoria categoria) {
+        return produtoRepository.findBySubcategoria_Categoria(categoria);
+    }
+
+    // Buscar produtos vencidos (data de validade antes de hoje)
     public List<Produto> findProdutosVencidos() {
         return produtoRepository.findByDataValidadeBefore(LocalDate.now());
     }
@@ -56,6 +62,7 @@ public class ProdutoService {
         produto.setPrecoProduto(novoProduto.getPrecoProduto());
         produto.setQuantidade(novoProduto.getQuantidade());
         produto.setDataValidade(novoProduto.getDataValidade());
+        produto.setSubcategoria(novoProduto.getSubcategoria()); // ✅ atualizar subcategoria também
         return produtoRepository.save(produto);
     }
 
@@ -64,7 +71,7 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
-    // 🆕 Salvar imagem do produto
+    // Salvar imagem do produto
     public void salvarImagem(Long idProduto, MultipartFile imagem) throws IOException {
         Produto produto = findById(idProduto);
         produto.setImagemProduto(imagem.getBytes());

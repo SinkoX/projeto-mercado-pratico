@@ -15,65 +15,61 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_categoria")
 public class Categoria {
-	
-	//Atributos
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_Categoria")
+    @Column(name = "id_categoria")
     private Long idCategoria;
-	
-	@Column(name = "nome_Categoria", nullable = false, length = 100)
+
+    @Column(name = "nome_categoria", nullable = false, length = 100)
     private String nomeCategoria;
-	
-	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-    private List<Subcategoria> subcategorias;
-	
-	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-    private List<Produto> produtos = new ArrayList<>();
-	
-	//Construtores
-	public Categoria(){
-		
-	}
 
-	public Categoria(Long idCategoria, String nomeCategoria, List<Subcategoria> subcategorias, List<Produto> produtos) {
-		super();
-		this.idCategoria = idCategoria;
-		this.nomeCategoria = nomeCategoria;
-		this.subcategorias = subcategorias;
-		this.produtos = produtos;
-	}
-	
-	//Getters e Setters
-	public Long getIdCategoria() {
-		return idCategoria;
-	}
+    // Uma categoria tem várias subcategorias
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Subcategoria> subcategorias = new ArrayList<>();
 
-	public void setIdCategoria(Long idCategoria) {
-		this.idCategoria = idCategoria;
-	}
+    // Construtores
+    public Categoria() {
+    }
 
-	public String getNomeCategoria() {
-		return nomeCategoria;
-	}
+    public Categoria(Long idCategoria, String nomeCategoria) {
+        this.idCategoria = idCategoria;
+        this.nomeCategoria = nomeCategoria;
+    }
 
-	public void setNomeCategoria(String nomeCategoria) {
-		this.nomeCategoria = nomeCategoria;
-	}
+    // Getters e Setters
+    public Long getIdCategoria() {
+        return idCategoria;
+    }
 
-	public List<Subcategoria> getSubcategorias() {
-		return subcategorias;
-	}
+    public void setIdCategoria(Long idCategoria) {
+        this.idCategoria = idCategoria;
+    }
 
-	public void setSubcategorias(List<Subcategoria> subcategorias) {
-		this.subcategorias = subcategorias;
-	}
+    public String getNomeCategoria() {
+        return nomeCategoria;
+    }
 
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
+    public void setNomeCategoria(String nomeCategoria) {
+        this.nomeCategoria = nomeCategoria;
+    }
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
+    public List<Subcategoria> getSubcategorias() {
+        return subcategorias;
+    }
+
+    public void setSubcategorias(List<Subcategoria> subcategorias) {
+        this.subcategorias = subcategorias;
+    }
+
+    // Método auxiliar para manter a integridade bidirecional
+    public void addSubcategoria(Subcategoria subcategoria) {
+        subcategorias.add(subcategoria);
+        subcategoria.setCategoria(this);
+    }
+
+    public void removeSubcategoria(Subcategoria subcategoria) {
+        subcategorias.remove(subcategoria);
+        subcategoria.setCategoria(null);
+    }
 }

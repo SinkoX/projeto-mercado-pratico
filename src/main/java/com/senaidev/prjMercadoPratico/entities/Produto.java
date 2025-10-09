@@ -42,9 +42,10 @@ public class Produto {
     @Column(name = "imagem_produto", columnDefinition = "LONGBLOB")
     private byte[] imagemProduto;
     
+    // Relacionamento com Subcategoria (Muitos para 1)
     @ManyToOne
-    @JoinColumn(name = "id_Categoria")
-    private Categoria categoria;
+    @JoinColumn(name = "id_subcategoria")  // A chave estrangeira será id_subcategoria
+    private Subcategoria subcategoria;
     
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
@@ -52,31 +53,31 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<ItemPedido> itensPedido = new ArrayList<>();
 
-    //Construtores
+    // Construtores
     public Produto() {
     }
 
     public Produto(Long idProduto, String nomeProduto, BigDecimal precoProduto, Integer quantidade,
-			LocalDate dataValidade, byte[] imagemProduto, Categoria categoria, List<ItemCarrinho> itensCarrinho,
-			List<ItemPedido> itensPedido) {
-		super();
-		this.idProduto = idProduto;
-		this.nomeProduto = nomeProduto;
-		this.precoProduto = precoProduto;
-		this.quantidade = quantidade;
-		this.dataValidade = dataValidade;
-		this.imagemProduto = imagemProduto;
-		this.categoria = categoria;
-		this.itensCarrinho = itensCarrinho;
-		this.itensPedido = itensPedido;
-	}
+                   LocalDate dataValidade, byte[] imagemProduto, Subcategoria subcategoria, 
+                   List<ItemCarrinho> itensCarrinho, List<ItemPedido> itensPedido) {
+        super();
+        this.idProduto = idProduto;
+        this.nomeProduto = nomeProduto;
+        this.precoProduto = precoProduto;
+        this.quantidade = quantidade;
+        this.dataValidade = dataValidade;
+        this.imagemProduto = imagemProduto;
+        this.subcategoria = subcategoria;
+        this.itensCarrinho = itensCarrinho;
+        this.itensPedido = itensPedido;
+    }
 
-	// Getters e Setters
+    // Getters e Setters
     public Long getIdProduto() {
         return idProduto;
     }
 
-	public void setIdProduto(Long idProduto) {
+    public void setIdProduto(Long idProduto) {
         this.idProduto = idProduto;
     }
 
@@ -120,28 +121,27 @@ public class Produto {
         this.imagemProduto = imagemProduto;
     }
 
+    public Subcategoria getSubcategoria() {
+        return subcategoria;
+    }
 
-	public List<ItemCarrinho> getItensCarrinho() {
-		return itensCarrinho;
-	}
+    public void setSubcategoria(Subcategoria subcategoria) {
+        this.subcategoria = subcategoria;
+    }
 
-	public void setItensCarrinho(List<ItemCarrinho> itensCarrinho) {
-		this.itensCarrinho = itensCarrinho;
-	}
+    public List<ItemCarrinho> getItensCarrinho() {
+        return itensCarrinho;
+    }
 
-	public List<ItemPedido> getItensPedido() {
-		return itensPedido;
-	}
+    public void setItensCarrinho(List<ItemCarrinho> itensCarrinho) {
+        this.itensCarrinho = itensCarrinho;
+    }
 
-	public void setItensPedido(List<ItemPedido> itensPedido) {
-		this.itensPedido = itensPedido;
-	}
+    public List<ItemPedido> getItensPedido() {
+        return itensPedido;
+    }
 
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
+    public void setItensPedido(List<ItemPedido> itensPedido) {
+        this.itensPedido = itensPedido;
+    }
 }
