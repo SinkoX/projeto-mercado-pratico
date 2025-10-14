@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,7 +46,8 @@ public class Produto {
     
     // Relacionamento com Subcategoria (Muitos para 1)
     @ManyToOne
-    @JoinColumn(name = "id_subcategoria")  // A chave estrangeira será id_subcategoria
+    @JoinColumn(name = "id_subcategoria") // A chave estrangeira será id_subcategoria
+    @JsonBackReference
     private Subcategoria subcategoria;
     
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)

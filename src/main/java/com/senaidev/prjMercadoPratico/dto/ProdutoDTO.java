@@ -12,9 +12,10 @@ public class ProdutoDTO {
     private LocalDate dataValidade;
     private Long idSubcategoria;
 
-    public ProdutoDTO() {}
+    // Campo para receber/enviar imagem como base64
+    private String imagemProdutoBase64;
 
-    // Getters e setters
+    public ProdutoDTO() {}
 
     public Long getIdProduto() {
         return idProduto;
@@ -51,5 +52,12 @@ public class ProdutoDTO {
     }
     public void setIdSubcategoria(Long idSubcategoria) {
         this.idSubcategoria = idSubcategoria;
+    }
+
+    public String getImagemProdutoBase64() {
+        return imagemProdutoBase64;
+    }
+    public void setImagemProdutoBase64(String imagemProdutoBase64) {
+        this.imagemProdutoBase64 = imagemProdutoBase64;
     }
 }

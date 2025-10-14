@@ -1,5 +1,6 @@
 package com.senaidev.prjMercadoPratico.services;
 
+import java.util.Base64;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ public class ProdutoService {
     @Autowired
     private SubcategoriaRepository subcategoriaRepository;
 
-    // Conversão Entity -> DTO
+    // Converter Entity para DTO
     public ProdutoDTO toDTO(Produto produto) {
         ProdutoDTO dto = new ProdutoDTO();
         dto.setIdProduto(produto.getIdProduto());
@@ -33,10 +34,15 @@ public class ProdutoService {
         if (produto.getSubcategoria() != null) {
             dto.setIdSubcategoria(produto.getSubcategoria().getIdSubcategoria());
         }
+        // Converter imagem bytes para base64 (se não for nulo)
+        if (produto.getImagemProduto() != null) {
+            String base64 = Base64.getEncoder().encodeToString(produto.getImagemProduto());
+            dto.setImagemProdutoBase64(base64);
+        }
         return dto;
     }
 
-    // Conversão DTO -> Entity
+    // Converter DTO para Entity
     public Produto toEntity(ProdutoDTO dto, Subcategoria subcategoria) {
         Produto produto = new Produto();
         produto.setNomeProduto(dto.getNomeProduto());
@@ -44,10 +50,15 @@ public class ProdutoService {
         produto.setQuantidade(dto.getQuantidade());
         produto.setDataValidade(dto.getDataValidade());
         produto.setSubcategoria(subcategoria);
+
+        // Converter base64 para bytes, se existir
+        if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
+            byte[] imagemBytes = Base64.getDecoder().decode(dto.getImagemProdutoBase64());
+            produto.setImagemProduto(imagemBytes);
+        }
         return produto;
     }
 
-    // Listar todos produtos DTO
     public List<ProdutoDTO> findAllDTO() {
         List<Produto> produtos = produtoRepository.findAll();
         return produtos.stream()
@@ -55,14 +66,12 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 
-    // Buscar por ID DTO
     public ProdutoDTO findByIdDTO(Long id) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
         return toDTO(produto);
     }
 
-    // Inserir Produto a partir de DTO
     public ProdutoDTO insertDTO(ProdutoDTO dto) {
         Subcategoria subcategoria = subcategoriaRepository.findById(dto.getIdSubcategoria())
                 .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getIdSubcategoria()));
@@ -72,7 +81,6 @@ public class ProdutoService {
         return toDTO(produto);
     }
 
-    // Atualizar Produto a partir de DTO
     public ProdutoDTO updateDTO(Long id, ProdutoDTO dto) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
@@ -86,14 +94,16 @@ public class ProdutoService {
         produto.setDataValidade(dto.getDataValidade());
         produto.setSubcategoria(subcategoria);
 
+        if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
+            byte[] imagemBytes = Base64.getDecoder().decode(dto.getImagemProdutoBase64());
+            produto.setImagemProduto(imagemBytes);
+        }
+
         produto = produtoRepository.save(produto);
         return toDTO(produto);
     }
 
-    // Delete permanece igual, usando entity id
     public void delete(Long id) {
         produtoRepository.deleteById(id);
     }
-
-    // Aqui você pode adaptar outros métodos findByNome, findByCategoria etc para usarem DTO se quiser
 }
