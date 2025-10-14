@@ -1,17 +1,17 @@
 package com.senaidev.prjMercadoPratico.services;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.senaidev.prjMercadoPratico.entities.Categoria;
-import com.senaidev.prjMercadoPratico.entities.Subcategoria;
+import com.senaidev.prjMercadoPratico.dto.ProdutoDTO;
 import com.senaidev.prjMercadoPratico.entities.Produto;
+import com.senaidev.prjMercadoPratico.entities.Subcategoria;
 import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
+import com.senaidev.prjMercadoPratico.repositories.SubcategoriaRepository;
 
 @Service
 public class ProdutoService {
@@ -19,62 +19,81 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    // Listar todos os produtos
-    public List<Produto> findAll() {
-        return produtoRepository.findAll();
+    @Autowired
+    private SubcategoriaRepository subcategoriaRepository;
+
+    // Conversão Entity -> DTO
+    public ProdutoDTO toDTO(Produto produto) {
+        ProdutoDTO dto = new ProdutoDTO();
+        dto.setIdProduto(produto.getIdProduto());
+        dto.setNomeProduto(produto.getNomeProduto());
+        dto.setPrecoProduto(produto.getPrecoProduto());
+        dto.setQuantidade(produto.getQuantidade());
+        dto.setDataValidade(produto.getDataValidade());
+        if (produto.getSubcategoria() != null) {
+            dto.setIdSubcategoria(produto.getSubcategoria().getIdSubcategoria());
+        }
+        return dto;
     }
 
-    // Buscar por ID
-    public Produto findById(Long id) {
-        return produtoRepository.findById(id)
+    // Conversão DTO -> Entity
+    public Produto toEntity(ProdutoDTO dto, Subcategoria subcategoria) {
+        Produto produto = new Produto();
+        produto.setNomeProduto(dto.getNomeProduto());
+        produto.setPrecoProduto(dto.getPrecoProduto());
+        produto.setQuantidade(dto.getQuantidade());
+        produto.setDataValidade(dto.getDataValidade());
+        produto.setSubcategoria(subcategoria);
+        return produto;
+    }
+
+    // Listar todos produtos DTO
+    public List<ProdutoDTO> findAllDTO() {
+        List<Produto> produtos = produtoRepository.findAll();
+        return produtos.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    // Buscar por ID DTO
+    public ProdutoDTO findByIdDTO(Long id) {
+        Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
+        return toDTO(produto);
     }
 
-    // Buscar por nome (contém, ignore case)
-    public List<Produto> findByNome(String nome) {
-        return produtoRepository.findByNomeProdutoContainingIgnoreCase(nome);
+    // Inserir Produto a partir de DTO
+    public ProdutoDTO insertDTO(ProdutoDTO dto) {
+        Subcategoria subcategoria = subcategoriaRepository.findById(dto.getIdSubcategoria())
+                .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getIdSubcategoria()));
+
+        Produto produto = toEntity(dto, subcategoria);
+        produto = produtoRepository.save(produto);
+        return toDTO(produto);
     }
 
-    // 🔹 Buscar por subcategoria
-    public List<Produto> findBySubcategoria(Subcategoria subcategoria) {
-        return produtoRepository.findBySubcategoria(subcategoria);
+    // Atualizar Produto a partir de DTO
+    public ProdutoDTO updateDTO(Long id, ProdutoDTO dto) {
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
+
+        Subcategoria subcategoria = subcategoriaRepository.findById(dto.getIdSubcategoria())
+                .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getIdSubcategoria()));
+
+        produto.setNomeProduto(dto.getNomeProduto());
+        produto.setPrecoProduto(dto.getPrecoProduto());
+        produto.setQuantidade(dto.getQuantidade());
+        produto.setDataValidade(dto.getDataValidade());
+        produto.setSubcategoria(subcategoria);
+
+        produto = produtoRepository.save(produto);
+        return toDTO(produto);
     }
 
-    // 🔹 Buscar por categoria (agora via subcategoria)
-    public List<Produto> findByCategoria(Categoria categoria) {
-        return produtoRepository.findBySubcategoria_Categoria(categoria);
-    }
-
-    // Buscar produtos vencidos (data de validade antes de hoje)
-    public List<Produto> findProdutosVencidos() {
-        return produtoRepository.findByDataValidadeBefore(LocalDate.now());
-    }
-
-    // Inserir produto
-    public Produto insert(Produto produto) {
-        return produtoRepository.save(produto);
-    }
-
-    // Atualizar produto
-    public Produto update(Long id, Produto novoProduto) {
-        Produto produto = findById(id); // lança exceção se não encontrar
-        produto.setNomeProduto(novoProduto.getNomeProduto());
-        produto.setPrecoProduto(novoProduto.getPrecoProduto());
-        produto.setQuantidade(novoProduto.getQuantidade());
-        produto.setDataValidade(novoProduto.getDataValidade());
-        produto.setSubcategoria(novoProduto.getSubcategoria()); // ✅ atualizar subcategoria também
-        return produtoRepository.save(produto);
-    }
-
-    // Remover produto
+    // Delete permanece igual, usando entity id
     public void delete(Long id) {
         produtoRepository.deleteById(id);
     }
 
-    // Salvar imagem do produto
-    public void salvarImagem(Long idProduto, MultipartFile imagem) throws IOException {
-        Produto produto = findById(idProduto);
-        produto.setImagemProduto(imagem.getBytes());
-        produtoRepository.save(produto);
-    }
+    // Aqui você pode adaptar outros métodos findByNome, findByCategoria etc para usarem DTO se quiser
 }

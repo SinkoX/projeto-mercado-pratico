@@ -3,6 +3,9 @@ package com.senaidev.prjMercadoPratico.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,10 +32,12 @@ public class Subcategoria {
     // Muitas subcategorias pertencem a uma categoria
     @ManyToOne
     @JoinColumn(name = "id_categoria", nullable = false)
+    @JsonBackReference // evita serializar a categoria dentro da subcategoria (relação inversa)
     private Categoria categoria;
 
     // Uma subcategoria tem vários produtos
     @OneToMany(mappedBy = "subcategoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // serializa produtos dentro da subcategoria, mas evita loop com @JsonBackReference em Produto
     private List<Produto> produtos = new ArrayList<>();
 
     // Construtores

@@ -3,6 +3,8 @@ package com.senaidev.prjMercadoPratico.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,8 +26,8 @@ public class Categoria {
     @Column(name = "nome_categoria", nullable = false, length = 100)
     private String nomeCategoria;
 
-    // Uma categoria tem várias subcategorias
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference  // <<< adicionada aqui
     private List<Subcategoria> subcategorias = new ArrayList<>();
 
     // Construtores
@@ -62,7 +64,6 @@ public class Categoria {
         this.subcategorias = subcategorias;
     }
 
-    // Método auxiliar para manter a integridade bidirecional
     public void addSubcategoria(Subcategoria subcategoria) {
         subcategorias.add(subcategoria);
         subcategoria.setCategoria(this);
