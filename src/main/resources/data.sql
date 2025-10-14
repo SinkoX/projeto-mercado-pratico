@@ -79,11 +79,19 @@ INSERT INTO tb_subcategoria (nome_Subcategoria, id_Categoria) VALUES
 -- PRODUTOS
 -- ======================================
 INSERT INTO tb_produto (nome_Produto, preco_Produto, quantidade, data_Validade, id_Subcategoria) VALUES
-('Arroz 5kg', 25.90, 100, '2026-01-01', 1),
-('Feijão 1kg', 7.50, 200, '2026-06-15', 2),
-('Macarrão Espaguete', 4.99, 150, '2026-02-10', 3),
-('Detergente Líquido', 2.99, 300, '2027-12-31', 5),
-('Coca-Cola 2L', 8.50, 250, '2026-03-20', 6);
+('Arroz 10kg', 49.90, 120, '2026-12-01', 1),
+('Feijão Carioca 5kg', 25.00, 150, '2026-07-20', 2),
+('Macarrão Penne', 6.99, 180, '2026-04-15', 3),
+('Macarrão para Lasanha', 7.50, 160, '2026-05-10', 3),
+('Óleo de Soja 900ml', 4.50, 200, '2027-03-15', 2),
+('Detergente Ypê 500ml', 1.99, 220, '2027-06-30', 5),
+('Coca-Cola Lata 350ml', 3.20, 300, '2026-08-20', 6),
+('Fanta Uva 2L', 6.50, 250, '2026-07-10', 6),
+('Sabão em Pó Omo 1kg', 12.90, 180, '2027-01-05', 4),
+('Desinfetante Pinho Sol 500ml', 3.80, 230, '2027-09-01', 5),
+('Refrigerante Guaraná Antártica 2L', 7.90, 180, '2026-10-10', 6),
+('Água Mineral 1,5L', 2.99, 300, '2027-11-30', 3);
+
 
 -- ======================================
 -- ENTREGAS
