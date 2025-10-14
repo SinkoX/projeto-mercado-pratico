@@ -41,7 +41,7 @@ public class TelefoneUsuarioService {
 
     // Corrigido: Retorna lista de telefones do usuário pelo id do usuário
     public List<TelefoneUsuario> findByUsuario(Long id) {
-        return telefoneUsuarioRepository.findByUsuario_Id(id);
+        return telefoneUsuarioRepository.findByUsuario_IdUsuario(id);
     }
 
     public List<TelefoneUsuario> findByNumeroTelefoneUsuario(String numeroTelefoneUsuario) {
