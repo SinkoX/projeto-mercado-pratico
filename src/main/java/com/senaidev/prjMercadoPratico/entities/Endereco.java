@@ -44,7 +44,7 @@ public class Endereco {
 			
 	@ManyToOne
     @JsonBackReference
-	@JoinColumn(name = "USUARIO_id_Usuario")
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
 	public Endereco() {

@@ -98,7 +98,7 @@ public class EnderecoController {
 	        if (!usuarioRepository.existsById(usuarioId)) {
 	            return ResponseEntity.notFound().build();
 	        }
-	        List<Endereco> enderecos = enderecoRepository.findByUsuarioId(usuarioId);
+	        List<Endereco> enderecos = enderecoRepository.findByUsuario_IdUsuario(usuarioId);
 	        return ResponseEntity.ok(enderecos);
 	    }
 

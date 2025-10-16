@@ -1,50 +1,34 @@
 package com.senaidev.prjMercadoPratico.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.senaidev.prjMercadoPratico.entities.Carrinho;
 import com.senaidev.prjMercadoPratico.entities.ItemCarrinho;
 import com.senaidev.prjMercadoPratico.repositories.ItemCarrinhoRepository;
 
 @Service
 public class ItemCarrinhoService {
 
-	@Autowired
-    private ItemCarrinhoRepository itemCarrinhoRepository;
+    private final ItemCarrinhoRepository itemCarrinhoRepository;
+    private final CarrinhoService carrinhoService;
 
-	//Busca por todos os itens do Carrinho
-    public List<ItemCarrinho> findAll() {
-        return itemCarrinhoRepository.findAll();
+    public ItemCarrinhoService(ItemCarrinhoRepository itemCarrinhoRepository, CarrinhoService carrinhoService) {
+        this.itemCarrinhoRepository = itemCarrinhoRepository;
+        this.carrinhoService = carrinhoService;
     }
 
-    //Busca por ID do item do Carrinho
-    public ItemCarrinho findById(Long id) {
-        return itemCarrinhoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Item do Carrinho não encontrado com ID: " + id));
-    }
+    @Transactional
+    public ItemCarrinho atualizarQuantidade(Long idUsuario, Long idItem, Integer novaQuantidade) {
+        Carrinho carrinho = carrinhoService.buscarCarrinhoPorUsuario(idUsuario);
+        ItemCarrinho item = carrinho.getItensCarrinho().stream()
+                .filter(i -> i.getIdItemCarrinho().equals(idItem))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Item não encontrado no carrinho"));
 
-    //Cria um novo item no Carrinho
-    public ItemCarrinho save(ItemCarrinho itemCarrinho) {
-        return itemCarrinhoRepository.save(itemCarrinho);
-    }
-    
-    //Atualiza um item no Carrinho
-    public ItemCarrinho update(Long id, ItemCarrinho novoItem) {
-        ItemCarrinho itemCarrinhoExistente = findById(id);
-
-        itemCarrinhoExistente.setProduto(novoItem.getProduto());
-        itemCarrinhoExistente.setQuantidade(novoItem.getQuantidade());
-        itemCarrinhoExistente.setSubTotal(novoItem.getSubTotal());
-        return itemCarrinhoRepository.save(itemCarrinhoExistente);
-    }
-
-    //Deleta um item no Carrinho
-    public void delete(Long id) {
-        if (!itemCarrinhoRepository.existsById(id)) {
-            throw new RuntimeException("Item do Carrinho não encontrado com ID: " + id);
-        }
-        itemCarrinhoRepository.deleteById(id);
+        item.setQuantidade(novaQuantidade);
+        item.setSubTotal(item.getPrecoUnitario().multiply(java.math.BigDecimal.valueOf(novaQuantidade)));
+        carrinho.atualizarTotais();
+        return itemCarrinhoRepository.save(item);
     }
 }

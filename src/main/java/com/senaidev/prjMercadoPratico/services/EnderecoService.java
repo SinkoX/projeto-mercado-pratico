@@ -26,7 +26,7 @@ public class EnderecoService {
 
     // Buscar por ID do usuário (cliente)
     public List<Endereco> findByUsuarioId(Long id) {
-        return enderecoRepository.findByUsuarioId(id);
+        return enderecoRepository.findByUsuario_IdUsuario(id);
     }
 
     // Criar endereço

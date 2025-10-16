@@ -14,8 +14,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_item_carrinho")
 public class ItemCarrinho {
-	
-	//Atributos
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_item_carrinho", nullable = false)
@@ -24,70 +23,88 @@ public class ItemCarrinho {
     @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
 
+    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
+    private BigDecimal precoUnitario;
+
     @ManyToOne
-    @JoinColumn(name = "id_produto")
+    @JoinColumn(name = "id_produto", nullable = false)
     private Produto produto;
 
     @ManyToOne
-    @JoinColumn(name = "id_carrinho")
+    @JoinColumn(name = "id_carrinho", nullable = false)
     private Carrinho carrinho;
 
     @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
     private BigDecimal subTotal;
-    
-    //Construtores
-    public ItemCarrinho() {
-    	
+
+    // Construtores
+    public ItemCarrinho() {}
+
+    public ItemCarrinho(Long idItemCarrinho, Integer quantidade, BigDecimal precoUnitario,
+                        Produto produto, Carrinho carrinho, BigDecimal subTotal) {
+        this.idItemCarrinho = idItemCarrinho;
+        this.quantidade = quantidade;
+        this.precoUnitario = precoUnitario;
+        this.produto = produto;
+        this.carrinho = carrinho;
+        this.subTotal = subTotal;
     }
 
-	public ItemCarrinho(Long idItemCarrinho, Integer quantidade, Produto produto, Carrinho carrinho,
-			BigDecimal subTotal) {
-		super();
-		this.idItemCarrinho = idItemCarrinho;
-		this.quantidade = quantidade;
-		this.produto = produto;
-		this.carrinho = carrinho;
-		this.subTotal = subTotal;
-	}
+    // Getters e Setters
+    public Long getIdItemCarrinho() {
+        return idItemCarrinho;
+    }
 
-	//Getters e Setters
-	public Long getIdItemCarrinho() {
-		return idItemCarrinho;
-	}
+    public void setIdItemCarrinho(Long idItemCarrinho) {
+        this.idItemCarrinho = idItemCarrinho;
+    }
 
-	public void setIdItemCarrinho(Long idItemCarrinho) {
-		this.idItemCarrinho = idItemCarrinho;
-	}
+    public Integer getQuantidade() {
+        return quantidade;
+    }
 
-	public Integer getQuantidade() {
-		return quantidade;
-	}
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+        atualizarSubtotal();
+    }
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
+    public BigDecimal getPrecoUnitario() {
+        return precoUnitario;
+    }
 
-	public Produto getProduto() {
-		return produto;
-	}
+    public void setPrecoUnitario(BigDecimal precoUnitario) {
+        this.precoUnitario = precoUnitario;
+        atualizarSubtotal();
+    }
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
+    public Produto getProduto() {
+        return produto;
+    }
 
-	public Carrinho getCarrinho() {
-		return carrinho;
-	}
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 
-	public void setCarrinho(Carrinho carrinho) {
-		this.carrinho = carrinho;
-	}
+    public Carrinho getCarrinho() {
+        return carrinho;
+    }
 
-	public BigDecimal getSubTotal() {
-		return subTotal;
-	}
+    public void setCarrinho(Carrinho carrinho) {
+        this.carrinho = carrinho;
+    }
 
-	public void setSubTotal(BigDecimal subTotal) {
-		this.subTotal = subTotal;
-	}
+    public BigDecimal getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(BigDecimal subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    // Atualiza subtotal automaticamente
+    public void atualizarSubtotal() {
+        if (precoUnitario != null && quantidade != null) {
+            this.subTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+        }
+    }
 }

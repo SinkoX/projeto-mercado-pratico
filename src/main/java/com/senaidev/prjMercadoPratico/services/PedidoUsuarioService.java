@@ -25,7 +25,7 @@ public class PedidoUsuarioService {
     }
 
     public List<PedidoUsuario> findByUsuarioId(Long id) {
-        return pedidoUsuarioRepository.findByUsuarioId(id);
+        return pedidoUsuarioRepository.findByUsuario_IdUsuario(id);
     }
 
    

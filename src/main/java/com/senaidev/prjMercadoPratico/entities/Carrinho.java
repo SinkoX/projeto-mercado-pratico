@@ -7,9 +7,11 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -17,64 +19,120 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_carrinho")
 public class Carrinho {
+
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_carrinho")
+    @Column(name = "id_carrinho", nullable = false)
     private Long idCarrinho;
 
-    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL)
-    private List<ItemCarrinho> itens = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false, unique = true)
+    private Usuario usuario;
 
-    @OneToOne(mappedBy = "carrinho")
-    private PedidoUsuario pedidoUsuario;
+    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
 
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
-    private BigDecimal valorTotal;
-    
-    //Construtores
+    private BigDecimal valorTotal = BigDecimal.ZERO;
+
+    @Column(name = "quantidade_total", nullable = false)
+    private Integer quantidadeTotal = 0;
+
+    // Construtores
     public Carrinho() {
-    	
+
     }
 
-	public Carrinho(Long idCarrinho, List<ItemCarrinho> itens, PedidoUsuario pedidoUsuario, BigDecimal valorTotal) {
-		super();
-		this.idCarrinho = idCarrinho;
-		this.itens = itens;
-		this.pedidoUsuario = pedidoUsuario;
-		this.valorTotal = valorTotal;
-	}
+    public Carrinho(Long idCarrinho, Usuario usuario, List<ItemCarrinho> itensCarrinho, 
+                    BigDecimal valorTotal, Integer quantidadeTotal) {
+        super();
+        this.idCarrinho = idCarrinho;
+        this.usuario = usuario;
+        this.itensCarrinho = itensCarrinho;
+        this.valorTotal = valorTotal;
+        this.quantidadeTotal = quantidadeTotal;
+    }
 
-	//Getters e Setters
-	public Long getIdCarrinho() {
-		return idCarrinho;
-	}
+    // Métodos de domínio
+    public void adicionarItem(Produto produto, int quantidade) {
+        ItemCarrinho existente = itensCarrinho.stream()
+                .filter(i -> i.getProduto().getIdProduto().equals(produto.getIdProduto()))
+                .findFirst()
+                .orElse(null);
 
-	public void setIdCarrinho(Long idCarrinho) {
-		this.idCarrinho = idCarrinho;
-	}
+        if (existente != null) {
+            existente.setQuantidade(existente.getQuantidade() + quantidade);
+            existente.setSubTotal(produto.getPrecoProduto()
+                    .multiply(BigDecimal.valueOf(existente.getQuantidade())));
+        } else {
+            ItemCarrinho novoItem = new ItemCarrinho();
+            novoItem.setCarrinho(this);
+            novoItem.setProduto(produto);
+            novoItem.setQuantidade(quantidade);
+            novoItem.setSubTotal(produto.getPrecoProduto().multiply(BigDecimal.valueOf(quantidade)));
+            itensCarrinho.add(novoItem);
+        }
 
-	public List<ItemCarrinho> getItens() {
-		return itens;
-	}
+        atualizarTotais();
+    }
 
-	public void setItens(List<ItemCarrinho> itens) {
-		this.itens = itens;
-	}
+    public void removerItem(Long idProduto) {
+        itensCarrinho.removeIf(item -> item.getProduto().getIdProduto().equals(idProduto));
+        atualizarTotais();
+    }
 
-	public PedidoUsuario getPedidoUsuario() {
-		return pedidoUsuario;
-	}
+    public void atualizarTotais() {
+        BigDecimal total = BigDecimal.ZERO;
+        int qtdTotal = 0;
 
-	public void setPedidoUsuario(PedidoUsuario pedidoUsuario) {
-		this.pedidoUsuario = pedidoUsuario;
-	}
+        for (ItemCarrinho item : itensCarrinho) {
+            total = total.add(item.getSubTotal());
+            qtdTotal += item.getQuantidade();
+        }
 
-	public BigDecimal getValorTotal() {
-		return valorTotal;
-	}
+        this.valorTotal = total;
+        this.quantidadeTotal = qtdTotal;
+    }
 
-	public void setValorTotal(BigDecimal valorTotal) {
-		this.valorTotal = valorTotal;
-	}
+    // Getters e Setters
+    public Long getIdCarrinho() {
+        return idCarrinho;
+    }
+
+    public void setIdCarrinho(Long idCarrinho) {
+        this.idCarrinho = idCarrinho;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<ItemCarrinho> getItensCarrinho() {
+        return itensCarrinho;
+    }
+
+    public void setItensCarrinho(List<ItemCarrinho> itensCarrinho) {
+        this.itensCarrinho = itensCarrinho;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public Integer getQuantidadeTotal() {
+        return quantidadeTotal;
+    }
+
+    public void setQuantidadeTotal(Integer quantidadeTotal) {
+        this.quantidadeTotal = quantidadeTotal;
+    }
 }
-

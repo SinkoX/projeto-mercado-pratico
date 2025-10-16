@@ -1,5 +1,6 @@
 package com.senaidev.prjMercadoPratico.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,9 +17,12 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_Usuario")
-    private Long id;
+    @Column(name = "id_usuario")
+    private Long idUsuario;
 
+    @Column(name = "nome_usuario", nullable = false, length = 100)
+    private String nomeUsuario;
+    
     @Column(name = "email_usuario", nullable = false, unique = true, length = 50)
     private String emailUsuario;
 
@@ -26,6 +31,9 @@ public class Usuario {
 
     @Column(name = "cpf_usuario", nullable = false, unique = true, length = 11)
     private String cpfUsuario;
+    
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Carrinho carrinho;
 
     @ManyToOne
     @JoinColumn(name = "id_Tipo_Usuario")
@@ -35,8 +43,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String emailUsuario, String senhaUsuario, String cpfUsuario, TipoUsuario tipoUsuario) {
-        this.emailUsuario = emailUsuario;
+    public Usuario(Long idUsuario, String nomeUsuario, String emailUsuario, String senhaUsuario, String cpfUsuario, TipoUsuario tipoUsuario) {
+        this.idUsuario = idUsuario;
+        this.nomeUsuario = nomeUsuario;
+    	this.emailUsuario = emailUsuario;
         this.senhaUsuario = senhaUsuario;
         this.cpfUsuario = cpfUsuario;
         this.tipoUsuario = tipoUsuario;
@@ -44,15 +54,23 @@ public class Usuario {
 
     // Getters e setters
 
-    public Long getId() {
-        return id;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
+    
+    public String getNomeUsuario() {
+		return nomeUsuario;
+	}
 
-    public String getEmailUsuario() {
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
+	public String getEmailUsuario() {
         return emailUsuario;
     }
 
@@ -83,6 +101,4 @@ public class Usuario {
 	public void setCpfUsuario(String cpfUsuario) {
 		this.cpfUsuario = cpfUsuario;
 	}
-
-	
 }
