@@ -1,7 +1,6 @@
 package com.senaidev.prjMercadoPratico.services;
 
 import java.util.Base64;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 

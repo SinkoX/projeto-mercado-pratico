@@ -40,6 +40,9 @@ public class Produto {
     @Column(name = "data_validade", nullable = false)
     private LocalDate dataValidade;
     
+    @Column(name = "img_url", nullable = false)
+    private String imgUrl;
+    
     @Lob
     @Column(name = "imagem_produto", columnDefinition = "LONGBLOB")
     private byte[] imagemProduto;
@@ -61,7 +64,7 @@ public class Produto {
     }
 
     public Produto(Long idProduto, String nomeProduto, BigDecimal precoProduto, Integer quantidade,
-                   LocalDate dataValidade, byte[] imagemProduto, Subcategoria subcategoria, 
+                   LocalDate dataValidade, String imgUrl, byte[] imagemProduto, Subcategoria subcategoria, 
                    List<ItemCarrinho> itensCarrinho, List<ItemPedido> itensPedido) {
         super();
         this.idProduto = idProduto;
@@ -69,6 +72,7 @@ public class Produto {
         this.precoProduto = precoProduto;
         this.quantidade = quantidade;
         this.dataValidade = dataValidade;
+        this.imgUrl = imgUrl;
         this.imagemProduto = imagemProduto;
         this.subcategoria = subcategoria;
         this.itensCarrinho = itensCarrinho;
@@ -114,6 +118,14 @@ public class Produto {
 
     public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
+    }
+    
+    public String getImgUrl() {
+    	return imgUrl;
+    }
+    
+    public void setImgUrl(String imgUrl) {
+    	this.imgUrl = imgUrl;
     }
 
     public byte[] getImagemProduto() {
