@@ -38,9 +38,9 @@ INSERT INTO tb_tipo_usuario (nome_Tipo_Usuario, descricao) VALUES
 -- ======================================
 -- USUÁRIOS
 -- ======================================
-INSERT INTO tb_usuario (email_usuario, senha_usuario, cpf_usuario, id_Tipo_Usuario) VALUES
-('julio.botaccio@gmail.com', '12345', '23699040895', 2),
-('maria@gmail.com', 'abcdef', '98765432100', 1);
+INSERT INTO tb_usuario (email_usuario, nome_usuario, senha_usuario, cpf_usuario, id_Tipo_Usuario) VALUES
+('julio.botaccio@gmail.com','Júlio César', '12345', '23699040895', 2),
+('maria@gmail.com','Maria', 'abcdef', '98765432100', 1);
 
 -- ======================================
 -- FUNCIONÁRIOS
