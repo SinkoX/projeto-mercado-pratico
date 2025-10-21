@@ -22,23 +22,9 @@ public class ProdutoService {
     @Autowired
     private SubcategoriaRepository subcategoriaRepository;
 
-    // Converter Entity para DTO
+    // Converter Entity para DTO usando o construtor do DTO
     public ProdutoDTO toDTO(Produto produto) {
-        ProdutoDTO dto = new ProdutoDTO();
-        dto.setIdProduto(produto.getIdProduto());
-        dto.setNomeProduto(produto.getNomeProduto());
-        dto.setPrecoProduto(produto.getPrecoProduto());
-        dto.setQuantidade(produto.getQuantidade());
-        dto.setDataValidade(produto.getDataValidade());
-        if (produto.getSubcategoria() != null) {
-            dto.setIdSubcategoria(produto.getSubcategoria().getIdSubcategoria());
-        }
-        // Converter imagem bytes para base64 (se não for nulo)
-        if (produto.getImagemProduto() != null) {
-            String base64 = Base64.getEncoder().encodeToString(produto.getImagemProduto());
-            dto.setImagemProdutoBase64(base64);
-        }
-        return dto;
+        return new ProdutoDTO(produto);
     }
 
     // Converter DTO para Entity
@@ -50,14 +36,20 @@ public class ProdutoService {
         produto.setDataValidade(dto.getDataValidade());
         produto.setSubcategoria(subcategoria);
 
-        // Converter base64 para bytes, se existir
-        if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
-            byte[] imagemBytes = Base64.getDecoder().decode(dto.getImagemProdutoBase64());
-            produto.setImagemProduto(imagemBytes);
+        // Mantém a URL da imagem, se fornecida
+        if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
+            produto.setImgUrl(dto.getImgUrl());
         }
+
+        // Converte base64 para bytes, se fornecido
+        if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
+            produto.setImagemProduto(Base64.getDecoder().decode(dto.getImagemProdutoBase64()));
+        }
+
         return produto;
     }
 
+    // Buscar todos os produtos como DTO
     public List<ProdutoDTO> findAllDTO() {
         List<Produto> produtos = produtoRepository.findAll();
         return produtos.stream()
@@ -65,12 +57,14 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 
+    // Buscar produto por ID como DTO
     public ProdutoDTO findByIdDTO(Long id) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
         return toDTO(produto);
     }
 
+    // Inserir produto via DTO
     public ProdutoDTO insertDTO(ProdutoDTO dto) {
         Subcategoria subcategoria = subcategoriaRepository.findById(dto.getIdSubcategoria())
                 .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getIdSubcategoria()));
@@ -80,6 +74,7 @@ public class ProdutoService {
         return toDTO(produto);
     }
 
+    // Atualizar produto via DTO
     public ProdutoDTO updateDTO(Long id, ProdutoDTO dto) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
@@ -93,15 +88,21 @@ public class ProdutoService {
         produto.setDataValidade(dto.getDataValidade());
         produto.setSubcategoria(subcategoria);
 
+        // Atualiza imagem base64 se fornecida
         if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
-            byte[] imagemBytes = Base64.getDecoder().decode(dto.getImagemProdutoBase64());
-            produto.setImagemProduto(imagemBytes);
+            produto.setImagemProduto(Base64.getDecoder().decode(dto.getImagemProdutoBase64()));
+        }
+
+        // Atualiza URL se fornecida
+        if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
+            produto.setImgUrl(dto.getImgUrl());
         }
 
         produto = produtoRepository.save(produto);
         return toDTO(produto);
     }
 
+    // Deletar produto
     public void delete(Long id) {
         produtoRepository.deleteById(id);
     }
