@@ -61,4 +61,13 @@ public class UsuarioService {
 	public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
 	}
+	
+    public Usuario autenticarUsuario(String email, String senha) {
+        Usuario usuario = usuarioRepository.findByEmailUsuario(email);
+
+        if (usuario != null && usuario.getSenhaUsuario().equals(senha)) {
+            return usuario;
+        }
+        return null;
+    }
 }
