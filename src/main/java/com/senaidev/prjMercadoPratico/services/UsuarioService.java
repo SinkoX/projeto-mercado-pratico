@@ -34,6 +34,7 @@ public class UsuarioService {
         usuarioExistente.setSenhaUsuario(novoUsuario.getSenhaUsuario());
         usuarioExistente.setCpfUsuario(novoUsuario.getCpfUsuario());
         usuarioExistente.setTipoUsuario(novoUsuario.getTipoUsuario());
+        usuarioExistente.setTelefoneUsuario(novoUsuario.getTelefoneUsuario());
 
         return usuarioRepository.save(usuarioExistente);
     }

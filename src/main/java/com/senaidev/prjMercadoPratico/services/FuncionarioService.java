@@ -53,6 +53,7 @@ public class FuncionarioService {
             funcionarioExistente.setCargo(dadosAtualizados.getCargo());
             funcionarioExistente.setEmailFuncionario(dadosAtualizados.getEmailFuncionario());
             funcionarioExistente.setSenhaFuncionario(dadosAtualizados.getSenhaFuncionario());
+            funcionarioExistente.setTelefoneFuncionario(dadosAtualizados.getTelefoneFuncionario());
             return funcionarioRepository.save(funcionarioExistente);
         } else {
             throw new RuntimeException("Funcionário não encontrado com ID: " + id);

@@ -32,6 +32,9 @@ public class Usuario {
     @Column(name = "cpf_usuario", nullable = false, unique = true, length = 11)
     private String cpfUsuario;
     
+    @Column(name = "telefone_usuario", nullable = false, length = 15)
+    private String telefoneUsuario;
+    
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Carrinho carrinho;
 
@@ -43,17 +46,18 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Long idUsuario, String nomeUsuario, String emailUsuario, String senhaUsuario, String cpfUsuario, TipoUsuario tipoUsuario) {
+    public Usuario(Long idUsuario, String nomeUsuario, String emailUsuario, String senhaUsuario, String cpfUsuario, TipoUsuario tipoUsuario,
+    		String telefoneUsuario) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
     	this.emailUsuario = emailUsuario;
         this.senhaUsuario = senhaUsuario;
         this.cpfUsuario = cpfUsuario;
         this.tipoUsuario = tipoUsuario;
+        this.telefoneUsuario = telefoneUsuario;
     }
 
     // Getters e setters
-
     public Long getIdUsuario() {
         return idUsuario;
     }
@@ -100,5 +104,21 @@ public class Usuario {
 
 	public void setCpfUsuario(String cpfUsuario) {
 		this.cpfUsuario = cpfUsuario;
+	}
+
+	public String getTelefoneUsuario() {
+		return telefoneUsuario;
+	}
+
+	public void setTelefoneUsuario(String telefoneUsuario) {
+		this.telefoneUsuario = telefoneUsuario;
+	}
+
+	public Carrinho getCarrinho() {
+		return carrinho;
+	}
+
+	public void setCarrinho(Carrinho carrinho) {
+		this.carrinho = carrinho;
 	}
 }
