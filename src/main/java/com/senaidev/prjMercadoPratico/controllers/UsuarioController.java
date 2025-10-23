@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class UsuarioController {
     }
 
     // POST /usuarios
-    @PostMapping
+    @PostMapping("/cadastro")
     public ResponseEntity<Usuario> insert(@RequestBody Usuario usuario) {
         Usuario novo = usuarioService.insert(usuario);
         return ResponseEntity.ok(novo);
