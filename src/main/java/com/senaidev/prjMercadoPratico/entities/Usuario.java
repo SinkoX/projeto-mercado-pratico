@@ -1,5 +1,8 @@
 package com.senaidev.prjMercadoPratico.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -38,6 +42,9 @@ public class Usuario {
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Carrinho carrinho;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Endereco> endereco = new ArrayList<>();
+    
     @ManyToOne
     @JoinColumn(name = "id_Tipo_Usuario")
     private TipoUsuario tipoUsuario;
@@ -47,7 +54,7 @@ public class Usuario {
     }
 
     public Usuario(Long idUsuario, String nomeUsuario, String emailUsuario, String senhaUsuario, String cpfUsuario, TipoUsuario tipoUsuario,
-    		String telefoneUsuario) {
+    		String telefoneUsuario, List<Endereco> endereco) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
     	this.emailUsuario = emailUsuario;
@@ -55,6 +62,7 @@ public class Usuario {
         this.cpfUsuario = cpfUsuario;
         this.tipoUsuario = tipoUsuario;
         this.telefoneUsuario = telefoneUsuario;
+        this.endereco = endereco;
     }
 
     // Getters e setters
@@ -120,5 +128,13 @@ public class Usuario {
 
 	public void setCarrinho(Carrinho carrinho) {
 		this.carrinho = carrinho;
+	}
+
+	public List<Endereco> getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(List<Endereco> endereco) {
+		this.endereco = endereco;
 	}
 }
