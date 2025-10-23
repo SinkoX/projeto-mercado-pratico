@@ -40,6 +40,9 @@ public class Produto {
     @Column(name = "data_validade", nullable = false)
     private LocalDate dataValidade;
     
+    @Column(name = "descricao_produto", nullable = false, length = 1000)
+    private String descricao;
+    
     @Column(name = "img_url", nullable = false)
     private String imgUrl;
     
