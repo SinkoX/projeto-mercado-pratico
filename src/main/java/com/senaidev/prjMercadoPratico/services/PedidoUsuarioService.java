@@ -40,8 +40,6 @@ public class PedidoUsuarioService {
         pedido.setDataPedidoUsuario(novoPedido.getDataPedidoUsuario());
         pedido.setUsuario(novoPedido.getUsuario());
         pedido.setFuncionario(novoPedido.getFuncionario());
-        pedido.setFormaPagamento(novoPedido.getFormaPagamento());
-        // Atualize outros campos conforme necessário
         return pedidoUsuarioRepository.save(pedido);
     }
 

@@ -24,9 +24,9 @@ public class Fornecedor {
 
     @Column(name = "cnpj", unique = true, length = 14)
     private String cnpj;
-
-    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
-    private List<TelefoneFornecedor> telefones;
+    
+    @Column(name = "telefone_fornecedor", nullable = false, length = 15)
+    private String telefoneFornecedor;
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<PedidoFornecedor> pedidos;
@@ -37,14 +37,14 @@ public class Fornecedor {
 
    
     public Fornecedor(Long idFornecedor, String nomeFornecedor, String emailFornecedor, String cpfFornecedor,
-                      String cnpj, List<TelefoneFornecedor> telefones, List<PedidoFornecedor> pedidos) {
+                      String cnpj, List<PedidoFornecedor> pedidos, String telefoneFornecedor) {
         this.idFornecedor = idFornecedor;
         this.nomeFornecedor = nomeFornecedor;
         this.emailFornecedor = emailFornecedor;
         this.cpfFornecedor = cpfFornecedor;
         this.cnpj = cnpj;
-        this.telefones = telefones;
         this.pedidos = pedidos;
+        this.telefoneFornecedor = telefoneFornecedor;
     }
 
     //Getters e Setters
@@ -89,14 +89,6 @@ public class Fornecedor {
         this.cnpj = cnpj;
     }
 
-    public List<TelefoneFornecedor> getTelefones() {
-        return telefones;
-    }
-
-    public void setTelefones(List<TelefoneFornecedor> telefones) {
-        this.telefones = telefones;
-    }
-
     public List<PedidoFornecedor> getPedidos() {
         return pedidos;
     }
@@ -104,4 +96,12 @@ public class Fornecedor {
     public void setPedidos(List<PedidoFornecedor> pedidos) {
         this.pedidos = pedidos;
     }
+
+	public String getTelefoneFornecedor() {
+		return telefoneFornecedor;
+	}
+
+	public void setTelefoneFornecedor(String telefoneFornecedor) {
+		this.telefoneFornecedor = telefoneFornecedor;
+	}
 }
