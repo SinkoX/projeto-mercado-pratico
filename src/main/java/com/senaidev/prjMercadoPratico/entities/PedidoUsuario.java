@@ -51,21 +51,13 @@ public class PedidoUsuario {
     @JoinColumn(name = "id_Funcionario")
     private Funcionario funcionario;
 
-   	@ManyToOne
-   	@JoinColumn(name = "id_Entrega")
-   	private Entrega entrega;
-
-   	@ManyToOne
-   	@JoinColumn(name = "id_Forma_Pagamento")
-   	private FormaPagamento formaPagamento;
-
    	//Construtores
    	public PedidoUsuario() {
    		
    	}
 
 	public PedidoUsuario(Long id, Carrinho carrinho, List<ItemPedido> itensPedido, BigDecimal valorTotal, LocalDate dataPedidoUsuario, String status,
-			Usuario usuario, Funcionario funcionario, Entrega entrega, FormaPagamento formaPagamento) {
+			Usuario usuario, Funcionario funcionario) {
 		this.id = id;
 		this.carrinho = carrinho;
 		this.itensPedido = itensPedido;
@@ -74,8 +66,6 @@ public class PedidoUsuario {
 		this.status = status;
 		this.usuario = usuario;
 		this.funcionario = funcionario;
-		this.entrega = entrega;
-		this.formaPagamento = formaPagamento;
 	}
 
 	//Getters e Setters
@@ -133,22 +123,6 @@ public class PedidoUsuario {
 
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
-	}
-
-	public Entrega getEntrega() {
-		return entrega;
-	}
-
-	public void setEntrega(Entrega entrega) {
-		this.entrega = entrega;
-	}
-
-	public FormaPagamento getFormaPagamento() {
-		return formaPagamento;
-	}
-
-	public void setFormaPagamento(FormaPagamento formaPagamento) {
-		this.formaPagamento = formaPagamento;
 	}
 
 	public LocalDate getDataPedidoUsuario() {

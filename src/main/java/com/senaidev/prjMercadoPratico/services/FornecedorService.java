@@ -57,6 +57,7 @@ public class FornecedorService {
         fornecedor.setEmailFornecedor(novoFornecedor.getEmailFornecedor());
         fornecedor.setCpfFornecedor(novoFornecedor.getCpfFornecedor());
         fornecedor.setCnpj(novoFornecedor.getCnpj());
+        fornecedor.setTelefoneFornecedor(novoFornecedor.getTelefoneFornecedor());
         // Atualize outros campos conforme necessário
         return fornecedorRepository.save(fornecedor);
     }

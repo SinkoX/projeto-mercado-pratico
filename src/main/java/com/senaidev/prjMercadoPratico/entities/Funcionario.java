@@ -23,6 +23,9 @@ public class Funcionario {
     
     @Column(name = "cpf_Funcionario", nullable = false, length = 11, unique = true)
     private String cpfFuncionario;
+    
+    @Column(name = "telefone_funcionario", nullable = false, length = 15)
+    private String telefoneFuncionario;
 
     @Column(name = "cargo", nullable = false, length = 50)
     private String cargo;
@@ -36,7 +39,7 @@ public class Funcionario {
     }
 
     public Funcionario(Long idFuncionario, String nomeFuncionario, String emailFuncionario, String senhaFuncionario, 
-    		String cpfFuncionario, String cargo, TipoUsuario tipoUsuario) {
+    		String cpfFuncionario, String cargo, TipoUsuario tipoUsuario, String telefoneFuncionario) {
         this.idFuncionario = idFuncionario;
     	this.nomeFuncionario = nomeFuncionario;
         this.emailFuncionario = emailFuncionario;
@@ -44,6 +47,7 @@ public class Funcionario {
         this.cpfFuncionario = cpfFuncionario;
         this.cargo = cargo;
         this.tipoUsuario = tipoUsuario;
+        this.telefoneFuncionario = telefoneFuncionario;
     }
 
     // Getters e Setters
@@ -101,5 +105,13 @@ public class Funcionario {
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	public String getTelefoneFuncionario() {
+		return telefoneFuncionario;
+	}
+
+	public void setTelefoneFuncionario(String telefoneFuncionario) {
+		this.telefoneFuncionario = telefoneFuncionario;
 	}
 }

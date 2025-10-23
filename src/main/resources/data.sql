@@ -12,8 +12,6 @@ DELETE FROM tb_fornecedor;
 DELETE FROM tb_funcionario;
 DELETE FROM tb_usuario;
 DELETE FROM tb_tipo_usuario;
-DELETE FROM tb_entrega;
-DELETE FROM tb_forma_pagamento;
 
 ALTER TABLE tb_tipo_usuario AUTO_INCREMENT = 1;
 ALTER TABLE tb_usuario AUTO_INCREMENT = 1;
@@ -22,8 +20,6 @@ ALTER TABLE tb_fornecedor AUTO_INCREMENT = 1;
 ALTER TABLE tb_categoria AUTO_INCREMENT = 1;
 ALTER TABLE tb_subcategoria AUTO_INCREMENT = 1;
 ALTER TABLE tb_produto AUTO_INCREMENT = 1;
-ALTER TABLE tb_entrega AUTO_INCREMENT = 1;
-ALTER TABLE tb_forma_pagamento AUTO_INCREMENT = 1;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -38,9 +34,9 @@ INSERT INTO tb_tipo_usuario (nome_Tipo_Usuario, descricao) VALUES
 -- ======================================
 -- USUÁRIOS
 -- ======================================
-INSERT INTO tb_usuario (email_usuario, nome_usuario, senha_usuario, cpf_usuario, id_Tipo_Usuario) VALUES
-('julio.botaccio@gmail.com','Júlio César', '12345', '23699040895', 2),
-('maria@gmail.com','Maria', 'abcdef', '98765432100', 1);
+INSERT INTO tb_usuario (email_usuario, nome_usuario, senha_usuario, cpf_usuario, telefone_usuario, id_Tipo_Usuario) VALUES
+('julio.botaccio@gmail.com','Júlio César', '12345', '23699040895', '15 981923040', 2),
+('maria@gmail.com','Maria', 'abcdef', '98765432100', '15 991402029', 1);
 
 -- ======================================
 -- ENDEREÇOS
@@ -52,15 +48,15 @@ INSERT INTO tb_endereco (cep, rua, numero, bairro, cidade, estado, complemento, 
 -- ======================================
 -- FUNCIONÁRIOS
 -- ======================================
-INSERT INTO tb_funcionario (nome_Funcionario, email_Funcionario, senha_Funcionario, cpf_Funcionario, cargo, id_Tipo_Usuario) VALUES
-('PzKing', 'pzKing@mercado.com', 'pzking123', '11122233344', 'Atendente', 3);
+INSERT INTO tb_funcionario (nome_Funcionario, email_Funcionario, senha_Funcionario, cpf_Funcionario, telefone_funcionario, cargo, id_Tipo_Usuario) VALUES
+('PzKing', 'pzKing@mercado.com', 'pzking123', '11122233344', '15 972814010', 'Atendente', 3);
 
 -- ======================================
 -- FORNECEDORES
 -- ======================================
-INSERT INTO tb_fornecedor (nome_Fornecedor, email_Fornecedor, cpf_Fornecedor, cnpj) VALUES
-('Fornecedor A', 'fornecedorA@email.com', '22233344455', '12345678000199'),
-('Fornecedor B', 'fornecedorB@email.com', '33344455566', '98765432000188');
+INSERT INTO tb_fornecedor (nome_Fornecedor, email_Fornecedor, cpf_Fornecedor, telefone_fornecedor, cnpj) VALUES
+('Fornecedor A', 'fornecedorA@email.com', '22233344455', '15 999282837', '12345678000199'),
+('Fornecedor B', 'fornecedorB@email.com', '33344455566', '15 981725747', '98765432000188');
 
 -- ======================================
 -- CATEGORIAS
@@ -113,21 +109,6 @@ INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, 
 ('Cereal Sucrilhos Kelloggs 300g', 12.90, 150, '2026-09-20', 3, 'https://carrefourbr.vtexassets.com/arquivos/ids/182933355/image-0.jpg', 'Cereal matinal Kelloggs Sucrilhos, crocante e saboroso.'),
 ('Papel Higiênico Neve 12 rolos', 18.99, 180, '2028-03-10', 5, 'https://m.media-amazon.com/images/I/71X9mMJ6ATL._UF1000,1000_QL80_.jpg', 'Papel higiênico Neve com textura macia e resistente.');
 
-
--- ======================================
--- ENTREGAS
--- ======================================
-INSERT INTO tb_entrega (tempo_Entrega) VALUES
-('2025-10-05'),
-('2025-10-10');
-
--- ======================================
--- FORMAS DE PAGAMENTO
--- ======================================
-INSERT INTO tb_forma_pagamento (forma_Pagamento, status_Pagamento) VALUES
-('Cartão de Crédito', 'Aprovado'),
-('PIX', 'Pendente');
-
 -- ======================================
 -- PEDIDOS DE CLIENTE
 -- ======================================
@@ -137,11 +118,9 @@ INSERT INTO tb_pedido_usuario (
   status_pedido_usuario,
   data_pedido_usuario,
   id_Usuario,
-  id_Entrega,
-  id_Funcionario,
-  id_Forma_Pagamento
+  id_Funcionario
 )
-VALUES (NULL, 33.40, 'Finalizado', '2025-09-30', 1, 1, 1, 1);
+VALUES (NULL, 33.40, 'Finalizado', '2025-09-30', 1, 1);
 
 -- ======================================
 -- PEDIDOS DE FORNECEDOR
