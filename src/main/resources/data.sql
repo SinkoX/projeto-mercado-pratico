@@ -35,15 +35,15 @@ INSERT INTO tb_tipo_usuario (nome_Tipo_Usuario, descricao) VALUES
 -- USUÁRIOS
 -- ======================================
 INSERT INTO tb_usuario (email_usuario, nome_usuario, senha_usuario, cpf_usuario, telefone_usuario, id_Tipo_Usuario) VALUES
-('julio.botaccio@gmail.com','Júlio César', '12345', '23699040895', '15 981923040', 2),
-('maria@gmail.com','Maria', 'abcdef', '98765432100', '15 991402029', 1);
+('julio.botaccio@gmail.com','Júlio César', '12345', '23699040895', '15981923040', 2),
+('maria@gmail.com','Maria', 'abcdef', '98765432100', '15991402029', 1);
 
 -- ======================================
 -- ENDEREÇOS
 -- ======================================
-INSERT INTO tb_endereco (cep, rua, numero, bairro, cidade, estado, complemento, id_usuario) VALUES
-('18010-000', 'Rua XV de Novembro', '123', 'Centro', 'Sorocaba', 'SP', 'Apartamento 45', 1),
-('18020-050', 'Avenida São Paulo', '987', 'Jardim Paulista', 'Sorocaba', 'SP', 'Casa 2', 2);
+INSERT INTO tb_endereco (cep, rua, numero, bairro, cidade, complemento, id_usuario) VALUES
+('18010-000', 'Rua XV de Novembro', '123', 'Centro', 'Sorocaba', 'Apartamento 45', 1),
+('18020-050', 'Avenida São Paulo', '987', 'Jardim Paulista', 'Sorocaba', 'Casa 2', 2);
 
 -- ======================================
 -- FUNCIONÁRIOS
