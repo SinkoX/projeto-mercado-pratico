@@ -65,7 +65,6 @@ public class EnderecoController {
 	            existente.setNumero(enderecoAtualizado.getNumero());
 	            existente.setBairro(enderecoAtualizado.getBairro());
 	            existente.setCidade(enderecoAtualizado.getCidade());
-	            existente.setEstado(enderecoAtualizado.getEstado());
 	            existente.setCep(enderecoAtualizado.getCep());
 	            existente.setComplemento(enderecoAtualizado.getComplemento());
 
