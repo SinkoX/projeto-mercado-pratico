@@ -7,13 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.senaidev.prjMercadoPratico.entities.Categoria;
+import com.senaidev.prjMercadoPratico.entities.Produto;
 import com.senaidev.prjMercadoPratico.repositories.CategoriaRepository;
+import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
 
 @Service
 public class CategoriaService {
 
-	@Autowired
+    @Autowired
     private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository; // ✅ injetado
 
     //Listar todos os subcategorias
     public List<Categoria> findAll() {
@@ -47,7 +52,6 @@ public class CategoriaService {
             categoria.setNomeCategoria(novaCategoria.getNomeCategoria());
             return categoriaRepository.save(categoria);
         } else {
-            // Caso a subcategoria não seja encontrada, pode lançar exceção ou retornar uma resposta específica
             throw new RuntimeException("Categoria não encontrada para o ID: " + id);
         }
     }
@@ -55,5 +59,14 @@ public class CategoriaService {
     // Deletar categoria por ID
     public void delete(Long id) {
         categoriaRepository.deleteById(id);
+    }
+
+    // ✅ Método para buscar produtos pelo nome da categoria
+    public List<Produto> getProdutosPorNomeCategoria(String nomeCategoria) {
+        Categoria categoria = categoriaRepository.findByNomeCategoriaIgnoreCase(nomeCategoria)
+                                .stream()
+                                .findFirst()
+                                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        return produtoRepository.findBySubcategoria_Categoria(categoria); // usar o método correto do repo
     }
 }

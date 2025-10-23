@@ -42,15 +42,12 @@ INSERT INTO tb_usuario (email_usuario, nome_usuario, senha_usuario, cpf_usuario,
 ('julio.botaccio@gmail.com','Júlio César', '12345', '23699040895', 2),
 ('maria@gmail.com','Maria', 'abcdef', '98765432100', 1);
 
-
-
 -- ======================================
 -- ENDEREÇOS
 -- ======================================
 INSERT INTO tb_endereco (cep, rua, numero, bairro, cidade, estado, complemento, id_usuario) VALUES
 ('18010-000', 'Rua XV de Novembro', '123', 'Centro', 'Sorocaba', 'SP', 'Apartamento 45', 1),
 ('18020-050', 'Avenida São Paulo', '987', 'Jardim Paulista', 'Sorocaba', 'SP', 'Casa 2', 2);
-
 
 -- ======================================
 -- FUNCIONÁRIOS
@@ -69,42 +66,52 @@ INSERT INTO tb_fornecedor (nome_Fornecedor, email_Fornecedor, cpf_Fornecedor, cn
 -- CATEGORIAS
 -- ======================================
 INSERT INTO tb_categoria (nome_Categoria) VALUES
-('Arroz e Feijão'),
-('Massas e Molhos'),
+('Hortifruti'),
 ('Bebidas'),
-('Limpeza');
+('Mercearia'),
+('Limpeza'),
+('Açougue'),
+('Higiene'),
+('Padaria'),
+('Pet Shop');
 
 -- ======================================
 -- SUBCATEGORIAS
 -- ======================================
 INSERT INTO tb_subcategoria (nome_Subcategoria, id_Categoria) VALUES
-('Arroz', 1),
-('Feijão', 1),
-('Macarrão', 2),
-('Molhos', 2),
-('Detergentes', 4),
-('Refrigerantes', 3);
+('Frutas', 1),         -- Hortifruti
+('Verduras', 1),
+('Refrigerantes', 2),  -- Bebidas
+('Sucos', 2),
+('Arroz', 3),          -- Mercearia
+('Feijão', 3),
+('Detergentes', 4),    -- Limpeza
+('Sabão em pó', 4),
+('Carnes', 5),         -- Açougue
+('Papel Higiênico', 6),-- Higiene
+('Pães', 7),           -- Padaria
+('Rações', 8);         -- Pet Shop
 
 -- ======================================
 -- PRODUTOS
 -- ======================================
 INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_subcategoria, img_url, descricao_produto) VALUES
-('Arroz 10kg', 49.90, 120, '2026-12-01', 1, 'https://superprix.vteximg.com.br/arquivos/ids/174487/Arroz-Tio-Joao-Branco-1kg.png?v=636209529502870000', 'Arroz tipo 1 de qualidade premium, grãos longos e soltinhos. Ideal para acompanhar qualquer refeição, garantindo sabor e rendimento.'),
-('Feijão Carioca 5kg', 25.00, 150, '2026-07-20', 2, 'https://kicaldo.com.br/wp-content/uploads/2020/07/Kicaldo-feijaocarioca.png', 'Feijão carioca selecionado com grãos firmes e sabor marcante. Essencial para o dia a dia e receitas tradicionais.'),
-('Macarrão Penne', 6.99, 180, '2026-04-15', 3, 'https://vitarella.com.br/wp-content/uploads/2020/11/speciale_Semola_penne_400g-792x792-1.png', 'Macarrão tipo penne feito com trigo de alta qualidade. Ideal para molhos encorpados, saladas e pratos especiais.'),
-('Macarrão para Lasanha', 7.50, 160, '2026-05-10', 3, 'https://gbarbosa.vtexassets.com/arquivos/ids/210932/655265fd8d0743e14888e9d2.jpg?v=638354956818570000', 'Massa para lasanha pré-cozida e prática, com textura leve e sabor neutro. Ideal para receitas gratinadas e recheadas.'),
-('Óleo de Soja 900ml', 4.50, 200, '2027-03-15', 2, 'https://mercantilnovaera.vtexassets.com/arquivos/ids/214695/Oleo-de-Soja-SOYA-Garrafa-900ml.jpg?v=638447417992900000', 'Óleo de soja 100% puro, ideal para frituras, refogados e receitas com leveza e sabor.'),
-('Detergente Ypê 500ml', 1.99, 220, '2027-06-30', 5, 'https://castronaves.vteximg.com.br/arquivos/ids/371251-1000-1000/84574_01.jpg?v=637655863428400000', 'Detergente Ypê com fórmula concentrada e perfume suave. Remove gorduras com facilidade e deixa as louças brilhando.'),
-('Coca-Cola Lata 350ml', 3.20, 300, '2026-08-20', 6, 'https://superprix.vteximg.com.br/arquivos/ids/210608-600-600/BMo6Zlso.png?v=638083543189830000', 'Coca-Cola Original em lata. Refrescante, com sabor inconfundível e o equilíbrio perfeito entre doçura e gás.'),
-('Fanta Uva 2L', 6.50, 250, '2026-07-10', 6, 'https://superprix.vteximg.com.br/arquivos/ids/226361-600-600/Refrigerante-Fanta-Uva-2l.png?v=638774016807230000', 'Refrigerante Fanta sabor uva, com aroma intenso e sabor frutado. Ideal para momentos de descontração e festas.'),
-('Sabão em Pó Omo 1kg', 12.90, 180, '2027-01-05', 4, 'https://cdn-cosmos.bluesoft.com.br/products/7891150018587', 'Sabão em pó Omo Multiação. Remove as manchas mais difíceis e mantém as roupas com perfume agradável por mais tempo.'),
-('Desinfetante Pinho Sol 500ml', 3.80, 230, '2027-09-01', 5, 'https://superprix.vteximg.com.br/arquivos/ids/176738/Desinfetante-Pinho-Sol-Lavanda-500ml.png?v=636495363697370000', 'Desinfetante Pinho Sol com fragrância marcante. Elimina germes e deixa o ambiente limpo e perfumado.'),
-('Refrigerante Guaraná Antártica 2L', 7.90, 180, '2026-10-10', 6, 'https://supermercadobomdemais.com.br/wp-content/uploads/2020/05/Refrigerante-Guaran%C3%A1-Antarctica-2l.png', 'Guaraná Antártica, o sabor do Brasil! Refrescante e natural, perfeito para qualquer ocasião.'),
-('Água Mineral 1,5L', 2.99, 300, '2027-11-30', 3, 'https://cdn.awsli.com.br/446/446822/produto/231083650/shopping---2023-08-28t130846-088-b17cy747kz.jpg', 'Água mineral natural, pura e leve. Ideal para hidratação e bem-estar no dia a dia.'),
-('Leite Integral 1L', 4.20, 250, '2026-12-15', 2, 'https://piracanjuba-institucional-prd.s3.sa-east-1.amazonaws.com/product_images/image/leite-piracanjuba-integral-1l-frente-848x1007px-460.webp', 'Leite integral Piracanjuba, fonte de cálcio e sabor cremoso. Perfeito para o café da manhã e receitas.'),
-('Queijo Mussarela 500g', 22.50, 100, '2026-06-01', 1, 'https://piracanjuba-institucional-prd.s3.sa-east-1.amazonaws.com/product_images/image/queijo-mussarela-pedaco-piracanjuba-500g-848x1007px-626.webp', 'Queijo mussarela fresco e saboroso, ideal para sanduíches, pizzas e lasanhas.'),
-('Cereal Sucrilhos Kelloggs 300g', 12.90, 150, '2026-09-20', 3, 'https://carrefourbr.vtexassets.com/arquivos/ids/182933355/image-0.jpg?v=638732574875630000', 'Cereal matinal Kelloggs Sucrilhos, crocante e saboroso. Perfeito para começar o dia com energia.'),
-('Papel Higiênico Neve 12 rolos', 18.99, 180, '2028-03-10', 5, 'https://m.media-amazon.com/images/I/71X9mMJ6ATL._UF1000,1000_QL80_.jpg', 'Papel higiênico Neve com textura macia e resistente. Garante conforto e cuidado em todos os momentos.');
+('Arroz 10kg', 49.90, 120, '2026-12-01', 5, 'https://superprix.vteximg.com.br/arquivos/ids/174487/Arroz-Tio-Joao-Branco-1kg.png', 'Arroz tipo 1 de qualidade premium, grãos longos e soltinhos.'),
+('Feijão Carioca 5kg', 25.00, 150, '2026-07-20', 5, 'https://kicaldo.com.br/wp-content/uploads/2020/07/Kicaldo-feijaocarioca.png', 'Feijão carioca selecionado, grãos firmes e sabor marcante.'),
+('Macarrão Penne', 6.99, 180, '2026-04-15', 6, 'https://vitarella.com.br/wp-content/uploads/2020/11/speciale_Semola_penne_400g-792x792-1.png', 'Macarrão tipo penne de alta qualidade.'),
+('Macarrão para Lasanha', 7.50, 160, '2026-05-10', 6, 'https://gbarbosa.vtexassets.com/arquivos/ids/210932/655265fd8d0743e14888e9d2.jpg', 'Massa para lasanha pré-cozida e prática.'),
+('Óleo de Soja 900ml', 4.50, 200, '2027-03-15', 6, 'https://mercantilnovaera.vtexassets.com/arquivos/ids/214695/Oleo-de-Soja-SOYA-Garrafa-900ml.jpg', 'Óleo de soja 100% puro, ideal para frituras.'),
+('Detergente Ypê 500ml', 1.99, 220, '2027-06-30', 7, 'https://castronaves.vteximg.com.br/arquivos/ids/371251-1000-1000/84574_01.jpg', 'Detergente Ypê com fórmula concentrada.'),
+('Coca-Cola Lata 350ml', 3.20, 300, '2026-08-20', 3, 'https://superprix.vteximg.com.br/arquivos/ids/210608-600-600/BMo6Zlso.png', 'Coca-Cola Original em lata.'),
+('Fanta Uva 2L', 6.50, 250, '2026-07-10', 3, 'https://superprix.vteximg.com.br/arquivos/ids/226361-600-600/Refrigerante-Fanta-Uva-2l.png', 'Refrigerante Fanta sabor uva.'),
+('Sabão em Pó Omo 1kg', 12.90, 180, '2027-01-05', 8, 'https://cdn-cosmos.bluesoft.com.br/products/7891150018587', 'Sabão em pó Omo Multiação.'),
+('Desinfetante Pinho Sol 500ml', 3.80, 230, '2027-09-01', 5, 'https://superprix.vteximg.com.br/arquivos/ids/176738/Desinfetante-Pinho-Sol-Lavanda-500ml.png', 'Desinfetante Pinho Sol com fragrância marcante.'),
+('Refrigerante Guaraná Antártica 2L', 7.90, 180, '2026-10-10', 3, 'https://supermercadobomdemais.com.br/wp-content/uploads/2020/05/Refrigerante-Guaran%C3%A1-Antarctica-2l.png', 'Guaraná Antártica, sabor do Brasil.'),
+('Água Mineral 1,5L', 2.99, 300, '2027-11-30', 5, 'https://cdn.awsli.com.br/446/446822/produto/231083650/shopping---2023-08-28t130846-088-b17cy747kz.jpg', 'Água mineral natural, pura e leve.'),
+('Leite Integral 1L', 4.20, 250, '2026-12-15', 2, 'https://piracanjuba-institucional-prd.s3.sa-east-1.amazonaws.com/product_images/image/leite-piracanjuba-integral-1l-frente-848x1007px-460.webp', 'Leite integral Piracanjuba, fonte de cálcio e sabor cremoso.'),
+('Queijo Mussarela 500g', 22.50, 100, '2026-06-01', 1, 'https://piracanjuba-institucional-prd.s3.sa-east-1.amazonaws.com/product_images/image/queijo-mussarela-pedaco-piracanjuba-500g-848x1007px-626.webp', 'Queijo mussarela fresco e saboroso.'),
+('Cereal Sucrilhos Kelloggs 300g', 12.90, 150, '2026-09-20', 3, 'https://carrefourbr.vtexassets.com/arquivos/ids/182933355/image-0.jpg', 'Cereal matinal Kelloggs Sucrilhos, crocante e saboroso.'),
+('Papel Higiênico Neve 12 rolos', 18.99, 180, '2028-03-10', 5, 'https://m.media-amazon.com/images/I/71X9mMJ6ATL._UF1000,1000_QL80_.jpg', 'Papel higiênico Neve com textura macia e resistente.');
 
 
 -- ======================================
@@ -135,7 +142,6 @@ INSERT INTO tb_pedido_usuario (
   id_Forma_Pagamento
 )
 VALUES (NULL, 33.40, 'Finalizado', '2025-09-30', 1, 1, 1, 1);
-
 
 -- ======================================
 -- PEDIDOS DE FORNECEDOR
