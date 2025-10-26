@@ -26,23 +26,33 @@ public class CarrinhoDTO {
     }
 
     // Getters
-    public Long getIdCarrinho() {
-        return idCarrinho;
-    }
+    public Long getIdCarrinho() { return idCarrinho; }
+    public String getNomeUsuario() { return nomeUsuario; }
+    public BigDecimal getValorTotal() { return valorTotal; }
+    public Integer getQuantidadeTotal() { return quantidadeTotal; }
+    public List<ItemCarrinhoDTO> getItens() { return itens; }
 
-    public String getNomeUsuario() {
-        return nomeUsuario;
-    }
+    // DTO do item
+    public static class ItemCarrinhoDTO {
+        private Long idItemCarrinho;
+        private Long idProduto;       // ⚠️ Adicionado
+        private String nomeProduto;
+        private Integer quantidade;
+        private BigDecimal subTotal;
 
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
+        public ItemCarrinhoDTO(com.senaidev.prjMercadoPratico.entities.ItemCarrinho item) {
+            this.idItemCarrinho = item.getIdItemCarrinho();
+            this.idProduto = item.getProduto().getIdProduto(); // ⚠️ Aqui
+            this.nomeProduto = item.getProduto().getNomeProduto();
+            this.quantidade = item.getQuantidade();
+            this.subTotal = item.getPrecoUnitario().multiply(BigDecimal.valueOf(item.getQuantidade()));
+        }
 
-    public Integer getQuantidadeTotal() {
-        return quantidadeTotal;
-    }
-
-    public List<ItemCarrinhoDTO> getItens() {
-        return itens;
+        // Getters
+        public Long getIdItemCarrinho() { return idItemCarrinho; }
+        public Long getIdProduto() { return idProduto; }
+        public String getNomeProduto() { return nomeProduto; }
+        public Integer getQuantidade() { return quantidade; }
+        public BigDecimal getSubTotal() { return subTotal; }
     }
 }

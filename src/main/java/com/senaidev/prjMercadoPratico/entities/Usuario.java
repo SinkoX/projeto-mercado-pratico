@@ -3,6 +3,8 @@ package com.senaidev.prjMercadoPratico.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,9 +42,11 @@ public class Usuario {
     private String telefoneUsuario;
     
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Carrinho carrinho;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Endereco> endereco = new ArrayList<>();
     
     @ManyToOne

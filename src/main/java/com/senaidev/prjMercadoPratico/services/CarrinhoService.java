@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.senaidev.prjMercadoPratico.entities.Carrinho;
+import com.senaidev.prjMercadoPratico.entities.ItemCarrinho;
 import com.senaidev.prjMercadoPratico.entities.Produto;
 import com.senaidev.prjMercadoPratico.repositories.CarrinhoRepository;
 import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
@@ -47,14 +48,47 @@ public class CarrinhoService {
         Carrinho carrinho = buscarCarrinhoPorUsuario(idUsuario);
         Produto produto = produtoRepository.findById(idProduto)
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
-        carrinho.adicionarItem(produto, quantidade);
+
+        ItemCarrinho itemExistente = carrinho.getItensCarrinho().stream()
+                .filter(i -> i.getProduto().getIdProduto().equals(idProduto))
+                .findFirst()
+                .orElse(null);
+
+        if (itemExistente != null) {
+            itemExistente.setQuantidade(itemExistente.getQuantidade() + quantidade);
+        } else {
+            ItemCarrinho item = new ItemCarrinho();
+            item.setProduto(produto);
+            item.setQuantidade(quantidade);
+            item.setPrecoUnitario(produto.getPrecoProduto());
+            item.setCarrinho(carrinho);
+            carrinho.getItensCarrinho().add(item);
+        }
+
+        carrinho.atualizarTotais();
         return carrinhoRepository.save(carrinho);
     }
 
     @Transactional
     public Carrinho removerItem(Long idUsuario, Long idProduto) {
         Carrinho carrinho = buscarCarrinhoPorUsuario(idUsuario);
-        carrinho.removerItem(idProduto);
+
+        ItemCarrinho item = carrinho.getItensCarrinho().stream()
+                .filter(i -> i.getProduto().getIdProduto().equals(idProduto))
+                .findFirst()
+                .orElse(null);
+
+        if (item != null) {
+            if (item.getQuantidade() > 1) {
+                // diminui 1 unidade
+                item.setQuantidade(item.getQuantidade() - 1);
+            } else {
+                // remove item se quantidade = 1
+                carrinho.getItensCarrinho().remove(item);
+            }
+        }
+
+        carrinho.atualizarTotais();
         return carrinhoRepository.save(carrinho);
     }
 
@@ -66,4 +100,3 @@ public class CarrinhoService {
         return carrinhoRepository.save(carrinho);
     }
 }
-
