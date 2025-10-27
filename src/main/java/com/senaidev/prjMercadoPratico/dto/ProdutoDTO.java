@@ -14,13 +14,13 @@ public class ProdutoDTO {
     private Integer quantidade;
     private LocalDate dataValidade;
     private Long idSubcategoria;
-
-    private String imgUrl; // <--- novo campo para imagem externa
-    private String imagemProdutoBase64; // <--- imagem enviada via upload
+    private String descricaoProduto;  // Nova variável para descrição
+    private String imgUrl; // 🔹 Mantém URL da imagem
+    private String imagemProdutoBase64; // 🔹 Imagem em Base64 (upload opcional)
 
     public ProdutoDTO() {}
 
-    // Construtor a partir da entidade
+    // 🔹 Construtor que converte Entity → DTO
     public ProdutoDTO(Produto produto) {
         this.idProduto = produto.getIdProduto();
         this.nomeProduto = produto.getNomeProduto();
@@ -28,10 +28,15 @@ public class ProdutoDTO {
         this.quantidade = produto.getQuantidade();
         this.dataValidade = produto.getDataValidade();
         this.idSubcategoria = produto.getSubcategoria() != null ? produto.getSubcategoria().getIdSubcategoria() : null;
-        this.imgUrl = produto.getImgUrl();
 
+        this.descricaoProduto = produto.getDescricao();  // Copia a descrição para o DTO
+
+        this.imgUrl = produto.getImgUrl(); // Mantém se existir
+
+        // Converte imagem armazenada em bytes para Base64, se existir
         if (produto.getImagemProduto() != null) {
-            this.imagemProdutoBase64 = Base64.getEncoder().encodeToString(produto.getImagemProduto());
+            this.imagemProdutoBase64 = "data:image/png;base64," +
+                    Base64.getEncoder().encodeToString(produto.getImagemProduto());
         }
     }
 
@@ -53,6 +58,9 @@ public class ProdutoDTO {
 
     public Long getIdSubcategoria() { return idSubcategoria; }
     public void setIdSubcategoria(Long idSubcategoria) { this.idSubcategoria = idSubcategoria; }
+
+    public String getDescricaoProduto() { return descricaoProduto; }
+    public void setDescricaoProduto(String descricaoProduto) { this.descricaoProduto = descricaoProduto; }
 
     public String getImgUrl() { return imgUrl; }
     public void setImgUrl(String imgUrl) { this.imgUrl = imgUrl; }

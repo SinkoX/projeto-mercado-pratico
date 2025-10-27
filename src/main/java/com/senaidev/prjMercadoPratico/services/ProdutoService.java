@@ -22,12 +22,12 @@ public class ProdutoService {
     @Autowired
     private SubcategoriaRepository subcategoriaRepository;
 
-    // Converter Entity para DTO usando o construtor do DTO
+    // Converte Entity → DTO
     public ProdutoDTO toDTO(Produto produto) {
         return new ProdutoDTO(produto);
     }
 
-    // Converter DTO para Entity
+    // Converte DTO → Entity
     public Produto toEntity(ProdutoDTO dto, Subcategoria subcategoria) {
         Produto produto = new Produto();
         produto.setNomeProduto(dto.getNomeProduto());
@@ -35,15 +35,17 @@ public class ProdutoService {
         produto.setQuantidade(dto.getQuantidade());
         produto.setDataValidade(dto.getDataValidade());
         produto.setSubcategoria(subcategoria);
+        produto.setDescricao(dto.getDescricaoProduto()); // 🔹 Adiciona descrição
 
         // Mantém a URL da imagem, se fornecida
         if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
             produto.setImgUrl(dto.getImgUrl());
         }
 
-        // Converte base64 para bytes, se fornecido
+        // Converte Base64 em bytes, se enviado
         if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
-            produto.setImagemProduto(Base64.getDecoder().decode(dto.getImagemProdutoBase64()));
+            String base64Image = dto.getImagemProdutoBase64().split(",")[1];
+            produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
         }
 
         return produto;
@@ -51,8 +53,7 @@ public class ProdutoService {
 
     // Buscar todos os produtos como DTO
     public List<ProdutoDTO> findAllDTO() {
-        List<Produto> produtos = produtoRepository.findAll();
-        return produtos.stream()
+        return produtoRepository.findAll().stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
@@ -87,13 +88,15 @@ public class ProdutoService {
         produto.setQuantidade(dto.getQuantidade());
         produto.setDataValidade(dto.getDataValidade());
         produto.setSubcategoria(subcategoria);
+        produto.setDescricao(dto.getDescricaoProduto()); // 🔹 Atualiza descrição
 
-        // Atualiza imagem base64 se fornecida
+        // Atualiza Base64
         if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
-            produto.setImagemProduto(Base64.getDecoder().decode(dto.getImagemProdutoBase64()));
+            String base64Image = dto.getImagemProdutoBase64().split(",")[1];
+            produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
         }
 
-        // Atualiza URL se fornecida
+        // Atualiza imgUrl
         if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
             produto.setImgUrl(dto.getImgUrl());
         }
@@ -105,5 +108,10 @@ public class ProdutoService {
     // Deletar produto
     public void delete(Long id) {
         produtoRepository.deleteById(id);
+    }
+
+    // Salvar produto diretamente
+    public Produto salvar(Produto produto) {
+        return produtoRepository.save(produto);
     }
 }

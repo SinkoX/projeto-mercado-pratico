@@ -162,4 +162,12 @@ public class Produto {
     public void setItensPedido(List<ItemPedido> itensPedido) {
         this.itensPedido = itensPedido;
     }
+
+public String getDescricao() {
+    return descricao;
+}
+
+public void setDescricao(String descricao) {
+    this.descricao = descricao;
+}
 }
