@@ -135,14 +135,14 @@ INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, 
 -- PEDIDOS DE CLIENTE
 -- ======================================
 INSERT INTO tb_pedido_usuario (
-  id_carrinho,
+  id_pedido_usuario,
   valor_total,
-  status_pedido_usuario,
-  data_pedido_usuario,
-  id_Usuario,
+  status_pedido,
+  data_pedido,
+  id_usuario,
   id_Funcionario
 )
-VALUES (NULL, 33.40, 'Finalizado', '2025-09-30', 1, 1);
+VALUES (1 , 33.40, 'ENTREGUE', '2025-09-30', 1, 1);
 
 -- ======================================
 -- PEDIDOS DE FORNECEDOR

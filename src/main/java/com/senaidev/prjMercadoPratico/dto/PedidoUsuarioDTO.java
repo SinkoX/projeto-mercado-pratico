@@ -1,0 +1,39 @@
+package com.senaidev.prjMercadoPratico.dto;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.senaidev.prjMercadoPratico.entities.PedidoUsuario;
+import com.senaidev.prjMercadoPratico.enums.StatusPedido;
+
+public class PedidoUsuarioDTO {
+
+    private Long idPedidoUsuario;
+    private String nomeUsuario;
+    private BigDecimal valorTotal;
+    private StatusPedido statusPedido;
+    private LocalDate dataPedido;
+    private List<ItemPedidoDTO> itens;
+
+    public PedidoUsuarioDTO(PedidoUsuario pedido) {
+        this.idPedidoUsuario = pedido.getIdPedidoUsuario();
+        this.nomeUsuario = pedido.getUsuario().getNomeUsuario();
+        this.valorTotal = pedido.getValorTotal();
+        this.statusPedido = pedido.getStatusPedido();
+        this.dataPedido = pedido.getDataPedido();
+        this.itens = pedido.getItensPedido().stream()
+                .map(ItemPedidoDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    // Getters
+    public Long getIdPedidoUsuario() { return idPedidoUsuario; }
+    public String getNomeUsuario() { return nomeUsuario; }
+    public BigDecimal getValorTotal() { return valorTotal; }
+    public StatusPedido getStatusPedido() { return statusPedido; }
+    public LocalDate getDataPedido() { return dataPedido; }
+    public List<ItemPedidoDTO> getItens() { return itens; }
+}
+
