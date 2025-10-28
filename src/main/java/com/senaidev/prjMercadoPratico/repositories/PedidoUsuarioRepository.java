@@ -1,6 +1,5 @@
 package com.senaidev.prjMercadoPratico.repositories;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,19 +11,6 @@ import com.senaidev.prjMercadoPratico.entities.PedidoUsuario;
 @Repository
 public interface PedidoUsuarioRepository extends JpaRepository<PedidoUsuario, Long> {
 
-    // Buscar pedidos por ID de cliente (usuário)
-    List<PedidoUsuario> findByUsuario_IdUsuario(Long id);
-
-    // Buscar pedidos por status (ignora maiúsculas/minúsculas)
-    List<PedidoUsuario> findByStatusIgnoreCase(String status);
-
-    // Buscar pedidos por data exata
-    List<PedidoUsuario> findByDataPedidoUsuario(LocalDate dataPedidoUsuario);
-
-    // Buscar pedidos de um cliente por status
-    List<PedidoUsuario> findByUsuario_IdUsuarioAndStatusIgnoreCase(Long id, String status);
-    
-
-
-
+	// 🔍 Busca todos os pedidos de um usuário específico
+    List<PedidoUsuario> findByUsuarioIdUsuario(Long idUsuario);
 }

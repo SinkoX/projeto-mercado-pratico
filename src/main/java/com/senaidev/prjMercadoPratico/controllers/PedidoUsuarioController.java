@@ -2,68 +2,63 @@ package com.senaidev.prjMercadoPratico.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.senaidev.prjMercadoPratico.dto.PedidoUsuarioDTO;
 import com.senaidev.prjMercadoPratico.entities.PedidoUsuario;
+import com.senaidev.prjMercadoPratico.enums.StatusPedido;
 import com.senaidev.prjMercadoPratico.services.PedidoUsuarioService;
 
 @RestController
-@RequestMapping("/pedidos-usuario")
+@RequestMapping("/pedidos-usuarios")
 public class PedidoUsuarioController {
 
-    @Autowired
-    private PedidoUsuarioService pedidoUsuarioService;
+    private final PedidoUsuarioService pedidoUsuarioService;
 
-    // GET /pedidos-usuario
+    public PedidoUsuarioController(PedidoUsuarioService pedidoUsuarioService) {
+        this.pedidoUsuarioService = pedidoUsuarioService;
+    }
+
+    @PostMapping("/{idUsuario}/criar")
+    public ResponseEntity<PedidoUsuarioDTO> criarPedido(@PathVariable Long idUsuario) {
+        PedidoUsuario pedido = pedidoUsuarioService.criarPedido(idUsuario);
+        return ResponseEntity.ok(new PedidoUsuarioDTO(pedido));
+    }
+
     @GetMapping
-    public ResponseEntity<List<PedidoUsuario>> findAll() {
-        return ResponseEntity.ok(pedidoUsuarioService.findAll());
+    public ResponseEntity<List<PedidoUsuarioDTO>> listarTodos() {
+        List<PedidoUsuarioDTO> pedidos = pedidoUsuarioService.listarTodos().stream()
+                .map(PedidoUsuarioDTO::new)
+                .toList();
+        return ResponseEntity.ok(pedidos);
     }
 
-    // GET /pedidos-usuario/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<PedidoUsuario> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(pedidoUsuarioService.findById(id));
+    public ResponseEntity<PedidoUsuarioDTO> buscarPorId(@PathVariable Long id) {
+        PedidoUsuario pedido = pedidoUsuarioService.buscarPorId(id);
+        return ResponseEntity.ok(new PedidoUsuarioDTO(pedido));
     }
-
-    // GET /pedidos-usuario/usuario/{idUsuario}
+    
+    // listar pedidos por usuário
     @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<PedidoUsuario>> findByUsuarioId(@PathVariable Long idUsuario) {
-        return ResponseEntity.ok(pedidoUsuarioService.findByUsuarioId(idUsuario));
+    public ResponseEntity<List<PedidoUsuarioDTO>> buscarPorUsuario(@PathVariable Long idUsuario) {
+        List<PedidoUsuarioDTO> pedidos = pedidoUsuarioService.buscarPorUsuario(idUsuario).stream()
+                .map(PedidoUsuarioDTO::new)
+                .toList();
+        return ResponseEntity.ok(pedidos);
     }
 
-// ERROO 
-    // GET /pedidos-usuario/funcionario/{idFuncionario}
-    @GetMapping("/funcionario/{idFuncionario}")
-    public ResponseEntity<List<PedidoUsuario>> findByFuncionarioId(@PathVariable Long idFuncionario) {
-        return ResponseEntity.ok(pedidoUsuarioService.findByUsuarioId(idFuncionario));
-    }//
-
-    // POST /pedidos-usuario
-    @PostMapping
-    public ResponseEntity<PedidoUsuario> insert(@RequestBody PedidoUsuario pedidoUsuario) {
-        return ResponseEntity.ok(pedidoUsuarioService.insert(pedidoUsuario));
-    }
-
-    // PUT /pedidos-usuario/{id}
-    @PutMapping("/{id}")
-    public ResponseEntity<PedidoUsuario> update(@PathVariable Long id, @RequestBody PedidoUsuario pedidoAtualizado) {
-        return ResponseEntity.ok(pedidoUsuarioService.update(id, pedidoAtualizado));
-    }
-
-    // DELETE /pedidos-usuario/{id}
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        pedidoUsuarioService.delete(id);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/{id}/status")
+    public ResponseEntity<PedidoUsuarioDTO> atualizarStatus(@PathVariable Long id,
+                                                            @RequestParam StatusPedido novoStatus) {
+        PedidoUsuario pedidoAtualizado = pedidoUsuarioService.atualizarStatus(id, novoStatus);
+        return ResponseEntity.ok(new PedidoUsuarioDTO(pedidoAtualizado));
     }
 }
