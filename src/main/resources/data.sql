@@ -272,100 +272,100 @@ INSERT INTO tb_produto
 -- AÇOUGUE
 INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, id_subcategoria, img_url, descricao_produto) VALUES
 -- CARNES BOVINAS (id_subcategoria = 28)
-('Picanha Bovina 1kg', 69.90, 40, '2025-12-05', 5, 28, 'https://static.paodeacucar.com/img/uploads/1/410/628410.jpg', 'Corte nobre de picanha bovina, ideal para churrascos.'),
-('Carne Moída de Patinho 500g', 17.90, 70, '2025-11-30', 5, 28, 'https://superprix.vteximg.com.br/arquivos/ids/206661-600-600/carne-moida-de-patinho-bovino-congelado-kg.png', 'Carne bovina moída fresca, ideal para molhos e recheios.'),
+('Picanha Bovina 1kg', 69.90, 40, '2025-12-05', 5, 28, 'https://redemix.vteximg.com.br/arquivos/ids/221020-1000-1000/picanha-fresca-644da1b95ddc6.png?v=638683934671200000', 'Corte nobre de picanha bovina, ideal para churrascos.'),
+('Carne Moída de Patinho 500g', 17.90, 70, '2025-11-30', 5, 28, 'https://superprix.vteximg.com.br/arquivos/ids/223360/93152.jpg?v=638616651705300000', 'Carne bovina moída fresca, ideal para molhos e recheios.'),
 
 -- CARNES SUÍNAS (id_subcategoria = 29)
-('Bisteca Suína 1kg', 19.90, 60, '2025-11-18', 5, 29, 'https://superprix.vteximg.com.br/arquivos/ids/207780-600-600/bisteca-suina-congelada-kg.png', 'Bisteca suína fresca, ótima para grelhar ou fritar.'),
-('Costelinha Suína 1kg', 24.90, 50, '2025-11-20', 5, 29, 'https://static.clubeextra.com.br/img/uploads/1/600/410600.png', 'Costelinha suína selecionada, ideal para forno ou churrasco.'),
+('Bisteca Suína 1kg', 19.90, 60, '2025-11-18', 5, 29, 'https://oceanicaalimentos.com.br/wp-content/uploads/2019/06/1-2.jpg', 'Bisteca suína fresca, ótima para grelhar ou fritar.'),
+('Costelinha Suína 1kg', 24.90, 50, '2025-11-20', 5, 29, 'https://fortatacadista.vteximg.com.br/arquivos/ids/161427-1000-1000/COSTELINHA-SUINA-FRIMESA-KG-CONG---684651.jpg?v=637437446247230000', 'Costelinha suína selecionada, ideal para forno ou churrasco.'),
 
 -- AVES (id_subcategoria = 30)
-('Filé de Peito de Frango Congelado 1kg', 14.90, 100, '2025-12-10', 5, 30, 'https://mercado.carrefour.com.br/medias/sys_master/images/images/h1e/hf3/14017869303838.jpg', 'Filé de peito de frango congelado, pronto para preparo.'),
-('Coxa e Sobrecoxa de Frango 1kg', 12.50, 80, '2025-11-25', 5, 30, 'https://static.paodeacucar.com/img/uploads/1/864/536864.jpg', 'Corte de frango com pele e osso, ideal para assar ou fritar.'),
+('Filé de Peito de Frango Congelado 1kg', 14.90, 100, '2025-12-10', 5, 30, 'https://mambodelivery.vtexassets.com/arquivos/ids/207134/178925-File-de-Peito-de-Frango-Congelado-Sadia-1kg.jpg?v=638460990526200000', 'Filé de peito de frango congelado, pronto para preparo.'),
+('Coxa e Sobrecoxa de Frango 1kg', 12.50, 80, '2025-11-25', 5, 30, 'https://coopsp.vtexassets.com/arquivos/ids/217839/7893000090064.jpg?v=637919541396930000', 'Corte de frango com pele e osso, ideal para assar ou fritar.'),
 
 -- PEIXES (id_subcategoria = 31)
-('Filé de Tilápia Congelado 500g', 27.90, 60, '2025-12-20', 5, 31, 'https://superprix.vteximg.com.br/arquivos/ids/210477-600-600/file-de-tilapia-congelado-kg.png', 'Filé de tilápia sem espinhas, leve e saboroso.'),
-('Camarão Cinza Médio 400g', 39.90, 50, '2025-12-30', 5, 31, 'https://superprix.vteximg.com.br/arquivos/ids/210720-600-600/camarao-cinza-medio-congelado-kg.png', 'Camarão médio congelado, ideal para moquecas e risotos.'),
+('Filé de Tilápia Congelado 500g', 27.90, 60, '2025-12-20', 5, 31, 'https://phygital-files.mercafacil.com/catalogo/uploads/produto/file_tilapia_costa_sul_500g_s_p_cong_fc01c33e-c821-47e2-8158-fd14636cbac5.jpg', 'Filé de tilápia sem espinhas, leve e saboroso.'),
+('Camarão Cinza Médio Congelado 400g', 39.90, 50, '2025-12-30', 5, 31, 'https://fribel.agilecdn.com.br/8232_1.jpg', 'Camarão médio congelado, ideal para moquecas e risotos.'),
 
 -- EMBUTIDOS (id_subcategoria = 32)
-('Linguiça Toscana 1kg', 22.50, 90, '2026-01-10', 5, 32, 'https://superprix.vteximg.com.br/arquivos/ids/207793-600-600/linguica-toscana-congelada-kg.png', 'Linguiça toscana tradicional, ideal para grelhar.'),
-('Bacon Fatiado 250g', 14.50, 75, '2025-12-01', 5, 32, 'https://superprix.vteximg.com.br/arquivos/ids/207794-600-600/bacon-fatiado-kg.png', 'Bacon defumado fatiado, perfeito para lanches e receitas.');
+('Linguiça Toscana 1kg', 22.50, 90, '2026-01-10', 5, 32, 'https://mercantilnovaera.vtexassets.com/arquivos/ids/217280/Linguica-Toscana-Apimentada-PERDIGAO-Na-Brasa-Pacote-1kg.jpg?v=638536407692470000', 'Linguiça toscana tradicional, ideal para grelhar.'),
+('Bacon Fatiado 250g', 14.50, 75, '2025-12-01', 5, 32, 'https://cdn.formulaexpress.com.br/img/p/2/4/8/0/2480-thickbox_default.jpg', 'Bacon fatiado tradicional, ideal para fritar');
 
 
 -- HIGIENE
 INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, id_subcategoria, img_url, descricao_produto) VALUES
 -- CABELOS (id_subcategoria = 33)
-('Shampoo Seda Hidratação 325ml', 9.90, 120, '2027-05-15', 6, 33, 'https://drogariaspacheco.vteximg.com.br/arquivos/ids/660001-600-600/7891150049772.jpg', 'Shampoo com fórmula hidratante, ideal para cabelos normais e secos.'),
-('Condicionador Dove Nutrição 200ml', 12.50, 100, '2027-06-10', 6, 33, 'https://drogasil.vteximg.com.br/arquivos/ids/560563-600-600/condicionador-dove-nutricao-200ml.png', 'Condicionador Dove para cabelos nutridos e macios.'),
+('Shampoo Seda Hidratação 325ml', 9.90, 120, '2027-05-15', 6, 33, 'https://images.tcdn.com.br/img/img_prod/1148372/shampoo_seda_oleo_hidratacao_com_325ml_1573_1_467aa22d9edf01f80285378821f0aa57.png', 'Shampoo com fórmula hidratante, ideal para cabelos normais e secos.'),
+('Condicionador Dove Nutrição 200ml', 12.50, 100, '2027-06-10', 6, 33, 'https://drogariasp.vteximg.com.br/arquivos/ids/545366-1000-1000/325392---condicionador-dove-oleo-nutricao-200ml.jpg?v=637806430006370000', 'Condicionador Dove para cabelos nutridos e macios.'),
 
 -- CORPO E BANHO (id_subcategoria = 34)
-('Sabonete Dove Original 90g', 3.50, 300, '2027-02-20', 6, 34, 'https://drogasil.vteximg.com.br/arquivos/ids/390503-600-600/sabonete-dove-original-90g.png', 'Sabonete hidratante com ¼ de creme, ideal para pele macia.'),
-('Sabonete Líquido Nivea Erva Doce 250ml', 14.90, 80, '2027-03-15', 6, 34, 'https://cdn-cosmos.bluesoft.com.br/products/7894000945679', 'Sabonete líquido corporal com fragrância suave e refrescante.'),
+('Sabonete Dove Original 90g', 3.50, 300, '2027-02-20', 6, 34, 'https://images.tcdn.com.br/img/img_prod/1309802/sabonete_em_barra_dove_original_90g_4237_1_7194f0e3245cc566b2d35b7f386ac285.jpg', 'Sabonete hidratante com ¼ de creme, ideal para pele macia.'),
+('Sabonete Líquido Nivea Erva Doce 250ml', 14.90, 80, '2027-03-15', 6, 34, 'https://drogariasp.vteximg.com.br/arquivos/ids/1238653-1000-1000/166367---sabonete-liquido-nivea-erva-doce-250ml-1.jpg?v=638852663400830000', 'Sabonete líquido corporal com fragrância suave e refrescante.'),
 
 -- HIGIENE ORAL (id_subcategoria = 35)
-('Creme Dental Colgate Total 90g', 8.90, 200, '2027-04-30', 6, 35, 'https://drogariaspacheco.vteximg.com.br/arquivos/ids/744048-600-600/creme-dental-colgate-total-90g.jpg', 'Creme dental antibacteriano que protege dentes e gengivas.'),
-('Enxaguante Bucal Listerine Cool Mint 500ml', 22.90, 100, '2027-06-20', 6, 35, 'https://drogasil.vteximg.com.br/arquivos/ids/514621-600-600/enxaguante-bucal-listerine-500ml.png', 'Enxaguante bucal com ação antibacteriana e hálito refrescante.'),
+('Creme Dental Colgate Total 90g', 8.90, 200, '2027-04-30', 6, 35, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/82118975/creme-dental-colgate-total-12-advance-90g-3.jpg?v=638012807341970000', 'Creme dental antibacteriano que protege dentes e gengivas.'),
+('Enxaguante Bucal Listerine Cool Mint 500ml', 22.90, 100, '2027-06-20', 6, 35, 'https://drogariasp.vteximg.com.br/arquivos/ids/1267051-1000-1000/22667---Antisseptico-Bucal-Listerine-Cool-Mint-500ml-1.jpg?v=638894016730400000', 'Enxaguante bucal com ação antibacteriana e hálito refrescante.'),
 
 -- CUIDADOS PESSOAIS (id_subcategoria = 36)
-('Desodorante Rexona Men Aerosol 150ml', 15.90, 150, '2027-07-10', 6, 36, 'https://drogariaspacheco.vteximg.com.br/arquivos/ids/684735-600-600/7891150075139.jpg', 'Desodorante masculino com 48h de proteção e fragrância marcante.'),
-('Hidratante Corporal Nivea Milk 200ml', 19.90, 90, '2027-08-05', 6, 36, 'https://drogasil.vteximg.com.br/arquivos/ids/515640-600-600/hidratante-nivea-milk-200ml.png', 'Hidratante corporal com óleo de amêndoas, ideal para pele seca.'),
+('Desodorante Rexona Men Aerosol 150ml', 15.90, 150, '2027-07-10', 6, 36, 'https://destro.fbitsstatic.net/img/p/desodorante-rexona-men-clinical-clean-aerossol-150ml-75969/262523-1.jpg?w=500&h=500&v=202501231555&qs=ignore', 'Desodorante masculino com 48h de proteção e fragrância marcante.'),
+('Hidratante Corporal Nivea Milk 200ml', 19.90, 90, '2027-08-05', 6, 36, 'https://drogariavenancio.vtexassets.com/arquivos/ids/1227798/92737_z.jpg?v=638723811818900000', 'Hidratante corporal com óleo de amêndoas, ideal para pele seca.'),
 
 -- BARBEAR E DEPILAÇÃO (id_subcategoria = 37)
-('Aparelho de Barbear Gillette Mach3', 39.90, 70, '2028-01-10', 6, 37, 'https://drogasil.vteximg.com.br/arquivos/ids/535050-600-600/aparelho-de-barbear-gillette-mach3.png', 'Aparelho de barbear com três lâminas e cabo ergonômico.'),
-('Creme Depilatório Veet Corporal 100g', 24.90, 60, '2027-09-15', 6, 37, 'https://drogariaspacheco.vteximg.com.br/arquivos/ids/715017-600-600/7894000631046.jpg', 'Creme depilatório para peles sensíveis, fácil e rápido de usar.');
+('Aparelho de Barbear Gillette Mach3', 39.90, 70, '2028-01-10', 6, 37, 'https://drogariaspacheco.vteximg.com.br/arquivos/ids/1082258/808946---Aparelho-de-Barbear-Gillette-Mach3-Carbono-Recarregavel-1-Unidade-1.jpg?v=638189062979930000', 'Aparelho de barbear com três lâminas e cabo ergonômico.'),
+('Creme Depilatório Veet Corporal 100g', 24.90, 60, '2027-09-15', 6, 37, 'https://images-na.ssl-images-amazon.com/images/I/51htloQj3QL._AC_UL675_SR528,675_.jpg', 'Creme depilatório para peles sensíveis, fácil e rápido de usar.');
 
--- PADAROA
+-- PADARIA
 INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, id_subcategoria, img_url, descricao_produto) VALUES
 -- PÃES (id_subcategoria = 38)
-('Pão Francês 50g', 0.80, 500, '2025-10-30', 7, 38, 'https://superprix.vteximg.com.br/arquivos/ids/208776-600-600/pao-frances-kg.png', 'Pão francês crocante por fora e macio por dentro, assado diariamente.'),
-('Pão de Forma Integral 500g', 8.90, 120, '2025-12-10', 7, 38, 'https://drogariaspacheco.vteximg.com.br/arquivos/ids/620821-600-600/pao-de-forma-integral-500g.jpg', 'Pão de forma integral, rico em fibras e ideal para o café da manhã.'),
+('Pão Francês 50g', 0.80, 500, '2025-10-30', 7, 38, 'https://phygital-files.mercafacil.com/princesa/uploads/produto/p_o_franc_s_kg_a1fe8694-113a-40c0-b31c-ec145ae5614f.jpg', 'Pão francês crocante por fora e macio por dentro, assado diariamente.'),
+('Pão de Forma Integral 500g', 8.90, 120, '2025-12-10', 7, 38, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/190289/9734384_1.jpg?v=637272422314700000', 'Pão de forma integral, rico em fibras e ideal para o café da manhã.'),
 
 -- BOLOS E TORTAS (id_subcategoria = 39)
-('Bolo de Chocolate 500g', 16.90, 40, '2025-11-05', 7, 39, 'https://superprix.vteximg.com.br/arquivos/ids/210601-600-600/bolo-chocolate.png', 'Bolo de chocolate caseiro com cobertura cremosa.'),
-('Torta de Limão 600g', 22.90, 30, '2025-11-08', 7, 39, 'https://superprix.vteximg.com.br/arquivos/ids/211230-600-600/torta-de-limao.png', 'Torta artesanal de limão com base crocante e merengue suave.'),
+('Bolo de Chocolate 500g', 16.90, 40, '2025-11-05', 7, 39, 'https://static.cestasmichelli.com.br/images/product/rs-6484-22185-0.jpg?ims=750x750', 'Bolo de chocolate caseiro com cobertura cremosa.'),
+('Torta de Chocolate 600g', 22.90, 30, '2025-11-08', 7, 39, 'https://doceamor.com/wp-content/uploads/2018/07/torta-chocolate-1.jpg', 'Torta artesanal de chocolate com base crocante e merengue suave.'),
 
 -- SALGADOS (id_subcategoria = 40)
-('Coxinha de Frango 100g', 4.50, 200, '2025-11-01', 7, 40, 'https://superprix.vteximg.com.br/arquivos/ids/209654-600-600/coxinha-de-frango.png', 'Coxinha de frango tradicional, massa leve e recheio cremoso.'),
-('Empada de Palmito 90g', 5.20, 180, '2025-11-02', 7, 40, 'https://superprix.vteximg.com.br/arquivos/ids/209655-600-600/empada-de-palmito.png', 'Empada artesanal recheada com palmito temperado.'),
+('Coxinha de Frango 100g', 4.50, 200, '2025-11-01', 7, 40, 'https://panattos.com.br/uploads/produtos/2017/03/coxinha-de-frango-com-requeijao-mini-congelada.jpg', 'Coxinha de frango tradicional, massa leve e recheio cremoso.'),
+('Empada de Palmito 90g', 5.20, 180, '2025-11-02', 7, 40, 'https://phygital-files.mercafacil.com/tropical-supermercados/uploads/produto/empada_90g_un_palmito_tropical_506cb2f7-cf77-44ef-8639-203e49187ef8.jpg', 'Empada artesanal recheada com palmito temperado.'),
 
 -- DOCES (id_subcategoria = 41)
-('Brigadeiro Gourmet 30g', 2.50, 300, '2025-11-15', 7, 41, 'https://superprix.vteximg.com.br/arquivos/ids/211267-600-600/brigadeiro-gourmet.png', 'Brigadeiro feito com chocolate nobre e granulado belga.'),
-('Beijinho 30g', 2.50, 300, '2025-11-15', 7, 41, 'https://superprix.vteximg.com.br/arquivos/ids/211268-600-600/beijinho-gourmet.png', 'Beijinho tradicional com coco ralado e leite condensado.'),
+('Brigadeiro Gourmet 30g', 2.50, 300, '2025-11-15', 7, 41, 'https://media.istockphoto.com/id/1173585579/pt/foto/brigadier.jpg?s=612x612&w=0&k=20&c=huBBKQPsrmdntZbdmUOKvP_C_VY2RJsfFivRSTJ9kcA=', 'Brigadeiro feito com chocolate nobre e granulado belga.'),
+('Beijinho 30g', 2.50, 300, '2025-11-15', 7, 41, 'https://centralmaxsupermercados.com.br/imagens_site/43312.jpg', 'Beijinho tradicional com coco ralado e leite condensado.'),
 
 -- BISCOITOS ARTESANAIS (id_subcategoria = 42)
-('Biscoito de Polvilho 100g', 6.90, 100, '2026-01-20', 7, 42, 'https://superprix.vteximg.com.br/arquivos/ids/209453-600-600/biscoito-polvilho.png', 'Biscoito artesanal de polvilho crocante e leve.'),
-('Cookie de Chocolate 120g', 8.90, 90, '2026-02-15', 7, 42, 'https://superprix.vteximg.com.br/arquivos/ids/211231-600-600/cookie-chocolate.png', 'Cookie artesanal com gotas de chocolate meio amargo.'),
+('Biscoito de Polvilho 100g', 6.90, 100, '2026-01-20', 7, 42, 'https://mambodelivery.vtexassets.com/arquivos/ids/158722/biscoito-de-polvilho-cassini-100g.jpg?v=637883122058900000', 'Biscoito artesanal de polvilho crocante e leve.'),
+('Cookie de Chocolate 120g', 8.90, 90, '2026-02-15', 7, 42, 'https://superangeloni.vtexassets.com/arquivos/ids/254364/image-to-upload-0.jpg?v=638594125976230000', 'Cookie artesanal com gotas de chocolate meio amargo.'),
 
 -- PRODUTOS INTEGRAIS (id_subcategoria = 43)
-('Bolo Integral de Cenoura 500g', 14.90, 50, '2025-12-05', 7, 43, 'https://superprix.vteximg.com.br/arquivos/ids/210608-600-600/bolo-integral-cenoura.png', 'Bolo integral de cenoura com cobertura leve de cacau.'),
-('Cookies Integrais com Aveia 150g', 9.90, 80, '2026-02-10', 7, 43, 'https://superprix.vteximg.com.br/arquivos/ids/211269-600-600/cookies-aveia.png', 'Cookies integrais com aveia e mel, ricos em fibras.');
+('Bolo Integral de Cenoura 500g', 14.90, 50, '2025-12-05', 7, 43, 'https://www.naturaldaterra.com.br/_next/image?url=https%3A%2F%2Fnaturalterra.vtexassets.com%2Farquivos%2Fids%2F161041%2FBolo-de-Cenoura-com-Creme-de-Avela.jpg%3Fv%3D638671093512630000%26format%3Dwebp&w=1440&q=75', 'Bolo integral de cenoura com cobertura leve de cacau.'),
+('Cookies Integrais com Aveia 150g', 9.90, 80, '2026-02-10', 7, 43, 'https://amoradoceria.com.br/wp-content/uploads/2022/01/cookie-de-aveia-com-banana.jpg', 'Cookies integrais com aveia e mel, ricos em fibras.');
 
 
 -- PET SHOP
 INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, id_subcategoria, img_url, descricao_produto) VALUES
 -- RAÇÃO (id_subcategoria = 43)
-('Ração Golden Cães Adultos 1kg', 25.00, 200, '2026-10-10', 8, 43, 'https://example.com/racao-golden.png', 'Ração completa para cães adultos, sabor frango e arroz.'),
-('Ração Whiskas Gatos Adultos 1kg', 22.90, 150, '2026-09-12', 8, 43, 'https://example.com/racao-whiskas.png', 'Ração seca sabor carne para gatos adultos.'),
+('Ração Golden Cães Adultos 1kg', 25.00, 200, '2026-10-10', 8, 43, 'https://agropecuariaimarui.com.br/wp-content/uploads/2019/06/2480.jpg', 'Ração completa para cães adultos, sabor frango e arroz.'),
+('Ração Whiskas Gatos Adultos 1kg', 22.90, 150, '2026-09-12', 8, 43, 'https://images.tcdn.com.br/img/img_prod/1087789/racao_whiskas_gatos_adultos_sabor_carne_10_1kg_1854_2_5136de4f3b277b57dffcc4fda1749c1f.jpg', 'Ração seca sabor carne para gatos adultos.'),
 
 -- PETISCOS (id_subcategoria = 44)
-('Biscoito Pedigree Biscrok 500g', 18.50, 180, '2026-08-30', 8, 44, 'https://example.com/pedigree-biscrok.png', 'Petisco crocante e nutritivo para cães.'),
-('Petisco Whiskas Temptations 80g', 9.90, 250, '2026-09-25', 8, 44, 'https://example.com/whiskas-temptations.png', 'Petiscos sabor frango para gatos adultos.'),
+('Biscoito Pedigree Biscrok 500g', 18.50, 180, '2026-08-30', 8, 44, 'https://www.casadoprodutor.com.br/media/catalog/product/b/i/biscrok_multi_500g.jpg', 'Petisco crocante e nutritivo para cães.'),
+('Petisco Whiskas Temptations 80g', 9.90, 250, '2026-09-25', 8, 44, 'https://popularpet.com.br/wp-content/uploads/2023/07/29069-1.jpg', 'Petiscos sabor frango para gatos adultos.'),
 
 -- BRINQUEDOS (id_subcategoria = 45)
-('Bola de Borracha Mordedor', 14.90, 100, '2028-01-01', 8, 45, 'https://example.com/bola-borracha.png', 'Brinquedo resistente para cães de médio porte.'),
-('Varinha com Pena Gatos', 12.50, 120, '2028-01-01', 8, 45, 'https://example.com/varinha-pena.png', 'Brinquedo interativo com pena para gatos.'),
+('Bola de Borracha Mordedor', 14.90, 100, '2028-01-01', 8, 45, 'https://cdn.awsli.com.br/2500x2500/725/725611/produto/29685939/6e37a5e899.jpg', 'Brinquedo resistente para cães de médio porte.'),
+('Varinha com Pena Gatos', 12.50, 120, '2028-01-01', 8, 45, 'https://images.tcdn.com.br/img/img_prod/771572/brinquedo_para_gato_varinha_guizo_pena_micanga_34507_2_20230502121054.jpg', 'Brinquedo interativo com pena para gatos.'),
 
 -- HIGIENE E CUIDADOS (id_subcategoria = 46)
-('Shampoo Pet Clean Neutro 500ml', 19.90, 120, '2027-01-05', 8, 46, 'https://example.com/shampoo-petclean.png', 'Shampoo neutro para todos os tipos de pelos.'),
-('Lenços Umedecidos Pety 100un', 16.90, 130, '2027-03-10', 8, 46, 'https://example.com/lencos-pety.png', 'Lenços higiênicos para limpeza diária de pets.'),
+('Shampoo Pet Clean 700ml', 19.90, 120, '2027-01-05', 8, 46, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk2smcR-r0sPXmmrUc3U3ZF_XPw6rYN1iniQ&s', 'Shampoo neutro para todos os tipos de pelos.'),
+('Lenços Umedecidos MyHug', 16.90, 130, '2027-03-10', 8, 46, 'https://cobasi.vteximg.com.br/arquivos/ids/1069381/Lenco-Umedecido-Caes-e-Gatos-MyHug-100-unidades.png.png?v=638781849453070000', 'Lenços higiênicos para limpeza diária de pets.'),
 
 -- ACESSÓRIOS (id_subcategoria = 47)
-('Coleira Ajustável G', 24.90, 80, '2028-01-01', 8, 47, 'https://example.com/coleira-ajustavel.png', 'Coleira de nylon ajustável, resistente e confortável.'),
-('Comedouro Inox 500ml', 17.90, 90, '2028-01-01', 8, 47, 'https://example.com/comedouro-inox.png', 'Comedouro em aço inoxidável, fácil de higienizar.'),
+('Coleira Ajustável G', 24.90, 80, '2028-01-01', 8, 47, 'https://m.media-amazon.com/images/I/41Ttmxzzx0L._UF1000,1000_QL80_.jpg', 'Coleira de nylon ajustável, resistente e confortável.'),
+('Comedouro Inox 500ml', 17.90, 90, '2028-01-01', 8, 47, 'https://m.media-amazon.com/images/I/51IUUiCSKfL._UF1000,1000_QL80_.jpg', 'Comedouro em aço inoxidável, fácil de higienizar.'),
 
 -- SAÚDE E MEDICAMENTOS (id_subcategoria = 48)
-('Antipulgas NexGard 10-25kg', 85.00, 50, '2027-06-15', 8, 48, 'https://example.com/nexgard.png', 'Tablete mastigável antipulgas e carrapatos para cães.'),
-('Vermífugo Drontal Gatos 4 Comprimidos', 39.90, 70, '2027-05-20', 8, 48, 'https://example.com/drontal.png', 'Vermífugo completo para gatos adultos.');
+('Antipulgas NexGard 10-25kg', 85.00, 50, '2027-06-15', 8, 48, 'https://images.tcdn.com.br/img/img_prod/1263384/antipulgas_e_carrapatos_nexgard_cao_10_a_25kg_com_1_comprimido_1143_1_132c0f3065a689fe82a461685055d1c8.jpg', 'Tablete mastigável antipulgas e carrapatos para cães.'),
+('Vermífugo Drontal Gatos 4 Comprimidos', 39.90, 70, '2027-05-20', 8, 48, 'https://images.petz.com.br/fotos/1661537404351.jpg', 'Vermífugo completo para gatos adultos.');
 
 -- ======================================
 -- PEDIDOS DE CLIENTE
