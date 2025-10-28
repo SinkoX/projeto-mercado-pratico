@@ -111,7 +111,7 @@ public class ProdutoService {
     }
 
     // Salvar produto diretamente
-    public Produto salvar(Produto produto) {
+    public Produto insert(Produto produto) {
         return produtoRepository.save(produto);
     }
 }
