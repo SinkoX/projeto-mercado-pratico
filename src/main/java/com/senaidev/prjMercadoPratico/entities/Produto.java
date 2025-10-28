@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -57,9 +58,11 @@ public class Produto {
     private Subcategoria subcategoria;
     
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ItemPedido> itensPedido = new ArrayList<>();
 
     // Construtores

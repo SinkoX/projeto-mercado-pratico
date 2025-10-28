@@ -2,6 +2,8 @@ package com.senaidev.prjMercadoPratico.entities;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class ItemPedido {
 
     @ManyToOne
     @JoinColumn(name = "id_produto")
+    @JsonIgnore
     private Produto produto;
 
     @ManyToOne

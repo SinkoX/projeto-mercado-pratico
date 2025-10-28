@@ -2,6 +2,8 @@ package com.senaidev.prjMercadoPratico.entities;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +20,7 @@ public class ItemCarrinho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_item_carrinho", nullable = false)
+    
     private Long idItemCarrinho;
 
     @Column(name = "quantidade", nullable = false)
@@ -32,6 +35,7 @@ public class ItemCarrinho {
 
     @ManyToOne
     @JoinColumn(name = "id_carrinho", nullable = false)
+    @JsonIgnore 
     private Carrinho carrinho;
 
     @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
