@@ -93,43 +93,43 @@ INSERT INTO tb_subcategoria (nome_Subcategoria, id_Categoria) VALUES
 -- PRODUTOS
 -- ======================================
 -- Hortifruti
-INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_subcategoria, img_url, descricao_produto) VALUES
+INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, img_url, descricao_produto) VALUES
 ('Banana Nanica', 6.50, 200, '2025-11-30', 1, 'https://example.com/banana.png', 'Banana fresca e saborosa.'),
 ('Alface Crespa', 3.20, 150, '2025-11-28', 2, 'https://example.com/alface.png', 'Alface fresca e crocante.');
 
 -- Bebidas
-INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_subcategoria, img_url, descricao_produto) VALUES
-('Coca-Cola Lata 350ml', 3.20, 300, '2026-08-20', 3, 'https://superprix.vteximg.com.br/arquivos/ids/210608-600-600/BMo6Zlso.png', 'Coca-Cola Original em lata.'),
-('Fanta Uva 2L', 6.50, 250, '2026-07-10', 3, 'https://superprix.vteximg.com.br/arquivos/ids/226361-600-600/Refrigerante-Fanta-Uva-2l.png', 'Refrigerante Fanta sabor uva.'),
-('Suco de Laranja 1L', 5.50, 200, '2026-09-01', 4, 'https://example.com/suco-laranja.png', 'Suco de laranja natural.');
+INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, img_url, descricao_produto) VALUES
+('Coca-Cola Lata 350ml', 3.20, 300, '2026-08-20', 2, 'https://superprix.vteximg.com.br/arquivos/ids/210608-600-600/BMo6Zlso.png', 'Coca-Cola Original em lata.'),
+('Fanta Uva 2L', 6.50, 250, '2026-07-10', 2, 'https://superprix.vteximg.com.br/arquivos/ids/226361-600-600/Refrigerante-Fanta-Uva-2l.png', 'Refrigerante Fanta sabor uva.'),
+('Suco de Laranja 1L', 5.50, 200, '2026-09-01', 2, 'https://example.com/suco-laranja.png', 'Suco de laranja natural.');
 
 -- Mercearia
-INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_subcategoria, img_url, descricao_produto) VALUES
-('Arroz 10kg', 49.90, 120, '2026-12-01', 5, 'https://superprix.vteximg.com.br/arquivos/ids/174487/Arroz-Tio-Joao-Branco-1kg.png', 'Arroz tipo 1 de qualidade premium, grãos longos e soltinhos.'),
-('Feijão Carioca 5kg', 25.00, 150, '2026-07-20', 6, 'https://kicaldo.com.br/wp-content/uploads/2020/07/Kicaldo-feijaocarioca.png', 'Feijão carioca selecionado, grãos firmes e sabor marcante.'),
-('Macarrão Penne', 6.99, 180, '2026-04-15', 7, 'https://vitarella.com.br/wp-content/uploads/2020/11/speciale_Semola_penne_400g-792x792-1.png', 'Macarrão tipo penne de alta qualidade.');
+INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, img_url, descricao_produto) VALUES
+('Arroz 10kg', 49.90, 120, '2026-12-01', 3, 'https://superprix.vteximg.com.br/arquivos/ids/174487/Arroz-Tio-Joao-Branco-1kg.png', 'Arroz tipo 1 de qualidade premium, grãos longos e soltinhos.'),
+('Feijão Carioca 5kg', 25.00, 150, '2026-07-20', 3, 'https://kicaldo.com.br/wp-content/uploads/2020/07/Kicaldo-feijaocarioca.png', 'Feijão carioca selecionado, grãos firmes e sabor marcante.'),
+('Macarrão Penne', 6.99, 180, '2026-04-15', 3, 'https://vitarella.com.br/wp-content/uploads/2020/11/speciale_Semola_penne_400g-792x792-1.png', 'Macarrão tipo penne de alta qualidade.');
 
 -- Limpeza
-INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_subcategoria, img_url, descricao_produto) VALUES
-('Detergente Ypê 500ml', 1.99, 220, '2027-06-30', 8, 'https://castronaves.vteximg.com.br/arquivos/ids/371251-1000-1000/84574_01.jpg', 'Detergente Ypê com fórmula concentrada.'),
-('Sabão em Pó Omo 1kg', 12.90, 180, '2027-01-05', 9, 'https://cdn-cosmos.bluesoft.com.br/products/7891150018587', 'Sabão em pó Omo Multiação.'),
-('Desinfetante Pinho Sol 500ml', 3.80, 230, '2027-09-01', 8, 'https://superprix.vteximg.com.br/arquivos/ids/176738/Desinfetante-Pinho-Sol-Lavanda-500ml.png', 'Desinfetante Pinho Sol com fragrância marcante.');
+INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, img_url, descricao_produto) VALUES
+('Detergente Ypê 500ml', 1.99, 220, '2027-06-30', 4, 'https://castronaves.vteximg.com.br/arquivos/ids/371251-1000-1000/84574_01.jpg', 'Detergente Ypê com fórmula concentrada.'),
+('Sabão em Pó Omo 1kg', 12.90, 180, '2027-01-05', 4, 'https://cdn-cosmos.bluesoft.com.br/products/7891150018587', 'Sabão em pó Omo Multiação.'),
+('Desinfetante Pinho Sol 500ml', 3.80, 230, '2027-09-01', 4, 'https://superprix.vteximg.com.br/arquivos/ids/176738/Desinfetante-Pinho-Sol-Lavanda-500ml.png', 'Desinfetante Pinho Sol com fragrância marcante.');
 
 -- Açougue
-INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_subcategoria, img_url, descricao_produto) VALUES
-('Carne Bovina 1kg', 35.00, 100, '2025-11-30', 10, 'https://example.com/carne-bovina.png', 'Carne bovina fresca e selecionada.');
+INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, img_url, descricao_produto) VALUES
+('Carne Bovina 1kg', 35.00, 100, '2025-11-30', 5, 'https://example.com/carne-bovina.png', 'Carne bovina fresca e selecionada.');
 
 -- Higiene
-INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_subcategoria, img_url, descricao_produto) VALUES
-('Papel Higiênico Neve 12 rolos', 18.99, 180, '2028-03-10', 11, 'https://m.media-amazon.com/images/I/71X9mMJ6ATL._UF1000,1000_QL80_.jpg', 'Papel higiênico macio e resistente.');
+INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, img_url, descricao_produto) VALUES
+('Papel Higiênico Neve 12 rolos', 18.99, 180, '2028-03-10', 6, 'https://m.media-amazon.com/images/I/71X9mMJ6ATL._UF1000,1000_QL80_.jpg', 'Papel higiênico macio e resistente.');
 
 -- Padaria
-INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_subcategoria, img_url, descricao_produto) VALUES
-('Pão Francês 1kg', 12.00, 150, '2025-11-25', 12, 'https://example.com/pao-frances.png', 'Pão francês fresquinho e crocante.');
+INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, img_url, descricao_produto) VALUES
+('Pão Francês 1kg', 12.00, 150, '2025-11-25', 7, 'https://example.com/pao-frances.png', 'Pão francês fresquinho e crocante.');
 
 -- Pet Shop
-INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_subcategoria, img_url, descricao_produto) VALUES
-('Ração Golden 1kg', 25.00, 200, '2026-10-10', 13, 'https://example.com/racao-golden.png', 'Ração completa para cães.');
+INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, img_url, descricao_produto) VALUES
+('Ração Golden 1kg', 25.00, 200, '2026-10-10', 8, 'https://example.com/racao-golden.png', 'Ração completa para cães.');
 
 -- ======================================
 -- PEDIDOS DE CLIENTE

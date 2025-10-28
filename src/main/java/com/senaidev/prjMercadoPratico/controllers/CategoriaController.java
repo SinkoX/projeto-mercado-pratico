@@ -3,11 +3,16 @@ package com.senaidev.prjMercadoPratico.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.senaidev.prjMercadoPratico.dto.ProdutoDTO;
 import com.senaidev.prjMercadoPratico.entities.Categoria;
 import com.senaidev.prjMercadoPratico.entities.Produto;
+import com.senaidev.prjMercadoPratico.entities.Subcategoria;
 import com.senaidev.prjMercadoPratico.repositories.CategoriaRepository;
 import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
 import com.senaidev.prjMercadoPratico.services.ProdutoService;
@@ -46,5 +51,14 @@ public class CategoriaController {
         return produtos.stream()
                 .map(produtoService::toDTO)
                 .toList();
+    }
+    
+    @GetMapping("/{nomeCategoria}")
+    public List<Subcategoria> listarSubcategorias(@PathVariable String nomeCategoria) {
+        Categoria categoria = categoriaRepository.findByNomeCategoriaIgnoreCase(nomeCategoria)
+            .stream()
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        return categoria.getSubcategorias();
     }
 }

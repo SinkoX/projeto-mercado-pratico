@@ -56,6 +56,12 @@ public class Produto {
     @JsonBackReference
     private Categoria categoria;
     
+    @ManyToOne
+    @JoinColumn(name = "id_subcategoria")
+    @JsonBackReference
+    private Subcategoria subcategoria;
+
+    
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
@@ -69,7 +75,7 @@ public class Produto {
     }
 
     public Produto(Long idProduto, String nomeProduto, BigDecimal precoProduto, Integer quantidade,
-                   LocalDate dataValidade, String imgUrl, byte[] imagemProduto, Categoria categoria, 
+                   LocalDate dataValidade, String imgUrl, byte[] imagemProduto, Categoria categoria, Subcategoria subcategoria,  
                    List<ItemCarrinho> itensCarrinho, List<ItemPedido> itensPedido) {
         super();
         this.idProduto = idProduto;
@@ -80,6 +86,7 @@ public class Produto {
         this.imgUrl = imgUrl;
         this.imagemProduto = imagemProduto;
         this.categoria = categoria;
+        this.subcategoria = subcategoria;
         this.itensCarrinho = itensCarrinho;
         this.itensPedido = itensPedido;
     }
@@ -148,6 +155,14 @@ public class Produto {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+    
+    public Subcategoria getSubCategoria() {
+        return subcategoria;
+    }
+
+    public void setSubCategoria(Subcategoria subcategoria) {
+        this.subcategoria = subcategoria;
+    }
 
     public List<ItemCarrinho> getItensCarrinho() {
         return itensCarrinho;
@@ -165,11 +180,11 @@ public class Produto {
         this.itensPedido = itensPedido;
     }
 
-public String getDescricao() {
-    return descricao;
-}
+    public String getDescricao() {
+    	return descricao;
+    }
 
-public void setDescricao(String descricao) {
-    this.descricao = descricao;
-}
+    public void setDescricao(String descricao) {
+    	this.descricao = descricao;
+    }
 }

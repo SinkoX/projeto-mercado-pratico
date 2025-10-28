@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.senaidev.prjMercadoPratico.entities.Categoria;
 import com.senaidev.prjMercadoPratico.entities.Produto;
+import com.senaidev.prjMercadoPratico.entities.Subcategoria;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
@@ -26,4 +27,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     // 🕒 Busca produtos com validade anterior a uma data específica
     List<Produto> findByDataValidadeBefore(LocalDate dataValidade);
+    
+    List<Produto> findBySubcategoria_Categoria(Categoria categoria);
+    
+    List<Produto> findBySubcategoria(Subcategoria subcategoria);
 }
