@@ -35,11 +35,6 @@ public class Subcategoria {
     @JsonBackReference // evita serializar a categoria dentro da subcategoria (relação inversa)
     private Categoria categoria;
 
-    // Uma subcategoria tem vários produtos
-    @OneToMany(mappedBy = "subcategoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference // serializa produtos dentro da subcategoria, mas evita loop com @JsonBackReference em Produto
-    private List<Produto> produtos = new ArrayList<>();
-
     // Construtores
     public Subcategoria() {
     }
@@ -75,22 +70,5 @@ public class Subcategoria {
         this.categoria = categoria;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
-
-    // Métodos auxiliares
-    public void addProduto(Produto produto) {
-        produtos.add(produto);
-        produto.setSubcategoria(this);
-    }
-
-    public void removeProduto(Produto produto) {
-        produtos.remove(produto);
-        produto.setSubcategoria(null);
-    }
 }

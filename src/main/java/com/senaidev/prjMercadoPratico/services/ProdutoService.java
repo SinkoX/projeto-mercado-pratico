@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.senaidev.prjMercadoPratico.dto.ProdutoDTO;
+import com.senaidev.prjMercadoPratico.entities.Categoria;
 import com.senaidev.prjMercadoPratico.entities.Produto;
-import com.senaidev.prjMercadoPratico.entities.Subcategoria;
+import com.senaidev.prjMercadoPratico.repositories.CategoriaRepository;
 import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
-import com.senaidev.prjMercadoPratico.repositories.SubcategoriaRepository;
 
 @Service
 public class ProdutoService {
@@ -20,29 +20,27 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     @Autowired
-    private SubcategoriaRepository subcategoriaRepository;
+    private CategoriaRepository categoriaRepository;
 
-    // Converte Entity → DTO
+    // 🔹 Entity → DTO
     public ProdutoDTO toDTO(Produto produto) {
         return new ProdutoDTO(produto);
     }
 
-    // Converte DTO → Entity
-    public Produto toEntity(ProdutoDTO dto, Subcategoria subcategoria) {
+    // 🔹 DTO → Entity
+    public Produto toEntity(ProdutoDTO dto, Categoria categoria) {
         Produto produto = new Produto();
         produto.setNomeProduto(dto.getNomeProduto());
         produto.setPrecoProduto(dto.getPrecoProduto());
         produto.setQuantidade(dto.getQuantidade());
         produto.setDataValidade(dto.getDataValidade());
-        produto.setSubcategoria(subcategoria);
-        produto.setDescricao(dto.getDescricaoProduto()); // 🔹 Adiciona descrição
+        produto.setCategoria(categoria);
+        produto.setDescricao(dto.getDescricaoProduto());
 
-        // Mantém a URL da imagem, se fornecida
         if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
             produto.setImgUrl(dto.getImgUrl());
         }
 
-        // Converte Base64 em bytes, se enviado
         if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
             String base64Image = dto.getImagemProdutoBase64().split(",")[1];
             produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
@@ -51,52 +49,51 @@ public class ProdutoService {
         return produto;
     }
 
-    // Buscar todos os produtos como DTO
+    // 🔹 Buscar todos como DTO
     public List<ProdutoDTO> findAllDTO() {
-        return produtoRepository.findAll().stream()
+        return produtoRepository.findAll()
+                .stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
-    // Buscar produto por ID como DTO
+    // 🔹 Buscar por ID
     public ProdutoDTO findByIdDTO(Long id) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
         return toDTO(produto);
     }
 
-    // Inserir produto via DTO
+    // 🔹 Inserir novo produto
     public ProdutoDTO insertDTO(ProdutoDTO dto) {
-        Subcategoria subcategoria = subcategoriaRepository.findById(dto.getIdSubcategoria())
-                .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getIdSubcategoria()));
+        Categoria categoria = categoriaRepository.findById(dto.getIdCategoria())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com ID: " + dto.getIdCategoria()));
 
-        Produto produto = toEntity(dto, subcategoria);
+        Produto produto = toEntity(dto, categoria);
         produto = produtoRepository.save(produto);
         return toDTO(produto);
     }
 
-    // Atualizar produto via DTO
+    // 🔹 Atualizar produto existente
     public ProdutoDTO updateDTO(Long id, ProdutoDTO dto) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
 
-        Subcategoria subcategoria = subcategoriaRepository.findById(dto.getIdSubcategoria())
-                .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getIdSubcategoria()));
+        Categoria categoria = categoriaRepository.findById(dto.getIdCategoria())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com ID: " + dto.getIdCategoria()));
 
         produto.setNomeProduto(dto.getNomeProduto());
         produto.setPrecoProduto(dto.getPrecoProduto());
         produto.setQuantidade(dto.getQuantidade());
         produto.setDataValidade(dto.getDataValidade());
-        produto.setSubcategoria(subcategoria);
-        produto.setDescricao(dto.getDescricaoProduto()); // 🔹 Atualiza descrição
+        produto.setCategoria(categoria);
+        produto.setDescricao(dto.getDescricaoProduto());
 
-        // Atualiza Base64
         if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
             String base64Image = dto.getImagemProdutoBase64().split(",")[1];
             produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
         }
 
-        // Atualiza imgUrl
         if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
             produto.setImgUrl(dto.getImgUrl());
         }
@@ -105,12 +102,12 @@ public class ProdutoService {
         return toDTO(produto);
     }
 
-    // Deletar produto
+    // 🔹 Deletar
     public void delete(Long id) {
         produtoRepository.deleteById(id);
     }
 
-    // Salvar produto diretamente
+    // 🔹 Inserir direto (sem DTO)
     public Produto insert(Produto produto) {
         return produtoRepository.save(produto);
     }

@@ -51,11 +51,10 @@ public class Produto {
     @Column(name = "imagem_produto", columnDefinition = "LONGBLOB")
     private byte[] imagemProduto;
     
-    // Relacionamento com Subcategoria (Muitos para 1)
     @ManyToOne
-    @JoinColumn(name = "id_subcategoria") // A chave estrangeira será id_subcategoria
+    @JoinColumn(name = "id_categoria") 
     @JsonBackReference
-    private Subcategoria subcategoria;
+    private Categoria categoria;
     
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -70,7 +69,7 @@ public class Produto {
     }
 
     public Produto(Long idProduto, String nomeProduto, BigDecimal precoProduto, Integer quantidade,
-                   LocalDate dataValidade, String imgUrl, byte[] imagemProduto, Subcategoria subcategoria, 
+                   LocalDate dataValidade, String imgUrl, byte[] imagemProduto, Categoria categoria, 
                    List<ItemCarrinho> itensCarrinho, List<ItemPedido> itensPedido) {
         super();
         this.idProduto = idProduto;
@@ -80,7 +79,7 @@ public class Produto {
         this.dataValidade = dataValidade;
         this.imgUrl = imgUrl;
         this.imagemProduto = imagemProduto;
-        this.subcategoria = subcategoria;
+        this.categoria = categoria;
         this.itensCarrinho = itensCarrinho;
         this.itensPedido = itensPedido;
     }
@@ -142,12 +141,12 @@ public class Produto {
         this.imagemProduto = imagemProduto;
     }
 
-    public Subcategoria getSubcategoria() {
-        return subcategoria;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setSubcategoria(Subcategoria subcategoria) {
-        this.subcategoria = subcategoria;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public List<ItemCarrinho> getItensCarrinho() {

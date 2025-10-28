@@ -29,6 +29,10 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference  // <<< adicionada aqui
     private List<Subcategoria> subcategorias = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // serializa produtos dentro da subcategoria, mas evita loop com @JsonBackReference em Produto
+    private List<Produto> produtos = new ArrayList<>();
 
     // Construtores
     public Categoria() {
@@ -64,6 +68,25 @@ public class Categoria {
         this.subcategorias = subcategorias;
     }
 
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+    
+    // Métodos auxiliares
+    public void addProduto(Produto produto) {
+        produtos.add(produto);
+        produto.setCategoria(this);
+    }
+
+    public void removeProduto(Produto produto) {
+        produtos.remove(produto);
+        produto.setCategoria(null);
+    }
+    
     public void addSubcategoria(Subcategoria subcategoria) {
         subcategorias.add(subcategoria);
         subcategoria.setCategoria(this);

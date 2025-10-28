@@ -13,7 +13,7 @@ public class ProdutoDTO {
     private BigDecimal precoProduto;
     private Integer quantidade;
     private LocalDate dataValidade;
-    private Long idSubcategoria;
+    private Long idCategoria;
     private String descricaoProduto;  // Nova variável para descrição
     private String imgUrl; // 🔹 Mantém URL da imagem
     private String imagemProdutoBase64; // 🔹 Imagem em Base64 (upload opcional)
@@ -27,7 +27,7 @@ public class ProdutoDTO {
         this.precoProduto = produto.getPrecoProduto();
         this.quantidade = produto.getQuantidade();
         this.dataValidade = produto.getDataValidade();
-        this.idSubcategoria = produto.getSubcategoria() != null ? produto.getSubcategoria().getIdSubcategoria() : null;
+        this.idCategoria = produto.getCategoria() != null ? produto.getCategoria().getIdCategoria() : null;
 
         this.descricaoProduto = produto.getDescricao();  // Copia a descrição para o DTO
 
@@ -55,9 +55,9 @@ public class ProdutoDTO {
 
     public LocalDate getDataValidade() { return dataValidade; }
     public void setDataValidade(LocalDate dataValidade) { this.dataValidade = dataValidade; }
-
-    public Long getIdSubcategoria() { return idSubcategoria; }
-    public void setIdSubcategoria(Long idSubcategoria) { this.idSubcategoria = idSubcategoria; }
+    
+    public Long getIdCategoria() { return idCategoria; }
+    public void setIdCategoria(Long idCategoria) { this.idCategoria = idCategoria; }
 
     public String getDescricaoProduto() { return descricaoProduto; }
     public void setDescricaoProduto(String descricaoProduto) { this.descricaoProduto = descricaoProduto; }
