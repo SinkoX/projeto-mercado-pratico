@@ -178,96 +178,96 @@ INSERT INTO tb_produto
 (nome_produto, preco_produto, quantidade, data_validade, id_categoria, id_subcategoria, img_url, descricao_produto) VALUES
 
 -- REFRIGERANTES (id_subcategoria = 7)
-('Coca-Cola Lata 350ml', 3.20, 300, '2026-08-20', 2, 7, 'https://superprix.vteximg.com.br/arquivos/ids/210608-600-600/BMo6Zlso.png', 'Coca-Cola Original em lata.'),
-('Guaraná Antarctica 2L', 8.50, 180, '2026-07-30', 2, 7, 'https://superprix.vteximg.com.br/arquivos/ids/210610-600-600/guarana-antarctica-2l.png', 'Refrigerante Guaraná Antarctica 2 litros.'),
+('Coca-Cola Lata 350ml', 3.20, 300, '2026-08-20', 2, 7, 'https://prezunic.vtexassets.com/arquivos/ids/210693/66db573a62edc14e790f8550.jpg?v=638612475473130000', 'Coca-Cola Original em lata.'),
+('Guaraná Antarctica 2L', 8.50, 180, '2026-07-30', 2, 7, 'https://www.jauserve.com.br/dw/image/v2/BFJL_PRD/on/demandware.static/-/Sites-jauserve-master/default/dw11379f35/7891991001373.jpg?sw=1800', 'Refrigerante Guaraná Antarctica 2 litros.'),
 
 -- SUCOS (id_subcategoria = 8)
-('Suco de Laranja Natural One 1L', 9.90, 120, '2026-02-15', 2, 8, 'https://superprix.vteximg.com.br/arquivos/ids/210615-600-600/suco-laranja-natural-one-1l.png', 'Suco 100% natural, sem conservantes.'),
-('Suco de Uva Integral Aurora 1,5L', 14.90, 90, '2026-03-01', 2, 8, 'https://superprix.vteximg.com.br/arquivos/ids/210614-600-600/suco-uva-aurora-1-5l.png', 'Suco integral de uva Aurora, sem adição de açúcar.'),
+('Suco de Laranja Natural One 1L', 9.90, 120, '2026-02-15', 2, 8, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/132095434/suco-de-laranja-integral-refrigerado-natural-one-100--suco-900ml-2.jpg?v=638322173498970000', 'Suco 100% natural, sem conservantes.'),
+('Suco de Uva Integral Aurora 1,5L', 14.90, 90, '2026-03-01', 2, 8, 'https://fortatacadista.vteximg.com.br/arquivos/ids/299319-1000-1000/31577-SUCO-CC-AURORA-15L-VD-UVA-TTO.jpg?v=637751712868100000', 'Suco integral de uva Aurora, sem adição de açúcar.'),
 
 -- ÁGUAS (id_subcategoria = 9)
-('Água Mineral Crystal Sem Gás 500ml', 2.00, 400, '2028-05-10', 2, 9, 'https://superprix.vteximg.com.br/arquivos/ids/210611-600-600/agua-crystal-500ml.png', 'Água mineral natural Crystal, sem gás.'),
-('Água Mineral com Gás São Lourenço 510ml', 3.50, 250, '2028-05-10', 2, 9, 'https://superprix.vteximg.com.br/arquivos/ids/210612-600-600/agua-sao-lourenco-510ml.png', 'Água gaseificada leve e refrescante.'),
+('Água Mineral Crystal Sem Gás 500ml', 2.00, 400, '2028-05-10', 2, 9, 'https://mambodelivery.vtexassets.com/arquivos/ids/184965/agua-mineral-sem-gas-crystal-500ml.jpg?v=637884009070200000', 'Água mineral natural Crystal, sem gás.'),
+('Água Mineral com Gás São Lourenço 510ml', 3.50, 250, '2028-05-10', 2, 9, 'https://d3gdr9n5lqb5z7.cloudfront.net/fotos/996404-1.jpg', 'Água gaseificada leve e refrescante.'),
 
 -- CERVEJAS (id_subcategoria = 10)
-('Cerveja Heineken Long Neck 330ml', 6.90, 180, '2026-04-15', 2, 10, 'https://superprix.vteximg.com.br/arquivos/ids/210613-600-600/heineken-330ml.png', 'Cerveja puro malte Heineken long neck.'),
-('Cerveja Budweiser Lata 350ml', 5.80, 200, '2026-04-20', 2, 10, 'https://superprix.vteximg.com.br/arquivos/ids/210609-600-600/budweiser-350ml.png', 'Cerveja Budweiser tradicional em lata.'),
+('Cerveja Heineken Long Neck 330ml', 6.90, 180, '2026-04-15', 2, 10, 'https://coopsp.vtexassets.com/arquivos/ids/226280/78936683.png?v=638042370336500000', 'Cerveja puro malte Heineken long neck.'),
+('Cerveja Budweiser Lata 350ml', 5.80, 200, '2026-04-20', 2, 10, 'https://superprix.vteximg.com.br/arquivos/ids/213423-600-600/7891991010481---Cerveja-BUDWEISER-Lata-350ML---1.jpg?v=638194101489800000', 'Cerveja Budweiser tradicional em lata.'),
 
 -- VINHOS (id_subcategoria = 11)
-('Vinho Tinto Seco Miolo Reserva 750ml', 49.90, 50, '2030-12-01', 2, 11, 'https://superprix.vteximg.com.br/arquivos/ids/210616-600-600/vinho-miolo-reserva.png', 'Vinho tinto seco Miolo Reserva Cabernet Sauvignon.'),
-('Vinho Branco Suave Salton 750ml', 39.90, 60, '2030-12-01', 2, 11, 'https://superprix.vteximg.com.br/arquivos/ids/210617-600-600/vinho-salton-suave.png', 'Vinho branco suave Salton, sabor leve e frutado.'),
+('Vinho Tinto Seco Miolo Reserva 750ml', 49.90, 50, '2030-12-01', 2, 11, 'https://18666.cdn.simplo7.net/static/18666/sku/vinho-tinto-vinho-miolo-reserva-cabernet-sauvignon-tinto-seco-750ml--p-1624559616405.jpg', 'Vinho tinto seco Miolo Reserva Cabernet Sauvignon.'),
+('Vinho Branco Suave Salton 750ml', 39.90, 60, '2030-12-01', 2, 11, 'https://obahortifruti.vtexassets.com/arquivos/ids/8446727/Espumante-Nacional-Salton-Demi-Seco-750-Ml.jpg?v=638498190956170000', 'Vinho branco suave Salton, sabor leve e frutado.'),
 
 -- DESTILADOS (id_subcategoria = 12)
-('Vodka Smirnoff 998ml', 41.90, 80, '2032-06-01', 2, 12, 'https://superprix.vteximg.com.br/arquivos/ids/210618-600-600/vodka-smirnoff-998ml.png', 'Vodka Smirnoff tripla destilação.'),
-('Whisky Johnnie Walker Red Label 1L', 129.90, 40, '2035-08-01', 2, 12, 'https://superprix.vteximg.com.br/arquivos/ids/210619-600-600/johnnie-walker-red-label.png', 'Whisky escocês de sabor marcante.'),
+('Vodka Smirnoff 998ml', 41.90, 80, '2032-06-01', 2, 12, 'https://tdc1fe.vteximg.com.br/arquivos/ids/159601-1000-1000/VODKA-SMIRNOFF-998ML-TRADICIONAL.jpg?v=637490166901300000', 'Vodka Smirnoff tripla destilação.'),
+('Whisky Johnnie Walker Red Label 1L', 129.90, 40, '2035-08-01', 2, 12, 'https://espacoprime.fbitsstatic.net/img/p/johnnie-walker-red-label-blended-scotch-whisky-1l-72713/258460-1.jpg?w=800&h=800&v=no-change&qs=ignore', 'Whisky escocês de sabor marcante.'),
 
 -- ENERGÉTICOS (id_subcategoria = 13)
-('Energético Red Bull Lata 250ml', 9.50, 300, '2026-01-01', 2, 13, 'https://superprix.vteximg.com.br/arquivos/ids/210620-600-600/red-bull-250ml.png', 'Energético Red Bull, te dá asas.'),
-('Energético Monster 473ml', 11.90, 250, '2026-01-01', 2, 13, 'https://superprix.vteximg.com.br/arquivos/ids/210621-600-600/monster-473ml.png', 'Energético Monster Energy tradicional.'),
+('Energético Red Bull Lata 250ml', 9.50, 300, '2026-01-01', 2, 13, 'https://bretas.vtexassets.com/arquivos/ids/224061-800-auto?v=638923463816900000&width=800&height=auto&aspect=true', 'Energético Red Bull, te dá asas.'),
+('Energético Monster 473ml', 11.90, 250, '2026-01-01', 2, 13, 'https://drogariaspacheco.vteximg.com.br/arquivos/ids/659673-1000-1000/641693---energetico-monster-energy-473ml-spal.jpg?v=637496175101070000', 'Energético Monster Energy tradicional.'),
 
 -- LEITES E DERIVADOS (id_subcategoria = 14)
-('Leite Integral Itambé 1L', 5.40, 300, '2025-12-15', 2, 14, 'https://superprix.vteximg.com.br/arquivos/ids/210622-600-600/leite-itambe-1l.png', 'Leite integral Itambé, fonte de cálcio.'),
-('Leite Desnatado Piracanjuba 1L', 5.20, 280, '2025-12-15', 2, 14, 'https://superprix.vteximg.com.br/arquivos/ids/210623-600-600/leite-piracanjuba-desnatado.png', 'Leite desnatado Piracanjuba, leve e nutritivo.');
+('Leite Integral Itambé 1L', 5.40, 300, '2025-12-15', 2, 14, 'https://redemix.vteximg.com.br/arquivos/ids/215885-1000-1000/7896051111016.png?v=638394704811300000', 'Leite integral Itambé, fonte de cálcio.'),
+('Leite Desnatado Piracanjuba 1L', 5.20, 280, '2025-12-15', 2, 14, 'https://phygital-files.mercafacil.com/catalogo/uploads/produto/leite_uht_desnatado_piracanjuba_caixa_com_tampa_1l_2b0fc2ca-903c-48c2-b599-eed8ff19f119.jpg', 'Leite desnatado Piracanjuba, leve e nutritivo.');
 
 -- MERCEARIA
 INSERT INTO tb_produto 
 (nome_produto, preco_produto, quantidade, data_validade, id_categoria, id_subcategoria, img_url, descricao_produto) VALUES
 
 -- ARROZ E FEIJÃO (id_subcategoria = 15)
-('Arroz Tio João Tipo 1 5kg', 24.90, 200, '2026-08-10', 3, 15, 'https://superprix.vteximg.com.br/arquivos/ids/210700-600-600/arroz-tio-joao-5kg.png', 'Arroz branco tipo 1, grãos selecionados.'),
-('Feijão Carioca Camil 1kg', 9.80, 180, '2026-05-05', 3, 15, 'https://superprix.vteximg.com.br/arquivos/ids/210701-600-600/feijao-camil-1kg.png', 'Feijão carioca de alta qualidade, sabor tradicional.'),
+('Arroz Tio João Tipo 1 5kg', 24.90, 200, '2026-08-10', 3, 15, 'https://prezunic.vtexassets.com/arquivos/ids/179922/656789b41ef3739680761222.jpg?v=638368810799430000', 'Arroz branco tipo 1, grãos selecionados.'),
+('Feijão Carioca Camil 1kg', 9.80, 180, '2026-05-05', 3, 15, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/195175/871281_1.jpg?v=637272434435130000', 'Feijão carioca de alta qualidade, sabor tradicional.'),
 
 -- MASSAS (id_subcategoria = 16)
-('Macarrão Espaguete Renata 500g', 5.90, 160, '2026-06-15', 3, 16, 'https://superprix.vteximg.com.br/arquivos/ids/210702-600-600/macarrao-renata-espaguete.png', 'Macarrão espaguete Renata, cozimento rápido e textura ideal.'),
-('Macarrão Parafuso Adria 500g', 5.70, 140, '2026-07-01', 3, 16, 'https://superprix.vteximg.com.br/arquivos/ids/210703-600-600/macarrao-parafuso-adria.png', 'Macarrão tipo parafuso Adria, ideal para saladas e molhos.'),
+('Macarrão Espaguete Renata 500g', 5.90, 160, '2026-06-15', 3, 16, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/12908693/macarrao-espaguete-renata-com-ovos-n%C2%BA-9-500g-1.jpg?v=637477866363900000', 'Macarrão espaguete Renata, cozimento rápido e textura ideal.'),
+('Macarrão Parafuso Adria 500g', 5.70, 140, '2026-07-01', 3, 16, 'https://www.adria.com.br/wp-content/uploads/2020/11/7896205788156.png', 'Macarrão tipo parafuso Adria, ideal para saladas e molhos.'),
 
 -- FARINHAS E CEREAIS (id_subcategoria = 17)
-('Farinha de Trigo Dona Benta 1kg', 6.40, 120, '2026-09-01', 3, 17, 'https://superprix.vteximg.com.br/arquivos/ids/210704-600-600/farinha-dona-benta-1kg.png', 'Farinha de trigo tipo 1 para bolos e pães.'),
-('Aveia em Flocos Finos Quaker 170g', 4.90, 100, '2026-04-01', 3, 17, 'https://superprix.vteximg.com.br/arquivos/ids/210705-600-600/aveia-quaker-finos.png', 'Aveia em flocos finos Quaker, ideal para vitaminas e mingaus.'),
+('Farinha de Trigo Dona Benta 1kg', 6.40, 120, '2026-09-01', 3, 17, 'https://redemix.vteximg.com.br/arquivos/ids/208525-1000-1000/7896005202074.jpg?v=638350600984270000', 'Farinha de trigo tipo 1 para bolos e pães.'),
+('Aveia em Flocos Finos Quaker 170g', 4.90, 100, '2026-04-01', 3, 17, 'https://static.extramercado.com.br/img/uploads/1/719/33229719.png?im=Resize,width=200', 'Aveia em flocos finos Quaker, ideal para vitaminas e mingaus.'),
 
 -- ENLATADOS E CONSERVAS (id_subcategoria = 18)
-('Milho Verde Quero 200g', 3.50, 150, '2027-01-15', 3, 18, 'https://superprix.vteximg.com.br/arquivos/ids/210706-600-600/milho-verde-quero.png', 'Milho verde em conserva, pronto para consumo.'),
-('Ervilha Predilecta 200g', 3.20, 130, '2027-01-10', 3, 18, 'https://superprix.vteximg.com.br/arquivos/ids/210707-600-600/ervilha-predilecta.png', 'Ervilhas macias e saborosas em conserva.'),
+('Milho Verde Quero 200g', 3.50, 150, '2027-01-15', 3, 18, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_nnxtJ3R_jk9FKki7YqhTUeunYmmcCearxg&s', 'Milho verde em conserva, pronto para consumo.'),
+('Ervilha Predilecta 200g', 3.20, 130, '2027-01-10', 3, 18, 'https://megag.com.br/v21/wp-content/uploads/2021/07/arq_0Ervilha-Lata-Predilecta-200g.jpg', 'Ervilhas macias e saborosas em conserva.'),
 
 -- MOLHOS E TEMPEROS (id_subcategoria = 19)
-('Molho de Tomate Pomarola Tradicional 340g', 4.60, 180, '2027-02-01', 3, 19, 'https://superprix.vteximg.com.br/arquivos/ids/210708-600-600/molho-pomarola.png', 'Molho de tomate Pomarola com sabor caseiro.'),
-('Tempero Sazón Alho e Sal 60g', 7.30, 200, '2027-05-01', 3, 19, 'https://superprix.vteximg.com.br/arquivos/ids/210709-600-600/tempero-sazon-alho-sal.png', 'Tempero prático para realçar o sabor dos pratos.'),
+('Molho de Tomate Pomarola Tradicional 340g', 4.60, 180, '2027-02-01', 3, 19, 'https://redemix.vteximg.com.br/arquivos/ids/212666-1000-1000/7896036036051.jpg?v=638350618233070000', 'Molho de tomate Pomarola com sabor caseiro.'),
+('Tempero Sazón Alho e Sal 60g', 7.30, 200, '2027-05-01', 3, 19, 'https://redemix.vteximg.com.br/arquivos/ids/207825-1000-1000/7891132008698.jpg?v=638350598607500000', 'Tempero prático para realçar o sabor dos pratos.'),
 
 -- ÓLEOS E GORDURAS (id_subcategoria = 20)
-('Óleo de Soja Liza 900ml', 8.90, 180, '2026-11-01', 3, 20, 'https://superprix.vteximg.com.br/arquivos/ids/210710-600-600/oleo-liza.png', 'Óleo de soja refinado, ideal para frituras e refogados.'),
-('Azeite Gallo Extra Virgem 500ml', 29.90, 100, '2028-03-01', 3, 20, 'https://superprix.vteximg.com.br/arquivos/ids/210711-600-600/azeite-gallo-500ml.png', 'Azeite extra virgem Gallo, sabor intenso e frutado.'),
+('Óleo de Soja Liza 900ml', 8.90, 180, '2026-11-01', 3, 20, 'https://www.jauserve.com.br/dw/image/v2/BFJL_PRD/on/demandware.static/-/Sites-jauserve-master/default/dw817c3aea/7896036091234.png?sw=1800', 'Óleo de soja refinado, ideal para frituras e refogados.'),
+('Azeite Gallo Extra Virgem 500ml', 29.90, 100, '2028-03-01', 3, 20, 'https://a-static.mlcdn.com.br/800x600/azeite-de-oliva-extra-virgem-gallo-reserva-500ml/magazineluiza/226474100/8b834df32d87044c61a7416aeaac2ff1.jpg', 'Azeite extra virgem Gallo, sabor intenso e frutado.'),
 
 -- AÇÚCAR E CAFÉ (id_subcategoria = 21)
-('Açúcar Refinado União 1kg', 4.20, 250, '2026-08-01', 3, 21, 'https://superprix.vteximg.com.br/arquivos/ids/210712-600-600/acucar-uniao-1kg.png', 'Açúcar refinado União, ideal para receitas e bebidas.'),
-('Café Pilão Tradicional 500g', 17.90, 150, '2026-12-01', 3, 21, 'https://superprix.vteximg.com.br/arquivos/ids/210713-600-600/cafe-pilao-500g.png', 'Café torrado e moído Pilão, sabor encorpado e aroma marcante.'),
+('Açúcar Refinado União 1kg', 4.20, 250, '2026-08-01', 3, 21, 'https://redemix.vteximg.com.br/arquivos/ids/211573-1000-1000/7891910000197.jpg?v=638350614631300000', 'Açúcar refinado União, ideal para receitas e bebidas.'),
+('Café Pilão Tradicional 500g', 17.90, 150, '2026-12-01', 3, 21, 'https://www.jauserve.com.br/dw/image/v2/BFJL_PRD/on/demandware.static/-/Sites-jauserve-master/default/dw6cd8cda6/7896089011357-(2).jpg?sw=1800', 'Café torrado e moído Pilão, sabor encorpado e aroma marcante.'),
 
 -- BISCOITOS E SNACKS (id_subcategoria = 22)
-('Biscoito Trakinas Chocolate 126g', 3.90, 200, '2026-03-01', 3, 22, 'https://superprix.vteximg.com.br/arquivos/ids/210714-600-600/trakinas-chocolate.png', 'Biscoito recheado Trakinas sabor chocolate.'),
-('Batata Ruffles Original 96g', 9.50, 180, '2026-05-01', 3, 22, 'https://superprix.vteximg.com.br/arquivos/ids/210715-600-600/ruffles-original.png', 'Batata chips Ruffles sabor original, crocante e saborosa.');
+('Biscoito Trakinas Chocolate 126g', 3.90, 200, '2026-03-01', 3, 22, 'https://www.caboclodistribuidor.com.br/imagens/produtos/605x605/1453_Biscoito_Trakinas_Recheado_Chocolate_126G_1.jpg', 'Biscoito recheado Trakinas sabor chocolate.'),
+('Batata Ruffles Original 96g', 9.50, 180, '2026-05-01', 3, 22, 'https://images.tcdn.com.br/img/img_prod/1176430/batata_original_ruffles_68g_18805_1_4ad1f012df60c1567b1f9f333f1783f7.png', 'Batata chips Ruffles sabor original, crocante e saborosa.');
 	
 -- LIMPEZA
 INSERT INTO tb_produto 
 (nome_produto, preco_produto, quantidade, data_validade, id_categoria, id_subcategoria, img_url, descricao_produto) VALUES
 
 -- LIMPEZA DOMÉSTICA (id_subcategoria = 23)
-('Desinfetante Pinho Sol 500ml', 7.90, 150, '2027-06-01', 4, 23, 'https://superprix.vteximg.com.br/arquivos/ids/210730-600-600/pinho-sol-500ml.png', 'Desinfetante concentrado com aroma de pinho.'),
-('Multiuso Veja Original 500ml', 8.20, 200, '2027-06-01', 4, 23, 'https://superprix.vteximg.com.br/arquivos/ids/210731-600-600/veja-multiuso.png', 'Limpador multiuso Veja, ideal para superfícies diversas.'),
+('Desinfetante Pinho Sol 500ml', 7.90, 150, '2027-06-01', 4, 23, 'https://coopsp.vtexassets.com/arquivos/ids/214635/7891024194102.jpg?v=637919522836430000', 'Desinfetante concentrado com aroma de pinho.'),
+('Multiuso Veja Original 500ml', 8.20, 200, '2027-06-01', 4, 23, 'https://redemix.vteximg.com.br/arquivos/ids/211084-1000-1000/7891035800214.jpg?v=638350611663400000', 'Limpador multiuso Veja, ideal para superfícies diversas.'),
 
 -- LAVANDERIA (id_subcategoria = 24)
-('Sabão em Pó Omo Lavagem Perfeita 1,6kg', 24.90, 120, '2027-03-01', 4, 24, 'https://superprix.vteximg.com.br/arquivos/ids/210732-600-600/sabao-omo-16kg.png', 'Sabão em pó Omo para roupas mais limpas e perfumadas.'),
-('Amaciante Downy Brisa de Verão 1L', 12.50, 140, '2027-04-01', 4, 24, 'https://superprix.vteximg.com.br/arquivos/ids/210733-600-600/amaciante-downy-1l.png', 'Amaciante Downy com perfume duradouro e maciez.'),
+('Sabão em Pó Omo Lavagem Perfeita 1,6kg', 24.90, 120, '2027-03-01', 4, 24, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/199642746/5667046_1.jpg?v=638919979375100000', 'Sabão em pó Omo para roupas mais limpas e perfumadas.'),
+('Amaciante Downy Brisa de Verão 1L', 12.50, 140, '2027-04-01', 4, 24, 'https://redemix.vteximg.com.br/arquivos/ids/207126-1000-1000/7506339332643.jpg?v=638350592684400000', 'Amaciante Downy com perfume duradouro e maciez.'),
 
 -- HIGIENE DO LAR (id_subcategoria = 25)
-('Esponja de Limpeza Scotch-Brite Leve 4 Pague 3', 8.90, 250, '2028-01-01', 4, 25, 'https://superprix.vteximg.com.br/arquivos/ids/210734-600-600/esponja-scotch-brite.png', 'Esponjas resistentes, ideais para uso diário na cozinha.'),
-('Pano de Chão Bettanin 60x70cm', 6.50, 180, '2028-01-01', 4, 25, 'https://superprix.vteximg.com.br/arquivos/ids/210735-600-600/pano-de-chao-bettanin.png', 'Pano de chão de algodão com alta absorção.'),
+('Esponja de Limpeza Scotch-Brite Leve 4 Pague 3', 8.90, 250, '2028-01-01', 4, 25, 'https://mambodelivery.vtexassets.com/arquivos/ids/166890/esponja-limpeza-extrema-scoth-brite-leve-4-pague-3.jpg?v=637883229433970000', 'Esponjas resistentes, ideais para uso diário na cozinha.'),
+('Pano de Chão Bettanin 60x70cm', 6.50, 180, '2028-01-01', 4, 25, 'https://www.bettanin.com.br/wp-content/uploads/2023/01/4971.jpg', 'Pano de chão de algodão com alta absorção.'),
 
 -- INSETICIDAS (id_subcategoria = 26)
-('Inseticida Raid Multi Insetos 420ml', 15.90, 160, '2028-07-01', 4, 26, 'https://superprix.vteximg.com.br/arquivos/ids/210736-600-600/raid-multi-insetos.png', 'Inseticida aerossol para eliminar mosquitos e baratas.'),
-('Inseticida SBP Elétrico Refil 45 Noites', 18.50, 120, '2028-07-01', 4, 26, 'https://superprix.vteximg.com.br/arquivos/ids/210737-600-600/sbp-refil.png', 'Refil SBP elétrico com ação prolongada contra mosquitos.'),
+('Inseticida Raid Multi Insetos 420ml', 15.90, 160, '2028-07-01', 4, 26, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/32435175/inseticida-multi-insetos-raid-spray-leve-mais-pague-menos-420-ml-1.jpg?v=637781261120000000', 'Inseticida aerossol para eliminar mosquitos e baratas.'),
+('Inseticida SBP Elétrico Refil 45 Noites', 18.50, 120, '2028-07-01', 4, 26, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/141255750/repelente-eletrico-liquido-sbp-45-noites-cheiro-suave-novo-aparelho---refil-1.jpg?v=638482839023700000', 'Refil SBP elétrico com ação prolongada contra mosquitos.'),
 
 -- DESCARTÁVEIS (id_subcategoria = 27)
-('Sacos de Lixo 50L C/10 Unidades', 10.90, 200, '2029-01-01', 4, 27, 'https://superprix.vteximg.com.br/arquivos/ids/210738-600-600/saco-de-lixo-50l.png', 'Sacos de lixo resistentes, ideais para uso doméstico.'),
-('Luvas de Limpeza Scotch-Brite Tamanho M', 8.90, 150, '2029-01-01', 4, 27, 'https://superprix.vteximg.com.br/arquivos/ids/210739-600-600/luvas-scotch-brite.png', 'Luvas duráveis e confortáveis, ideais para tarefas domésticas.');
+('Sacos de Lixo 50L C/10 Unidades', 10.90, 200, '2029-01-01', 4, 27, 'https://www.jauserve.com.br/dw/image/v2/BFJL_PRD/on/demandware.static/-/Sites-jauserve-master/default/dw70e53305/7898016970508.png?sw=1800', 'Sacos de lixo resistentes, ideais para uso doméstico.'),
+('Luvas de Limpeza Scotch-Brite Tamanho M', 8.90, 150, '2029-01-01', 4, 27, 'https://cosama.vteximg.com.br/arquivos/ids/160311-1000-1000/luva_de_latex_natural_amarela_m_scotch_brite_3m.jpg?v=636626010656930000', 'Luvas duráveis e confortáveis, ideais para tarefas domésticas.');
 
 -- AÇOUGUE
 INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, id_subcategoria, img_url, descricao_produto) VALUES
@@ -349,10 +349,10 @@ INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, 
 
 -- PETISCOS (id_subcategoria = 44)
 ('Biscoito Pedigree Biscrok 500g', 18.50, 180, '2026-08-30', 8, 44, 'https://www.casadoprodutor.com.br/media/catalog/product/b/i/biscrok_multi_500g.jpg', 'Petisco crocante e nutritivo para cães.'),
-('Petisco Whiskas Temptations 80g', 9.90, 250, '2026-09-25', 8, 44, 'https://popularpet.com.br/wp-content/uploads/2023/07/29069-1.jpg', 'Petiscos sabor frango para gatos adultos.'),
+('Petisco Whiskas Temptations 80g', 9.90, 250, '2026-09-25', 8, 44, 'https://cobasi.vteximg.com.br/arquivos/ids/1042496/Whiskas-petisco-anti-bola-de-pelo-80g.jpg?v=638753893780570000', 'Petiscos sabor frango para gatos adultos.'),
 
 -- BRINQUEDOS (id_subcategoria = 45)
-('Bola de Borracha Mordedor', 14.90, 100, '2028-01-01', 8, 45, 'https://cdn.awsli.com.br/2500x2500/725/725611/produto/29685939/6e37a5e899.jpg', 'Brinquedo resistente para cães de médio porte.'),
+('Bola de Borracha Mordedor', 14.90, 100, '2028-01-01', 8, 45, 'https://lojasmel1.vtexassets.com/arquivos/ids/230254/Brinquedo_Pet_Bola_Cravo_Borracha_Colorida_7cm_LM2967PET_-_honeyhome_2_243.jpg?v=638640144799800000', 'Brinquedo resistente para cães de médio porte.'),
 ('Varinha com Pena Gatos', 12.50, 120, '2028-01-01', 8, 45, 'https://images.tcdn.com.br/img/img_prod/771572/brinquedo_para_gato_varinha_guizo_pena_micanga_34507_2_20230502121054.jpg', 'Brinquedo interativo com pena para gatos.'),
 
 -- HIGIENE E CUIDADOS (id_subcategoria = 46)
@@ -361,7 +361,7 @@ INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, 
 
 -- ACESSÓRIOS (id_subcategoria = 47)
 ('Coleira Ajustável G', 24.90, 80, '2028-01-01', 8, 47, 'https://m.media-amazon.com/images/I/41Ttmxzzx0L._UF1000,1000_QL80_.jpg', 'Coleira de nylon ajustável, resistente e confortável.'),
-('Comedouro Inox 500ml', 17.90, 90, '2028-01-01', 8, 47, 'https://m.media-amazon.com/images/I/51IUUiCSKfL._UF1000,1000_QL80_.jpg', 'Comedouro em aço inoxidável, fácil de higienizar.'),
+('Comedouro Inox 500ml', 17.90, 90, '2028-01-01', 8, 47, 'https://tudodebicho.vtexassets.com/arquivos/ids/172735/comedouro-caes-american-pets-inox-natutral-auteo-relevo.jpg?v=638410396605100000', 'Comedouro em aço inoxidável, fácil de higienizar.'),
 
 -- SAÚDE E MEDICAMENTOS (id_subcategoria = 48)
 ('Antipulgas NexGard 10-25kg', 85.00, 50, '2027-06-15', 8, 48, 'https://images.tcdn.com.br/img/img_prod/1263384/antipulgas_e_carrapatos_nexgard_cao_10_a_25kg_com_1_comprimido_1143_1_132c0f3065a689fe82a461685055d1c8.jpg', 'Tablete mastigável antipulgas e carrapatos para cães.'),
