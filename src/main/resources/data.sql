@@ -344,28 +344,28 @@ INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, 
 -- PET SHOP
 INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, id_categoria, id_subcategoria, img_url, descricao_produto) VALUES
 -- RAÇÃO (id_subcategoria = 43)
-('Ração Golden Cães Adultos 1kg', 25.00, 200, '2026-10-10', 8, 43, 'https://agropecuariaimarui.com.br/wp-content/uploads/2019/06/2480.jpg', 'Ração completa para cães adultos, sabor frango e arroz.'),
-('Ração Whiskas Gatos Adultos 1kg', 22.90, 150, '2026-09-12', 8, 43, 'https://images.tcdn.com.br/img/img_prod/1087789/racao_whiskas_gatos_adultos_sabor_carne_10_1kg_1854_2_5136de4f3b277b57dffcc4fda1749c1f.jpg', 'Ração seca sabor carne para gatos adultos.'),
+('Ração Golden Cães Adultos 1kg', 25.00, 200, '2026-10-10', 8, 44, 'https://agropecuariaimarui.com.br/wp-content/uploads/2019/06/2480.jpg', 'Ração completa para cães adultos, sabor frango e arroz.'),
+('Ração Whiskas Gatos Adultos 1kg', 22.90, 150, '2026-09-12', 8, 44, 'https://images.tcdn.com.br/img/img_prod/1087789/racao_whiskas_gatos_adultos_sabor_carne_10_1kg_1854_2_5136de4f3b277b57dffcc4fda1749c1f.jpg', 'Ração seca sabor carne para gatos adultos.'),
 
 -- PETISCOS (id_subcategoria = 44)
-('Biscoito Pedigree Biscrok 500g', 18.50, 180, '2026-08-30', 8, 44, 'https://www.casadoprodutor.com.br/media/catalog/product/b/i/biscrok_multi_500g.jpg', 'Petisco crocante e nutritivo para cães.'),
-('Petisco Whiskas Temptations 80g', 9.90, 250, '2026-09-25', 8, 44, 'https://cobasi.vteximg.com.br/arquivos/ids/1042496/Whiskas-petisco-anti-bola-de-pelo-80g.jpg?v=638753893780570000', 'Petiscos sabor frango para gatos adultos.'),
+('Biscoito Pedigree Biscrok 500g', 18.50, 180, '2026-08-30', 8, 45, 'https://www.casadoprodutor.com.br/media/catalog/product/b/i/biscrok_multi_500g.jpg', 'Petisco crocante e nutritivo para cães.'),
+('Petisco Whiskas Temptations 80g', 9.90, 250, '2026-09-25', 8, 45, 'https://cobasi.vteximg.com.br/arquivos/ids/1042496/Whiskas-petisco-anti-bola-de-pelo-80g.jpg?v=638753893780570000', 'Petiscos sabor frango para gatos adultos.'),
 
 -- BRINQUEDOS (id_subcategoria = 45)
-('Bola de Borracha Mordedor', 14.90, 100, '2028-01-01', 8, 45, 'https://lojasmel1.vtexassets.com/arquivos/ids/230254/Brinquedo_Pet_Bola_Cravo_Borracha_Colorida_7cm_LM2967PET_-_honeyhome_2_243.jpg?v=638640144799800000', 'Brinquedo resistente para cães de médio porte.'),
-('Varinha com Pena Gatos', 12.50, 120, '2028-01-01', 8, 45, 'https://images.tcdn.com.br/img/img_prod/771572/brinquedo_para_gato_varinha_guizo_pena_micanga_34507_2_20230502121054.jpg', 'Brinquedo interativo com pena para gatos.'),
+('Bola de Borracha Mordedor', 14.90, 100, '2028-01-01', 8, 46, 'https://lojasmel1.vtexassets.com/arquivos/ids/230254/Brinquedo_Pet_Bola_Cravo_Borracha_Colorida_7cm_LM2967PET_-_honeyhome_2_243.jpg?v=638640144799800000', 'Brinquedo resistente para cães de médio porte.'),
+('Varinha com Pena Gatos', 12.50, 120, '2028-01-01', 8, 46, 'https://images.tcdn.com.br/img/img_prod/771572/brinquedo_para_gato_varinha_guizo_pena_micanga_34507_2_20230502121054.jpg', 'Brinquedo interativo com pena para gatos.'),
 
 -- HIGIENE E CUIDADOS (id_subcategoria = 46)
-('Shampoo Pet Clean 700ml', 19.90, 120, '2027-01-05', 8, 46, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk2smcR-r0sPXmmrUc3U3ZF_XPw6rYN1iniQ&s', 'Shampoo neutro para todos os tipos de pelos.'),
-('Lenços Umedecidos MyHug', 16.90, 130, '2027-03-10', 8, 46, 'https://cobasi.vteximg.com.br/arquivos/ids/1069381/Lenco-Umedecido-Caes-e-Gatos-MyHug-100-unidades.png.png?v=638781849453070000', 'Lenços higiênicos para limpeza diária de pets.'),
+('Shampoo Pet Clean 700ml', 19.90, 120, '2027-01-05', 8, 47, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk2smcR-r0sPXmmrUc3U3ZF_XPw6rYN1iniQ&s', 'Shampoo neutro para todos os tipos de pelos.'),
+('Lenços Umedecidos MyHug', 16.90, 130, '2027-03-10', 8, 47, 'https://cobasi.vteximg.com.br/arquivos/ids/1069381/Lenco-Umedecido-Caes-e-Gatos-MyHug-100-unidades.png.png?v=638781849453070000', 'Lenços higiênicos para limpeza diária de pets.'),
 
 -- ACESSÓRIOS (id_subcategoria = 47)
-('Coleira Ajustável G', 24.90, 80, '2028-01-01', 8, 47, 'https://m.media-amazon.com/images/I/41Ttmxzzx0L._UF1000,1000_QL80_.jpg', 'Coleira de nylon ajustável, resistente e confortável.'),
-('Comedouro Inox 500ml', 17.90, 90, '2028-01-01', 8, 47, 'https://tudodebicho.vtexassets.com/arquivos/ids/172735/comedouro-caes-american-pets-inox-natutral-auteo-relevo.jpg?v=638410396605100000', 'Comedouro em aço inoxidável, fácil de higienizar.'),
+('Coleira Ajustável G', 24.90, 80, '2028-01-01', 8, 48, 'https://m.media-amazon.com/images/I/41Ttmxzzx0L._UF1000,1000_QL80_.jpg', 'Coleira de nylon ajustável, resistente e confortável.'),
+('Comedouro Inox 500ml', 17.90, 90, '2028-01-01', 8, 48, 'https://tudodebicho.vtexassets.com/arquivos/ids/172735/comedouro-caes-american-pets-inox-natutral-auteo-relevo.jpg?v=638410396605100000', 'Comedouro em aço inoxidável, fácil de higienizar.'),
 
 -- SAÚDE E MEDICAMENTOS (id_subcategoria = 48)
-('Antipulgas NexGard 10-25kg', 85.00, 50, '2027-06-15', 8, 48, 'https://images.tcdn.com.br/img/img_prod/1263384/antipulgas_e_carrapatos_nexgard_cao_10_a_25kg_com_1_comprimido_1143_1_132c0f3065a689fe82a461685055d1c8.jpg', 'Tablete mastigável antipulgas e carrapatos para cães.'),
-('Vermífugo Drontal Gatos 4 Comprimidos', 39.90, 70, '2027-05-20', 8, 48, 'https://images.petz.com.br/fotos/1661537404351.jpg', 'Vermífugo completo para gatos adultos.');
+('Antipulgas NexGard 10-25kg', 85.00, 50, '2027-06-15', 8, 49, 'https://images.tcdn.com.br/img/img_prod/1263384/antipulgas_e_carrapatos_nexgard_cao_10_a_25kg_com_1_comprimido_1143_1_132c0f3065a689fe82a461685055d1c8.jpg', 'Tablete mastigável antipulgas e carrapatos para cães.'),
+('Vermífugo Drontal Gatos 4 Comprimidos', 39.90, 70, '2027-05-20', 8, 49, 'https://images.petz.com.br/fotos/1661537404351.jpg', 'Vermífugo completo para gatos adultos.');
 
 -- ======================================
 -- PEDIDOS DE CLIENTE
