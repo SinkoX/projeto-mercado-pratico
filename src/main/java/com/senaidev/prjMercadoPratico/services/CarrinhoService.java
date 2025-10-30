@@ -45,48 +45,49 @@ public class CarrinhoService {
 
     @Transactional
     public Carrinho adicionarItem(Long idUsuario, Long idProduto, Integer quantidade) {
-        Carrinho carrinho = buscarCarrinhoPorUsuario(idUsuario);
-        Produto produto = produtoRepository.findById(idProduto)
-                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+        try {
+            Carrinho carrinho = buscarCarrinhoPorUsuario(idUsuario);
+            Produto produto = produtoRepository.findById(idProduto)
+                    .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
 
-        ItemCarrinho itemExistente = carrinho.getItensCarrinho().stream()
-                .filter(i -> i.getProduto().getIdProduto().equals(idProduto))
-                .findFirst()
-                .orElse(null);
+            ItemCarrinho itemExistente = carrinho.getItensCarrinho().stream()
+                    .filter(i -> i.getProduto().getIdProduto().equals(idProduto))
+                    .findFirst()
+                    .orElse(null);
 
-        if (itemExistente != null) {
-            itemExistente.setQuantidade(itemExistente.getQuantidade() + quantidade);
-        } else {
-            ItemCarrinho item = new ItemCarrinho();
-            item.setProduto(produto);
-            item.setQuantidade(quantidade);
-            item.setPrecoUnitario(produto.getPrecoProduto());
-            item.setCarrinho(carrinho);
-            carrinho.getItensCarrinho().add(item);
+            if (itemExistente != null) {
+                itemExistente.setQuantidade(itemExistente.getQuantidade() + quantidade);
+                itemExistente.setSubTotal(
+                    produto.getPrecoProduto().multiply(BigDecimal.valueOf(itemExistente.getQuantidade()))
+                );
+            } else {
+                ItemCarrinho item = new ItemCarrinho();
+                item.setProduto(produto);
+                item.setQuantidade(quantidade);
+                item.setPrecoUnitario(produto.getPrecoProduto());
+                item.setSubTotal(produto.getPrecoProduto().multiply(BigDecimal.valueOf(quantidade)));
+                item.setCarrinho(carrinho);
+                carrinho.getItensCarrinho().add(item);
+            }
+
+            carrinho.atualizarTotais();
+            return carrinhoRepository.save(carrinho);
+
+        } catch (Exception e) {
+            e.printStackTrace(); // Mostra no console o erro real (linha, classe, causa)
+            throw e; // Repassa pro Spring pra gerar o erro 500
         }
-
-        carrinho.atualizarTotais();
-        return carrinhoRepository.save(carrinho);
     }
+
+
 
     @Transactional
     public Carrinho removerItem(Long idUsuario, Long idProduto) {
         Carrinho carrinho = buscarCarrinhoPorUsuario(idUsuario);
 
-        ItemCarrinho item = carrinho.getItensCarrinho().stream()
-                .filter(i -> i.getProduto().getIdProduto().equals(idProduto))
-                .findFirst()
-                .orElse(null);
-
-        if (item != null) {
-            if (item.getQuantidade() > 1) {
-                // diminui 1 unidade
-                item.setQuantidade(item.getQuantidade() - 1);
-            } else {
-                // remove item se quantidade = 1
-                carrinho.getItensCarrinho().remove(item);
-            }
-        }
+        carrinho.getItensCarrinho().removeIf(
+            item -> item.getProduto().getIdProduto().equals(idProduto)
+        );
 
         carrinho.atualizarTotais();
         return carrinhoRepository.save(carrinho);
