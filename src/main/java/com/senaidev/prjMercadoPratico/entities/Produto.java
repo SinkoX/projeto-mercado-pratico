@@ -42,7 +42,7 @@ public class Produto {
     private LocalDate dataValidade;
     
     @Column(name = "descricao_produto", nullable = false, length = 1000)
-    private String descricao;
+    private String descricaoProduto;
     
     @Column(name = "img_url", nullable = false)
     private String imgUrl;
@@ -74,7 +74,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Long idProduto, String nomeProduto, BigDecimal precoProduto, Integer quantidade,
+    public Produto(Long idProduto, String nomeProduto, BigDecimal precoProduto, Integer quantidade,String descricaoProduto,
                    LocalDate dataValidade, String imgUrl, byte[] imagemProduto, Categoria categoria, Subcategoria subcategoria,  
                    List<ItemCarrinho> itensCarrinho, List<ItemPedido> itensPedido) {
         super();
@@ -89,6 +89,7 @@ public class Produto {
         this.subcategoria = subcategoria;
         this.itensCarrinho = itensCarrinho;
         this.itensPedido = itensPedido;
+        this.descricaoProduto = descricaoProduto;
     }
 
     // Getters e Setters
@@ -180,11 +181,11 @@ public class Produto {
         this.itensPedido = itensPedido;
     }
 
-    public String getDescricao() {
-    	return descricao;
+    public String getDescricaoProduto() {
+    	return descricaoProduto;
     }
 
-    public void setDescricao(String descricao) {
-    	this.descricao = descricao;
+    public void setDescricao(String descricaoProduto) {
+    	this.descricaoProduto = descricaoProduto;
     }
 }

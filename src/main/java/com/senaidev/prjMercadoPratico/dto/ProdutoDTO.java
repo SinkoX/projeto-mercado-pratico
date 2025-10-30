@@ -29,7 +29,7 @@ public class ProdutoDTO {
         this.dataValidade = produto.getDataValidade();
         this.idCategoria = produto.getCategoria() != null ? produto.getCategoria().getIdCategoria() : null;
 
-        this.descricaoProduto = produto.getDescricao();  // Copia a descrição para o DTO
+        this.descricaoProduto = produto.getDescricaoProduto();  // Copia a descrição para o DTO
 
         this.imgUrl = produto.getImgUrl(); // Mantém se existir
 
