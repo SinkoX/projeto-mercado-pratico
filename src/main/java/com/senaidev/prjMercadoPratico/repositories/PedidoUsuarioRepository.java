@@ -1,6 +1,7 @@
 package com.senaidev.prjMercadoPratico.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,6 @@ public interface PedidoUsuarioRepository extends JpaRepository<PedidoUsuario, Lo
 
 	// 🔍 Busca todos os pedidos de um usuário específico
     List<PedidoUsuario> findByUsuarioIdUsuario(Long idUsuario);
+    
+    Optional<PedidoUsuario> findByPaymentIntent(String paymentIntent);
 }

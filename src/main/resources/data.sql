@@ -370,15 +370,7 @@ INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, 
 -- ======================================
 -- PEDIDOS DE CLIENTE
 -- ======================================
-INSERT INTO tb_pedido_usuario (
-  id_pedido_usuario,
-  valor_total,
-  status_pedido,
-  data_pedido,
-  id_usuario,
-  id_Funcionario
-)
-VALUES (1 , 33.40, 'ENTREGUE', '2025-09-30', 1, 1);
+
 
 -- ======================================
 -- PEDIDOS DE FORNECEDOR

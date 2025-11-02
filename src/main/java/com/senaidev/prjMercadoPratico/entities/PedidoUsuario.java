@@ -39,6 +39,9 @@ public class PedidoUsuario {
 
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal;
+    
+    @Column(name = "payment_intent")
+    private String paymentIntent;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_pedido", nullable = false, length = 20)
@@ -93,12 +96,20 @@ public class PedidoUsuario {
 	public void setStatusPedido(StatusPedido statusPedido) { this.statusPedido = statusPedido; }
 	public void setDataPedido(LocalDate dataPedido) { this.dataPedido = dataPedido; }
 	public void setFuncionario(Funcionario funcionario) { this.funcionario = funcionario; }
+	
+	public String getPaymentIntent() {
+	    return paymentIntent;
+	}
+
+	public void setPaymentIntent(String paymentIntent) {
+	    this.paymentIntent = paymentIntent;
+	}
 
 	// 🧭 Atualiza status (controle de fluxo)
     public void atualizarStatus(StatusPedido novoStatus) {
         if (novoStatus == null) throw new IllegalArgumentException("Status não pode ser nulo");
 
-        if (this.statusPedido == StatusPedido.CANCELADO || this.statusPedido == StatusPedido.ENTREGUE) {
+        if (this.statusPedido == StatusPedido.CANCELADO || this.statusPedido == StatusPedido.PAGO) {
             throw new IllegalStateException("Pedido já finalizado não pode mudar de status");
         }
 
