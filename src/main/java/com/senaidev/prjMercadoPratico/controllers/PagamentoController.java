@@ -1,6 +1,6 @@
 package com.senaidev.prjMercadoPratico.controllers;
 
-import java.util.Map;
+import java.math.BigDecimal;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.senaidev.prjMercadoPratico.dto.PagamentoDTO;
 import com.senaidev.prjMercadoPratico.entities.Endereco;
-import com.senaidev.prjMercadoPratico.services.EnderecoService;
 import com.senaidev.prjMercadoPratico.services.PedidoUsuarioService;
 
 @RestController
@@ -19,32 +18,33 @@ import com.senaidev.prjMercadoPratico.services.PedidoUsuarioService;
 public class PagamentoController {
 
     private final PedidoUsuarioService pedidoUsuarioService;
-    private final EnderecoService enderecoService;
 
-    public PagamentoController(PedidoUsuarioService pedidoUsuarioService,
-                               EnderecoService enderecoService) {
+    public PagamentoController(PedidoUsuarioService pedidoUsuarioService) {
         this.pedidoUsuarioService = pedidoUsuarioService;
-        this.enderecoService = enderecoService;
     }
 
     @PostMapping("/finalizar/{idUsuario}")
     public ResponseEntity<?> finalizarPagamento(
             @PathVariable Long idUsuario,
-            @RequestBody PagamentoDTO pagamentoRequest) {
-
+            @RequestBody PagamentoDTO pagamentoDTO) {
         try {
-            Endereco enderecoEntrega = enderecoService.buscarPorId(pagamentoRequest.getIdEnderecoEntrega());
+            // Monta o endereço a partir do DTO
+            Endereco endereco = new Endereco();
+            endereco.setId_endereco(pagamentoDTO.getIdEnderecoEntrega());
+            // Se quiser, pode setar rua, número, bairro, cidade, cep também
+
+            // Chama o service já existente
             String checkoutUrl = pedidoUsuarioService.criarPedidoComStripe(
                     idUsuario,
-                    enderecoEntrega,
-                    pagamentoRequest.getFrete(),
-                    pagamentoRequest.getDesconto()
+                    endereco,
+                    pagamentoDTO.getFrete() != null ? pagamentoDTO.getFrete() : BigDecimal.ZERO,
+                    pagamentoDTO.getDesconto() != null ? pagamentoDTO.getDesconto() : BigDecimal.ZERO
             );
 
-            return ResponseEntity.ok(Map.of("checkoutUrl", checkoutUrl));
-
+            return ResponseEntity.ok().body("{\"checkoutUrl\": \"" + checkoutUrl + "\"}");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("erro", e.getMessage()));
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("{\"erro\": \"" + e.getMessage() + "\"}");
         }
     }
 }
