@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.senaidev.prjMercadoPratico.entities.Carrinho;
 import com.senaidev.prjMercadoPratico.entities.ItemPedido;
 import com.senaidev.prjMercadoPratico.entities.PedidoUsuario;
-import com.senaidev.prjMercadoPratico.entities.Usuario;
 import com.senaidev.prjMercadoPratico.enums.StatusPedido;
+import com.senaidev.prjMercadoPratico.repositories.CarrinhoRepository;
 import com.senaidev.prjMercadoPratico.repositories.PedidoUsuarioRepository;
 import com.stripe.Stripe;
 import com.stripe.model.checkout.Session;
@@ -21,20 +21,20 @@ import com.stripe.param.checkout.SessionCreateParams;
 public class PedidoUsuarioService {
 
     private final PedidoUsuarioRepository pedidoUsuarioRepository;
+    private final CarrinhoRepository carrinhoRepository;
     private final CarrinhoService carrinhoService;
 
-    // 👉 chave secreta do Stripe
     private static final String STRIPE_SECRET_KEY = "sk_test_51SOSMt1b6fknUuf8Rid6zxVO29KfcQEtzgBVM905EqEmJWWI3jLZZng6jwY29UHV1B9EbFWSQE2u1z9QziKYEw7T00PLL3FvU1";
 
     public PedidoUsuarioService(PedidoUsuarioRepository pedidoUsuarioRepository,
-                                CarrinhoService carrinhoService) {
+                                CarrinhoService carrinhoService,
+                                CarrinhoRepository carrinhoRepository) {
         this.pedidoUsuarioRepository = pedidoUsuarioRepository;
         this.carrinhoService = carrinhoService;
+        this.carrinhoRepository = carrinhoRepository;
     }
 
-    /**
-     * Cria um pedido e inicia o pagamento via Stripe Checkout.
-     */
+    /** Cria pedido e retorna URL do Stripe Checkout */
     @Transactional
     public String criarPedidoComStripe(Long idUsuario) throws Exception {
         Carrinho carrinho = carrinhoService.buscarCarrinhoPorUsuario(idUsuario);
@@ -43,9 +43,6 @@ public class PedidoUsuarioService {
             throw new IllegalArgumentException("O carrinho está vazio ou não foi encontrado.");
         }
 
-        Usuario usuario = carrinho.getUsuario();
-
-        // converte itens do carrinho em itens do pedido
         List<ItemPedido> itensPedido = carrinho.getItensCarrinho().stream()
                 .map(itemCarrinho -> new ItemPedido(
                         null,
@@ -56,19 +53,15 @@ public class PedidoUsuarioService {
                 ))
                 .collect(Collectors.toList());
 
-        PedidoUsuario pedido = new PedidoUsuario(usuario, itensPedido);
+        PedidoUsuario pedido = new PedidoUsuario(carrinho.getUsuario(), itensPedido);
         pedido.setStatusPedido(StatusPedido.PENDENTE);
 
         PedidoUsuario pedidoSalvo = pedidoUsuarioRepository.save(pedido);
 
-        // cria sessão Stripe Checkout
-        String checkoutUrl = criarSessaoStripe(pedidoSalvo);
-
-    
-
-        return checkoutUrl;
+        return criarSessaoStripe(pedidoSalvo);
     }
 
+    /** Cria sessão Stripe Checkout */
     private String criarSessaoStripe(PedidoUsuario pedido) throws Exception {
         Stripe.apiKey = STRIPE_SECRET_KEY;
 
@@ -94,14 +87,14 @@ public class PedidoUsuarioService {
                 .addAllLineItem(lineItems)
                 .setSuccessUrl("http://localhost:5173/sucesso?pedido=" + pedido.getIdPedidoUsuario())
                 .setCancelUrl("http://localhost:5173/cancelado")
-                .setClientReferenceId(String.valueOf(pedido.getIdPedidoUsuario())) // <- importante
+                .setClientReferenceId(String.valueOf(pedido.getIdPedidoUsuario()))
                 .build();
 
         Session session = Session.create(params);
         return session.getUrl();
     }
 
-    // 🔹 CRUD e listagem
+    // 🔹 CRUD básico
     public List<PedidoUsuario> listarTodos() {
         return pedidoUsuarioRepository.findAll();
     }
@@ -126,11 +119,22 @@ public class PedidoUsuarioService {
     public List<PedidoUsuario> buscarPorUsuario(Long idUsuario) {
         return pedidoUsuarioRepository.findByUsuarioIdUsuario(idUsuario);
     }
-    /**
-     * Busca um pedido pelo ID do PaymentIntent do Stripe.
-     */
+
+    /** Busca pedido pelo PaymentIntent do Stripe */
     public PedidoUsuario buscarPorPaymentIntent(String paymentIntentId) {
-        return pedidoUsuarioRepository.findByPaymentIntent(paymentIntentId)
-                .orElse(null); // retorna null se não encontrar
+        return pedidoUsuarioRepository.findByPaymentIntent(paymentIntentId).orElse(null);
+    }
+
+    /** Atualiza status para PAGO e limpa carrinho */
+    @Transactional
+    public void marcarComoPagoELimparCarrinho(PedidoUsuario pedido) {
+        pedido.atualizarStatus(StatusPedido.PAGO);
+        pedidoUsuarioRepository.save(pedido);
+
+        Carrinho carrinho = pedido.getUsuario().getCarrinho();
+        if (carrinho != null && carrinho.getItensCarrinho() != null) {
+            carrinho.getItensCarrinho().clear();
+            carrinhoRepository.save(carrinho);
+        }
     }
 }

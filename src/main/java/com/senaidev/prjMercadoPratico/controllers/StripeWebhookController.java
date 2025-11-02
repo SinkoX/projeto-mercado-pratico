@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.senaidev.prjMercadoPratico.entities.PedidoUsuario;
-import com.senaidev.prjMercadoPratico.enums.StatusPedido;
 import com.senaidev.prjMercadoPratico.services.PedidoUsuarioService;
 
 @RestController
@@ -48,7 +47,7 @@ public class StripeWebhookController {
                     break;
 
                 default:
-                    System.out.println("Evento não tratado especificamente: " + eventType);
+                    System.out.println("Evento não tratado: " + eventType);
                     System.out.println("Conteúdo do evento: " + dataObject.toString());
             }
 
@@ -61,26 +60,21 @@ public class StripeWebhookController {
     }
 
     private void handleCheckoutSessionCompleted(JsonNode session) {
-        try {
-            String clientReferenceId = session.path("client_reference_id").asText(null);
-            String paymentIntentId = session.path("payment_intent").asText(null);
+        String clientReferenceId = session.path("client_reference_id").asText(null);
+        String paymentIntentId = session.path("payment_intent").asText(null);
 
-            PedidoUsuario pedido = null;
-            if (clientReferenceId != null) {
-                pedido = pedidoUsuarioService.buscarPorId(Long.parseLong(clientReferenceId));
-            } else if (paymentIntentId != null) {
-                pedido = pedidoUsuarioService.buscarPorPaymentIntent(paymentIntentId);
-            }
+        PedidoUsuario pedido = null;
+        if (clientReferenceId != null) {
+            pedido = pedidoUsuarioService.buscarPorId(Long.parseLong(clientReferenceId));
+        } else if (paymentIntentId != null) {
+            pedido = pedidoUsuarioService.buscarPorPaymentIntent(paymentIntentId);
+        }
 
-            if (pedido != null) {
-                pedidoUsuarioService.atualizarStatus(pedido.getIdPedidoUsuario(), StatusPedido.PAGO);
-                System.out.println("Pedido atualizado para PAGO: " + pedido.getIdPedidoUsuario());
-            } else {
-                System.err.println("Não foi possível identificar o pedido na sessão do Stripe!");
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erro ao desserializar checkout.session.completed: " + e.getMessage());
+        if (pedido != null) {
+            pedidoUsuarioService.marcarComoPagoELimparCarrinho(pedido);
+            System.out.println("Pedido pago e carrinho limpo: " + pedido.getIdPedidoUsuario());
+        } else {
+            System.err.println("Não foi possível identificar o pedido na sessão do Stripe!");
         }
     }
 
@@ -89,8 +83,8 @@ public class StripeWebhookController {
         PedidoUsuario pedido = pedidoUsuarioService.buscarPorPaymentIntent(paymentIntentId);
 
         if (pedido != null) {
-            pedidoUsuarioService.atualizarStatus(pedido.getIdPedidoUsuario(), StatusPedido.PAGO);
-            System.out.println("Pedido atualizado para PAGO via payment_intent: " + pedido.getIdPedidoUsuario());
+            pedidoUsuarioService.marcarComoPagoELimparCarrinho(pedido);
+            System.out.println("Pedido pago e carrinho limpo via payment_intent: " + pedido.getIdPedidoUsuario());
         } else {
             System.err.println("Pedido não encontrado para payment_intent: " + paymentIntentId);
         }
@@ -101,8 +95,8 @@ public class StripeWebhookController {
         PedidoUsuario pedido = pedidoUsuarioService.buscarPorPaymentIntent(paymentIntentId);
 
         if (pedido != null) {
-            pedidoUsuarioService.atualizarStatus(pedido.getIdPedidoUsuario(), StatusPedido.PAGO);
-            System.out.println("Pedido atualizado para PAGO via charge: " + pedido.getIdPedidoUsuario());
+            pedidoUsuarioService.marcarComoPagoELimparCarrinho(pedido);
+            System.out.println("Pedido pago e carrinho limpo via charge: " + pedido.getIdPedidoUsuario());
         } else {
             System.err.println("Não foi possível identificar o pedido no charge: " + paymentIntentId);
         }
