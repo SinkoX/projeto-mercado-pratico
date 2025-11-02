@@ -8,18 +8,7 @@ import java.util.Objects;
 
 import com.senaidev.prjMercadoPratico.enums.StatusPedido;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_pedido_usuario")
@@ -39,7 +28,16 @@ public class PedidoUsuario {
 
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal;
-    
+
+    @Column(name = "frete", precision = 10, scale = 2)
+    private BigDecimal frete;
+
+    @Column(name = "desconto", precision = 10, scale = 2)
+    private BigDecimal desconto;
+
+    @Column(name = "valor_final", precision = 10, scale = 2)
+    private BigDecimal valorFinal;
+
     @Column(name = "payment_intent")
     private String paymentIntent;
 
@@ -49,16 +47,19 @@ public class PedidoUsuario {
 
     @Column(name = "data_pedido", nullable = false)
     private LocalDate dataPedido;
-    
+
     @ManyToOne
-    @JoinColumn(name = "id_Funcionario")
+    @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
 
-    // 🔒 Construtor padrão exigido pelo JPA
+    @ManyToOne
+    @JoinColumn(name = "id_endereco")
+    private Endereco enderecoEntrega;
+
     protected PedidoUsuario() {}
 
-    // 🧱 Construtor principal — cria um pedido imutável
-    public PedidoUsuario(Usuario usuario, List<ItemPedido> itensPedido) {
+    public PedidoUsuario(Usuario usuario, List<ItemPedido> itensPedido,
+                         BigDecimal frete, BigDecimal desconto, Endereco enderecoEntrega) {
         if (usuario == null) throw new IllegalArgumentException("Usuário não pode ser nulo");
         if (itensPedido == null || itensPedido.isEmpty())
             throw new IllegalArgumentException("O pedido deve conter ao menos um item");
@@ -67,9 +68,13 @@ public class PedidoUsuario {
         this.itensPedido = List.copyOf(itensPedido);
         this.statusPedido = StatusPedido.PENDENTE;
         this.dataPedido = LocalDate.now();
-        this.valorTotal = calcularValorTotal(itensPedido);
+        this.frete = frete != null ? frete : BigDecimal.ZERO;
+        this.desconto = desconto != null ? desconto : BigDecimal.ZERO;
+        this.enderecoEntrega = enderecoEntrega;
 
-        // Vincula os itens ao pedido
+        this.valorTotal = calcularValorTotal(itensPedido);
+        this.valorFinal = valorTotal.add(this.frete).subtract(this.desconto);
+
         this.itensPedido.forEach(item -> item.setPedidoUsuario(this));
     }
 
@@ -80,39 +85,38 @@ public class PedidoUsuario {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    // 🔍 Getters
+    // 🔍 Getters e Setters
     public Long getIdPedidoUsuario() { return idPedidoUsuario; }
     public Usuario getUsuario() { return usuario; }
     public List<ItemPedido> getItensPedido() { return Collections.unmodifiableList(itensPedido); }
     public BigDecimal getValorTotal() { return valorTotal; }
+    public BigDecimal getFrete() { return frete; }
+    public BigDecimal getDesconto() { return desconto; }
+    public BigDecimal getValorFinal() { return valorFinal; }
     public StatusPedido getStatusPedido() { return statusPedido; }
     public LocalDate getDataPedido() { return dataPedido; }
     public Funcionario getFuncionario() { return funcionario; }
+    public Endereco getEnderecoEntrega() { return enderecoEntrega; }
+    public String getPaymentIntent() { return paymentIntent; }
 
-    public void setIdPedidoUsuario(Long idPedidoUsuario) { this.idPedidoUsuario = idPedidoUsuario; }
-	public void setUsuario(Usuario usuario) { this.usuario = usuario; }
-	public void setItensPedido(List<ItemPedido> itensPedido) { this.itensPedido = itensPedido; }
-	public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
-	public void setStatusPedido(StatusPedido statusPedido) { this.statusPedido = statusPedido; }
-	public void setDataPedido(LocalDate dataPedido) { this.dataPedido = dataPedido; }
-	public void setFuncionario(Funcionario funcionario) { this.funcionario = funcionario; }
-	
-	public String getPaymentIntent() {
-	    return paymentIntent;
-	}
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    public void setItensPedido(List<ItemPedido> itensPedido) { this.itensPedido = itensPedido; }
+    public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
+    public void setFrete(BigDecimal frete) { this.frete = frete; }
+    public void setDesconto(BigDecimal desconto) { this.desconto = desconto; }
+    public void setValorFinal(BigDecimal valorFinal) { this.valorFinal = valorFinal; }
+    public void setStatusPedido(StatusPedido statusPedido) { this.statusPedido = statusPedido; }
+    public void setDataPedido(LocalDate dataPedido) { this.dataPedido = dataPedido; }
+    public void setFuncionario(Funcionario funcionario) { this.funcionario = funcionario; }
+    public void setEnderecoEntrega(Endereco enderecoEntrega) { this.enderecoEntrega = enderecoEntrega; }
+    public void setPaymentIntent(String paymentIntent) { this.paymentIntent = paymentIntent; }
 
-	public void setPaymentIntent(String paymentIntent) {
-	    this.paymentIntent = paymentIntent;
-	}
-
-	// 🧭 Atualiza status (controle de fluxo)
+    // Atualiza status
     public void atualizarStatus(StatusPedido novoStatus) {
         if (novoStatus == null) throw new IllegalArgumentException("Status não pode ser nulo");
-
         if (this.statusPedido == StatusPedido.CANCELADO || this.statusPedido == StatusPedido.PAGO) {
             throw new IllegalStateException("Pedido já finalizado não pode mudar de status");
         }
-
         this.statusPedido = novoStatus;
     }
 }

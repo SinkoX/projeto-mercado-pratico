@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.senaidev.prjMercadoPratico.entities.Carrinho;
+import com.senaidev.prjMercadoPratico.entities.Endereco;
+
 import com.senaidev.prjMercadoPratico.entities.ItemPedido;
 import com.senaidev.prjMercadoPratico.entities.PedidoUsuario;
 import com.senaidev.prjMercadoPratico.enums.StatusPedido;
@@ -36,7 +38,9 @@ public class PedidoUsuarioService {
 
     /** Cria pedido e retorna URL do Stripe Checkout */
     @Transactional
-    public String criarPedidoComStripe(Long idUsuario) throws Exception {
+    public String criarPedidoComStripe(Long idUsuario, Endereco enderecoEntrega,
+                                       BigDecimal frete, BigDecimal desconto) throws Exception {
+
         Carrinho carrinho = carrinhoService.buscarCarrinhoPorUsuario(idUsuario);
 
         if (carrinho == null || carrinho.getItensCarrinho().isEmpty()) {
@@ -44,16 +48,16 @@ public class PedidoUsuarioService {
         }
 
         List<ItemPedido> itensPedido = carrinho.getItensCarrinho().stream()
-                .map(itemCarrinho -> new ItemPedido(
-                        null,
-                        itemCarrinho.getQuantidade(),
-                        itemCarrinho.getProduto(),
-                        null,
-                        itemCarrinho.getSubTotal()
-                ))
+                .map(item -> new ItemPedido(null, item.getQuantidade(), item.getProduto(), null, item.getSubTotal()))
                 .collect(Collectors.toList());
 
-        PedidoUsuario pedido = new PedidoUsuario(carrinho.getUsuario(), itensPedido);
+        PedidoUsuario pedido = new PedidoUsuario(
+                carrinho.getUsuario(),
+                itensPedido,
+                frete,
+                desconto,
+                enderecoEntrega
+        );
         pedido.setStatusPedido(StatusPedido.PENDENTE);
 
         PedidoUsuario pedidoSalvo = pedidoUsuarioRepository.save(pedido);

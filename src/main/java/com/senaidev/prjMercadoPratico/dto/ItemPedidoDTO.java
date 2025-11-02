@@ -1,7 +1,6 @@
 package com.senaidev.prjMercadoPratico.dto;
 
 import java.math.BigDecimal;
-
 import com.senaidev.prjMercadoPratico.entities.ItemPedido;
 
 public class ItemPedidoDTO {

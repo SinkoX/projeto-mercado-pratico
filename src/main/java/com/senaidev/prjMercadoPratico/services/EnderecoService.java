@@ -50,4 +50,9 @@ public class EnderecoService {
     public void delete(Long id) {
         enderecoRepository.deleteById(id);
     }
+    
+    public Endereco buscarPorId(Long id) {
+        return enderecoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Endereço de entrega não encontrado com ID: " + id));
+    }
 }
