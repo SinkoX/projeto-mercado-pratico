@@ -13,6 +13,9 @@ public class PedidoUsuarioDTO {
     private Long idPedidoUsuario;
     private String nomeUsuario;
     private BigDecimal valorTotal;
+    private BigDecimal frete;
+    private BigDecimal desconto;
+    private BigDecimal valorFinal;
     private StatusPedido statusPedido;
     private LocalDate dataPedido;
     private List<ItemPedidoDTO> itens;
@@ -21,6 +24,9 @@ public class PedidoUsuarioDTO {
         this.idPedidoUsuario = pedido.getIdPedidoUsuario();
         this.nomeUsuario = pedido.getUsuario().getNomeUsuario();
         this.valorTotal = pedido.getValorTotal();
+        this.frete = pedido.getFrete();           // 🔹 agora incluído
+        this.desconto = pedido.getDesconto();     // 🔹 agora incluído
+        this.valorFinal = pedido.getValorFinal(); // 🔹 agora incluído
         this.statusPedido = pedido.getStatusPedido();
         this.dataPedido = pedido.getDataPedido();
         this.itens = pedido.getItensPedido().stream()
@@ -32,8 +38,10 @@ public class PedidoUsuarioDTO {
     public Long getIdPedidoUsuario() { return idPedidoUsuario; }
     public String getNomeUsuario() { return nomeUsuario; }
     public BigDecimal getValorTotal() { return valorTotal; }
+    public BigDecimal getFrete() { return frete; }
+    public BigDecimal getDesconto() { return desconto; }
+    public BigDecimal getValorFinal() { return valorFinal; }
     public StatusPedido getStatusPedido() { return statusPedido; }
     public LocalDate getDataPedido() { return dataPedido; }
     public List<ItemPedidoDTO> getItens() { return itens; }
 }
-

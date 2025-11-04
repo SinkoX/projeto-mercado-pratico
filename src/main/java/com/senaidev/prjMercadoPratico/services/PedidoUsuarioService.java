@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.senaidev.prjMercadoPratico.entities.Carrinho;
 import com.senaidev.prjMercadoPratico.entities.Endereco;
-
 import com.senaidev.prjMercadoPratico.entities.ItemPedido;
 import com.senaidev.prjMercadoPratico.entities.PedidoUsuario;
 import com.senaidev.prjMercadoPratico.enums.StatusPedido;
@@ -65,10 +64,11 @@ public class PedidoUsuarioService {
         return criarSessaoStripe(pedidoSalvo);
     }
 
-    /** Cria sessão Stripe Checkout */
+    /** Cria sessão Stripe Checkout com frete e desconto */
     private String criarSessaoStripe(PedidoUsuario pedido) throws Exception {
         Stripe.apiKey = STRIPE_SECRET_KEY;
 
+        // 🛒 Itens principais (produtos)
         List<SessionCreateParams.LineItem> lineItems = pedido.getItensPedido().stream()
                 .map(item -> SessionCreateParams.LineItem.builder()
                         .setQuantity(Long.valueOf(item.getQuantidade()))
@@ -86,6 +86,44 @@ public class PedidoUsuarioService {
                         .build())
                 .collect(Collectors.toList());
 
+        // 🚚 Adiciona o frete, se existir
+        if (pedido.getFrete() != null && pedido.getFrete().compareTo(BigDecimal.ZERO) > 0) {
+            SessionCreateParams.LineItem freteItem = SessionCreateParams.LineItem.builder()
+                    .setQuantity(1L)
+                    .setPriceData(
+                            SessionCreateParams.LineItem.PriceData.builder()
+                                    .setCurrency("brl")
+                                    .setUnitAmount(pedido.getFrete().multiply(BigDecimal.valueOf(100)).longValue())
+                                    .setProductData(
+                                            SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                                    .setName("Frete")
+                                                    .build())
+                                    .build())
+                    .build();
+
+            lineItems.add(freteItem);
+        }
+
+        // 💸 Adiciona desconto como valor negativo (representado como item)
+        if (pedido.getDesconto() != null && pedido.getDesconto().compareTo(BigDecimal.ZERO) > 0) {
+            SessionCreateParams.LineItem descontoItem = SessionCreateParams.LineItem.builder()
+                    .setQuantity(1L)
+                    .setPriceData(
+                            SessionCreateParams.LineItem.PriceData.builder()
+                                    .setCurrency("brl")
+                                    // valor negativo no Stripe deve ser tratado como desconto no backend
+                                    .setUnitAmount(pedido.getDesconto().multiply(BigDecimal.valueOf(-100)).longValue())
+                                    .setProductData(
+                                            SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                                    .setName("Desconto")
+                                                    .build())
+                                    .build())
+                    .build();
+
+            lineItems.add(descontoItem);
+        }
+
+        // 💰 Cria sessão Stripe
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
                 .addAllLineItem(lineItems)
