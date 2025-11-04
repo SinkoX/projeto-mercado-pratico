@@ -54,9 +54,9 @@ INSERT INTO tb_funcionario (nome_Funcionario, email_Funcionario, senha_Funcionar
 -- ======================================
 -- FORNECEDORES
 -- ======================================
-INSERT INTO tb_fornecedor (nome_Fornecedor, email_Fornecedor, cpf_Fornecedor, telefone_fornecedor, cnpj) VALUES
-('Fornecedor A', 'fornecedorA@email.com', '22233344455', '15999282837', '12345678000199'),
-('Fornecedor B', 'fornecedorB@email.com', '33344455566', '15981725747', '98765432000188');
+INSERT INTO tb_fornecedor (id_Fornecedor, nome_Fornecedor, email_Fornecedor, cpf_Fornecedor, telefone_fornecedor, cnpj) VALUES
+(1, 'Fornecedor A', 'fornecedorA@email.com', '22233344455', '15999282837', '12345678000199'),
+(2, 'Fornecedor B', 'fornecedorB@email.com', '33344455566', '15981725747', '98765432000188');
 
 -- ======================================
 -- CATEGORIAS
@@ -375,5 +375,4 @@ INSERT INTO tb_produto (nome_produto, preco_produto, quantidade, data_validade, 
 -- ======================================
 -- PEDIDOS DE FORNECEDOR
 -- ======================================
-INSERT INTO tb_pedido_fornecedor (data_Pedido_Fornecedor, id_Produto, id_Fornecedor)
-VALUES ('2025-09-25', 3, 1);
+

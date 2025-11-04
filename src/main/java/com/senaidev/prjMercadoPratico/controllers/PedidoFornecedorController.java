@@ -1,78 +1,56 @@
 package com.senaidev.prjMercadoPratico.controllers;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import com.senaidev.prjMercadoPratico.dto.PedidoFornecedorDTO;
 import com.senaidev.prjMercadoPratico.entities.PedidoFornecedor;
+import com.senaidev.prjMercadoPratico.enums.StatusPedidoFornecedor;
 import com.senaidev.prjMercadoPratico.services.PedidoFornecedorService;
 
 @RestController
-@RequestMapping("/pedidos-fornecedor")
+@RequestMapping("/pedidos-fornecedores")
 public class PedidoFornecedorController {
 
-    @Autowired
-    private PedidoFornecedorService pedidoFornecedorService;
+    private final PedidoFornecedorService pedidoFornecedorService;
 
-    // GET /pedidos-fornecedor
+    public PedidoFornecedorController(PedidoFornecedorService pedidoFornecedorService) {
+        this.pedidoFornecedorService = pedidoFornecedorService;
+    }
+
     @GetMapping
-    public ResponseEntity<List<PedidoFornecedor>> findAll() {
-        return ResponseEntity.ok(pedidoFornecedorService.findAll());
+    public ResponseEntity<List<PedidoFornecedorDTO>> listarTodos() {
+        List<PedidoFornecedorDTO> pedidos = pedidoFornecedorService.listarTodos().stream()
+                .map(PedidoFornecedorDTO::new)
+                .toList();
+        return ResponseEntity.ok(pedidos);
     }
 
-    // GET /pedidos-fornecedor/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<PedidoFornecedor> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(pedidoFornecedorService.findById(id));
+    public ResponseEntity<PedidoFornecedorDTO> buscarPorId(@PathVariable Long id) {
+        PedidoFornecedor pedido = pedidoFornecedorService.buscarPorId(id);
+        return ResponseEntity.ok(new PedidoFornecedorDTO(pedido));
     }
 
-    // POST /pedidos-fornecedor
     @PostMapping
-    public ResponseEntity<PedidoFornecedor> insert(@RequestBody PedidoFornecedor pedido) {
-        return ResponseEntity.ok(pedidoFornecedorService.insert(pedido));
+    public ResponseEntity<PedidoFornecedorDTO> criar(@RequestBody PedidoFornecedor pedidoFornecedor) {
+        PedidoFornecedor novoPedido = pedidoFornecedorService.criar(pedidoFornecedor);
+        return ResponseEntity.ok(new PedidoFornecedorDTO(novoPedido));
     }
 
-    // PUT /pedidos-fornecedor/{id}
-    @PutMapping("/{id}")
-    public ResponseEntity<PedidoFornecedor> update(@PathVariable Long id, @RequestBody PedidoFornecedor novoPedido) {
-        return ResponseEntity.ok(pedidoFornecedorService.update(id, novoPedido));
+    @PutMapping("/{id}/status")
+    public ResponseEntity<PedidoFornecedorDTO> atualizarStatus(
+            @PathVariable Long id,
+            @RequestParam StatusPedidoFornecedor novoStatus) {
+        PedidoFornecedor pedidoAtualizado = pedidoFornecedorService.atualizarStatus(id, novoStatus);
+        return ResponseEntity.ok(new PedidoFornecedorDTO(pedidoAtualizado));
     }
 
-    // DELETE /pedidos-fornecedor/{id}
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        pedidoFornecedorService.delete(id);
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        pedidoFornecedorService.deletar(id);
         return ResponseEntity.noContent().build();
-    }
-
-    // GET /pedidos-fornecedor/fornecedor/{idFornecedor}
-    @GetMapping("/fornecedor/{idFornecedor}")
-    public ResponseEntity<List<PedidoFornecedor>> findByFornecedor(@PathVariable Long idFornecedor) {
-        return ResponseEntity.ok(pedidoFornecedorService.findByFornecedor(idFornecedor));
-    }
-
-    // GET /pedidos-fornecedor/produto/{idProduto}
-    @GetMapping("/produto/{idProduto}")
-    public ResponseEntity<List<PedidoFornecedor>> findByProduto(@PathVariable Long idProduto) {
-        return ResponseEntity.ok(pedidoFornecedorService.findByProduto(idProduto));
-    }
-
-    // GET /pedidos-fornecedor/data?data=2025-09-16
-    @GetMapping("/data")
-    public ResponseEntity<List<PedidoFornecedor>> findByData(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
-        return ResponseEntity.ok(pedidoFornecedorService.findByData(data));
     }
 }

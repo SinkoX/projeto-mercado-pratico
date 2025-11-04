@@ -1,62 +1,45 @@
 package com.senaidev.prjMercadoPratico.services;
 
-import com.senaidev.prjMercadoPratico.entities.PedidoFornecedor;
-import com.senaidev.prjMercadoPratico.repositories.PedidoFornecedorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.senaidev.prjMercadoPratico.entities.PedidoFornecedor;
+import com.senaidev.prjMercadoPratico.enums.StatusPedidoFornecedor;
+import com.senaidev.prjMercadoPratico.repositories.PedidoFornecedorRepository;
 
 @Service
 public class PedidoFornecedorService {
 
-    @Autowired
-    private PedidoFornecedorRepository pedidoFornecedorRepository;
+    private final PedidoFornecedorRepository pedidoFornecedorRepository;
 
-    // Buscar todos os pedidos
-    public List<PedidoFornecedor> findAll() {
+    public PedidoFornecedorService(PedidoFornecedorRepository pedidoFornecedorRepository) {
+        this.pedidoFornecedorRepository = pedidoFornecedorRepository;
+    }
+
+    public List<PedidoFornecedor> listarTodos() {
         return pedidoFornecedorRepository.findAll();
     }
 
-    //Buscar por ID
-    public PedidoFornecedor findById(Long id) {
-        Optional<PedidoFornecedor> pedido = pedidoFornecedorRepository.findById(id);
-        return pedido.orElseThrow(() -> new RuntimeException("Pedido de fornecedor não encontrado com ID: " + id));
+    public PedidoFornecedor buscarPorId(Long id) {
+        return pedidoFornecedorRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Pedido do fornecedor não encontrado com ID: " + id));
     }
 
-    //Inserir novo pedido
-    public PedidoFornecedor insert(PedidoFornecedor pedido) {
+    public PedidoFornecedor criar(PedidoFornecedor pedidoFornecedor) {
+        return pedidoFornecedorRepository.save(pedidoFornecedor);
+    }
+
+    @Transactional
+    public PedidoFornecedor atualizarStatus(Long idPedido, StatusPedidoFornecedor novoStatus) {
+        PedidoFornecedor pedido = buscarPorId(idPedido);
+        pedido.atualizarStatus(novoStatus);
         return pedidoFornecedorRepository.save(pedido);
     }
 
-    // Atualizar pedido
-    public PedidoFornecedor update(Long id, PedidoFornecedor novoPedido) {
-        PedidoFornecedor pedido = findById(id);
-        pedido.setDataPedidoFornecedor(novoPedido.getDataPedidoFornecedor());
-        pedido.setFornecedor(novoPedido.getFornecedor());
-        pedido.setProduto(novoPedido.getProduto());
-        return pedidoFornecedorRepository.save(pedido);
-    }
-
-    //Deletar por ID
-    public void delete(Long id) {
-        pedidoFornecedorRepository.deleteById(id);
-    }
-
-    //Buscar por fornecedor
-    public List<PedidoFornecedor> findByFornecedor(Long idFornecedor) {
-        return pedidoFornecedorRepository.findByFornecedorIdFornecedor(idFornecedor);
-    }
-
-    //Buscar por produto
-    public List<PedidoFornecedor> findByProduto(Long idProduto) {
-        return pedidoFornecedorRepository.findByProdutoIdProduto(idProduto);
-    }
-
-    //Buscar por data específica
-    public List<PedidoFornecedor> findByData(LocalDate data) {
-        return pedidoFornecedorRepository.findByDataPedidoFornecedor(data);
+    public void deletar(Long idPedido) {
+        PedidoFornecedor pedido = buscarPorId(idPedido);
+        pedidoFornecedorRepository.delete(pedido);
     }
 }
