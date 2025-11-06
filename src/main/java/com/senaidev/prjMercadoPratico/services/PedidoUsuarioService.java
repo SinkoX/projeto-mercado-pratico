@@ -25,7 +25,7 @@ public class PedidoUsuarioService {
     private final CarrinhoRepository carrinhoRepository;
     private final CarrinhoService carrinhoService;
 
-    private static final String STRIPE_SECRET_KEY = "sk_test_51SOSMt1b6fknUuf8Rid6zxVO29KfcQEtzgBVM905EqEmJWWI3jLZZng6jwY29UHV1B9EbFWSQE2u1z9QziKYEw7T00PLL3FvU1";
+    private static final String STRIPE_SECRET_KEY = "sk_test_51SQQVNR8fTgtdP111zzoLofMMkNVE3ce0oHbwwVHlRAQ5p06hd7UuteJI58Fvul9TG7r07JCkua68Y5qPQ6DvdbB00bIaq618A";
 
     public PedidoUsuarioService(PedidoUsuarioRepository pedidoUsuarioRepository,
                                 CarrinhoService carrinhoService,
