@@ -6,53 +6,97 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.senaidev.prjMercadoPratico.dto.EstoqueDTO;
-import com.senaidev.prjMercadoPratico.entities.Estoque;
 import com.senaidev.prjMercadoPratico.services.EstoqueService;
 
 @RestController
 @RequestMapping("/estoque")
 public class EstoqueController {
 
-    private final EstoqueService service;
+    private final EstoqueService estoqueService;
 
-    public EstoqueController(EstoqueService service) {
-        this.service = service;
+    public EstoqueController(EstoqueService estoqueService) {
+        this.estoqueService = estoqueService;
     }
 
+    // 🔹 Listar todos
     @GetMapping
-    public ResponseEntity<List<Estoque>> listarTodos() {
-        return ResponseEntity.ok(service.listarTodos());
+    public ResponseEntity<List<EstoqueDTO>> listarTodos() {
+        return ResponseEntity.ok(estoqueService.listarTodos());
     }
 
+    // 🔹 Buscar por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Estoque> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(service.buscarPorId(id));
+    public ResponseEntity<EstoqueDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(estoqueService.buscarPorId(id));
     }
 
-    @PostMapping("/{idProduto}")
-    public ResponseEntity<EstoqueDTO> criarEstoque(@PathVariable Long idProduto,
-                                                @RequestParam Integer quantidade) {
-        Estoque estoque = service.criarEstoque(idProduto, quantidade);
-        return ResponseEntity.ok(new EstoqueDTO(estoque));
+    // 🔹 Buscar por Produto
+    @GetMapping("/produto/{idProduto}")
+    public ResponseEntity<EstoqueDTO> buscarPorProduto(@PathVariable Long idProduto) {
+        return ResponseEntity.ok(estoqueService.buscarPorProduto(idProduto));
     }
 
-    @PutMapping("/entrada/{idProduto}")
-    public ResponseEntity<EstoqueDTO> registrarEntrada(@PathVariable Long idProduto,
-                                                    @RequestParam Integer quantidade) {
-        Estoque estoque = service.registrarEntrada(idProduto, quantidade);
-        return ResponseEntity.ok(new EstoqueDTO(estoque));
+    // 🔹 Criar estoque
+    @PostMapping("/criar")
+    public ResponseEntity<EstoqueDTO> criar(
+            @RequestParam Long idProduto,
+            @RequestParam Integer quantidadeInicial,
+            @RequestParam Integer quantidadeMinima) {
+
+        return ResponseEntity.ok(
+                estoqueService.criar(idProduto, quantidadeInicial, quantidadeMinima)
+        );
     }
 
-    @PutMapping("/saida/{idProduto}")
-    public ResponseEntity<EstoqueDTO> registrarSaida(@PathVariable Long idProduto,
-                                                  @RequestParam Integer quantidade) {
-        Estoque estoque = service.registrarSaida(idProduto, quantidade);
-        return ResponseEntity.ok(new EstoqueDTO(estoque));
+    // 🔹 Atualizar quantidade mínima
+    @PutMapping("/{idEstoque}/minimo")
+    public ResponseEntity<EstoqueDTO> atualizarQuantidadeMinima(
+            @PathVariable Long idEstoque,
+            @RequestParam Integer novaQuantidadeMinima) {
+
+        return ResponseEntity.ok(
+                estoqueService.atualizarQuantidadeMinima(idEstoque, novaQuantidadeMinima)
+        );
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        service.deletar(id);
+    // 🔹 Adicionar quantidade
+    @PutMapping("/{idEstoque}/adicionar")
+    public ResponseEntity<EstoqueDTO> adicionarQuantidade(
+            @PathVariable Long idEstoque,
+            @RequestParam Integer quantidade) {
+
+        return ResponseEntity.ok(
+                estoqueService.adicionarQuantidade(idEstoque, quantidade)
+        );
+    }
+
+    // 🔹 Remover quantidade
+    @PutMapping("/{idEstoque}/remover")
+    public ResponseEntity<EstoqueDTO> removerQuantidade(
+            @PathVariable Long idEstoque,
+            @RequestParam Integer quantidade) {
+
+        return ResponseEntity.ok(
+                estoqueService.removerQuantidade(idEstoque, quantidade)
+        );
+    }
+
+    // 🔹 Estoques abaixo do mínimo
+    @GetMapping("/abaixo-minimo")
+    public ResponseEntity<List<EstoqueDTO>> buscarAbaixoMinimo() {
+        return ResponseEntity.ok(estoqueService.buscarEstoqueAbaixoDoMinimo());
+    }
+
+    // 🔹 Estoques zerados
+    @GetMapping("/zerado")
+    public ResponseEntity<List<EstoqueDTO>> buscarZerados() {
+        return ResponseEntity.ok(estoqueService.buscarEstoqueZerado());
+    }
+
+    // 🔹 Deletar
+    @DeleteMapping("/{idEstoque}")
+    public ResponseEntity<Void> deletar(@PathVariable Long idEstoque) {
+        estoqueService.deletar(idEstoque);
         return ResponseEntity.noContent().build();
     }
 }

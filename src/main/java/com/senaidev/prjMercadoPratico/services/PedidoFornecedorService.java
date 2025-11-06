@@ -2,6 +2,7 @@ package com.senaidev.prjMercadoPratico.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,9 @@ import com.senaidev.prjMercadoPratico.repositories.PedidoFornecedorRepository;
 public class PedidoFornecedorService {
 
     private final PedidoFornecedorRepository pedidoFornecedorRepository;
+    
+    @Autowired
+    private MovimentacaoEstoqueService movimentacaoEstoqueService;
 
     public PedidoFornecedorService(PedidoFornecedorRepository pedidoFornecedorRepository) {
         this.pedidoFornecedorRepository = pedidoFornecedorRepository;
@@ -35,6 +39,12 @@ public class PedidoFornecedorService {
     public PedidoFornecedor atualizarStatus(Long idPedido, StatusPedidoFornecedor novoStatus) {
         PedidoFornecedor pedido = buscarPorId(idPedido);
         pedido.atualizarStatus(novoStatus);
+        
+        // 🔹 Se o status mudou para RECEBIDO, registra entrada no estoque
+        if (novoStatus == StatusPedidoFornecedor.RECEBIDO) {
+            movimentacaoEstoqueService.registrarEntrada(pedido);
+        }
+        
         return pedidoFornecedorRepository.save(pedido);
     }
 
