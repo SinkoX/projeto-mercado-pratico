@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,9 @@ public class PedidoUsuarioService {
     private final PedidoUsuarioRepository pedidoUsuarioRepository;
     private final CarrinhoRepository carrinhoRepository;
     private final CarrinhoService carrinhoService;
+    
+    @Autowired
+    private MovimentacaoEstoqueService movimentacaoEstoqueService;
 
     private static final String STRIPE_SECRET_KEY = "sk_test_51SQQVNR8fTgtdP111zzoLofMMkNVE3ce0oHbwwVHlRAQ5p06hd7UuteJI58Fvul9TG7r07JCkua68Y5qPQ6DvdbB00bIaq618A";
 
@@ -167,12 +171,15 @@ public class PedidoUsuarioService {
         return pedidoUsuarioRepository.findByPaymentIntent(paymentIntentId).orElse(null);
     }
 
-    /** Atualiza status para PAGO e limpa carrinho */
+    /** Atualiza status para PAGO e limpa carrinho e registra saída no estoque*/
     @Transactional
     public void marcarComoPagoELimparCarrinho(PedidoUsuario pedido) {
         pedido.atualizarStatus(StatusPedido.PAGO);
         pedidoUsuarioRepository.save(pedido);
 
+        // 🔹 Registra saída no estoque
+        movimentacaoEstoqueService.registrarSaida(pedido);
+        
         Carrinho carrinho = pedido.getUsuario().getCarrinho();
         if (carrinho != null && carrinho.getItensCarrinho() != null) {
             carrinho.getItensCarrinho().clear();

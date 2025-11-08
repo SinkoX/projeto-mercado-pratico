@@ -1,6 +1,5 @@
 package com.senaidev.prjMercadoPratico.entities;
 
-import com.senaidev.prjMercadoPratico.enums.TipoMovimentacao;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,54 +12,49 @@ public class Estoque {
     private Long idEstoque;
 
     @OneToOne
-    @JoinColumn(name = "id_produto", nullable = false)
+    @JoinColumn(name = "id_produto", nullable = false, unique = true)
     private Produto produto;
 
-    @Column(name = "quantidade_atual", nullable = false)
-    private Integer quantidadeAtual;
+    @Column(name = "quantidade", nullable = false)
+    private Integer quantidade;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_movimentacao", nullable = false, length = 10)
-    private TipoMovimentacao tipoMovimentacao;
+    @Column(name = "quantidade_minima")
+    private Integer quantidadeMinima;
 
-    // Construtor vazio
     protected Estoque() {}
 
-    // Construtor completo
-    public Estoque(Long idEstoque, Produto produto, Integer quantidadeAtual, TipoMovimentacao tipoMovimentacao) {
-        this.idEstoque = idEstoque;
+    public Estoque(Produto produto, Integer quantidade, Integer quantidadeMinima) {
+        if (produto == null) throw new IllegalArgumentException("Produto não pode ser nulo");
+        if (quantidade == null || quantidade < 0) throw new IllegalArgumentException("Quantidade inválida");
+
         this.produto = produto;
-        this.quantidadeAtual = quantidadeAtual != null ? quantidadeAtual : 0;
-        this.tipoMovimentacao = tipoMovimentacao != null ? tipoMovimentacao : TipoMovimentacao.ENTRADA;
+        this.quantidade = quantidade;
+        this.quantidadeMinima = quantidadeMinima != null ? quantidadeMinima : 10;
     }
 
-    // ----- Métodos de movimentação -----
-
-    public void registrarEntrada(Integer quantidade) {
-        if (quantidade <= 0) throw new IllegalArgumentException("Quantidade inválida para entrada.");
-        this.quantidadeAtual += quantidade;
-        this.tipoMovimentacao = TipoMovimentacao.ENTRADA;
+    // 🔹 Métodos de negócio
+    public void adicionarQuantidade(Integer qtd) {
+        if (qtd == null || qtd <= 0) throw new IllegalArgumentException("Quantidade deve ser maior que zero");
+        this.quantidade += qtd;
     }
 
-    public void registrarSaida(Integer quantidade) {
-        if (quantidade <= 0) throw new IllegalArgumentException("Quantidade inválida para saída.");
-        if (this.quantidadeAtual < quantidade)
-            throw new IllegalStateException("Estoque insuficiente.");
-        this.quantidadeAtual -= quantidade;
-        this.tipoMovimentacao = TipoMovimentacao.SAIDA;
+    public void removerQuantidade(Integer qtd) {
+        if (qtd == null || qtd <= 0) throw new IllegalArgumentException("Quantidade deve ser maior que zero");
+        if (this.quantidade < qtd) throw new IllegalStateException("Estoque insuficiente para o produto: " + produto.getNomeProduto());
+        this.quantidade -= qtd;
     }
 
-    // ----- Getters e Setters -----
+    public boolean estoqueAbaixoDoMinimo() {
+        return this.quantidade < this.quantidadeMinima;
+    }
 
+    // Getters e Setters
     public Long getIdEstoque() { return idEstoque; }
-    public void setIdEstoque(Long idEstoque) { this.idEstoque = idEstoque; }
-
     public Produto getProduto() { return produto; }
+    public Integer getQuantidade() { return quantidade; }
+    public Integer getQuantidadeMinima() { return quantidadeMinima; }
+
     public void setProduto(Produto produto) { this.produto = produto; }
-
-    public Integer getQuantidadeAtual() { return quantidadeAtual; }
-    public void setQuantidadeAtual(Integer quantidadeAtual) { this.quantidadeAtual = quantidadeAtual; }
-
-    public TipoMovimentacao getTipoMovimentacao() { return tipoMovimentacao; }
-    public void setTipoMovimentacao(TipoMovimentacao tipoMovimentacao) { this.tipoMovimentacao = tipoMovimentacao; }
+    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
+    public void setQuantidadeMinima(Integer quantidadeMinima) { this.quantidadeMinima = quantidadeMinima; }
 }

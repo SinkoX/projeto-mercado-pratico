@@ -2,6 +2,8 @@ package com.senaidev.prjMercadoPratico.entities;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,47 +15,51 @@ public class ItemPedidoFornecedor {
     @Column(name = "id_item_pedido_fornecedor", nullable = false)
     private Long idItemPedidoFornecedor;
 
-    @Column(name = "quantidade", nullable = false)
-    private Integer quantidade;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_pedido_fornecedor", nullable = false)
+    @JsonIgnore
+    private PedidoFornecedor pedidoFornecedor;
 
-    @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
-    private BigDecimal subTotal;
-
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_produto", nullable = false)
     private Produto produto;
 
-    @ManyToOne
-    @JoinColumn(name = "id_pedido_fornecedor")
-    private PedidoFornecedor pedidoFornecedor;
+    @Column(name = "quantidade", nullable = false)
+    private Integer quantidade;
 
-    // Construtor vazio
+    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
+    private BigDecimal precoUnitario;
+
+    @Column(name = "sub_total", nullable = false, precision = 10, scale = 2)
+    private BigDecimal subTotal;
+
     protected ItemPedidoFornecedor() {}
 
-    // Construtor completo
-    public ItemPedidoFornecedor(Long idItemPedidoFornecedor, Integer quantidade,
-                                BigDecimal subTotal, Produto produto,
-                                PedidoFornecedor pedidoFornecedor) {
-        this.idItemPedidoFornecedor = idItemPedidoFornecedor;
-        this.quantidade = quantidade;
-        this.subTotal = subTotal;
-        this.produto = produto;
+    public ItemPedidoFornecedor(PedidoFornecedor pedidoFornecedor, Produto produto, 
+                                Integer quantidade, BigDecimal precoUnitario) {
+        if (produto == null) throw new IllegalArgumentException("Produto não pode ser nulo");
+        if (quantidade == null || quantidade <= 0) throw new IllegalArgumentException("Quantidade inválida");
+        if (precoUnitario == null || precoUnitario.compareTo(BigDecimal.ZERO) <= 0) 
+            throw new IllegalArgumentException("Preço unitário inválido");
+
         this.pedidoFornecedor = pedidoFornecedor;
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.precoUnitario = precoUnitario;
+        this.subTotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
     }
 
     // Getters e Setters
     public Long getIdItemPedidoFornecedor() { return idItemPedidoFornecedor; }
-    public void setIdItemPedidoFornecedor(Long idItemPedidoFornecedor) { this.idItemPedidoFornecedor = idItemPedidoFornecedor; }
-
-    public Integer getQuantidade() { return quantidade; }
-    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
-
-    public BigDecimal getSubTotal() { return subTotal; }
-    public void setSubTotal(BigDecimal subTotal) { this.subTotal = subTotal; }
-
-    public Produto getProduto() { return produto; }
-    public void setProduto(Produto produto) { this.produto = produto; }
-
     public PedidoFornecedor getPedidoFornecedor() { return pedidoFornecedor; }
+    public Produto getProduto() { return produto; }
+    public Integer getQuantidade() { return quantidade; }
+    public BigDecimal getPrecoUnitario() { return precoUnitario; }
+    public BigDecimal getSubTotal() { return subTotal; }
+
     public void setPedidoFornecedor(PedidoFornecedor pedidoFornecedor) { this.pedidoFornecedor = pedidoFornecedor; }
+    public void setProduto(Produto produto) { this.produto = produto; }
+    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
+    public void setPrecoUnitario(BigDecimal precoUnitario) { this.precoUnitario = precoUnitario; }
+    public void setSubTotal(BigDecimal subTotal) { this.subTotal = subTotal; }
 }
