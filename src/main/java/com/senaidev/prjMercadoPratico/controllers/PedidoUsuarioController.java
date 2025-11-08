@@ -30,9 +30,12 @@ public class PedidoUsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<PedidoUsuarioDTO> buscarPorId(@PathVariable Long id) {
         PedidoUsuario pedido = pedidoUsuarioService.buscarPorId(id);
+        if (pedido == null) {
+            return ResponseEntity.notFound().build(); // Retorna 404 se não existir
+        }
         return ResponseEntity.ok(new PedidoUsuarioDTO(pedido));
     }
-
+    
     @GetMapping("/usuario/{idUsuario}")
     public ResponseEntity<List<PedidoUsuarioDTO>> buscarPorUsuario(@PathVariable Long idUsuario) {
         List<PedidoUsuarioDTO> pedidos = pedidoUsuarioService.buscarPorUsuario(idUsuario).stream()
