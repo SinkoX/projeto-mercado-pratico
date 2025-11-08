@@ -19,45 +19,47 @@ public class MovimentacaoEstoqueDTO {
 
     public MovimentacaoEstoqueDTO() {}
 
-    public MovimentacaoEstoqueDTO(MovimentacaoEstoque movimentacao) {
-        this.idMovimentacao = movimentacao.getIdMovimentacao();
-        this.idProduto = movimentacao.getProduto().getIdProduto();
-        this.nomeProduto = movimentacao.getProduto().getNomeProduto();
-        this.tipoMovimentacao = movimentacao.getTipoMovimentacao();
-        this.quantidade = movimentacao.getQuantidade();
-        this.dataMovimentacao = movimentacao.getDataMovimentacao();
-        this.idPedidoUsuario = movimentacao.getPedidoUsuario() != null ? 
-                               movimentacao.getPedidoUsuario().getIdPedidoUsuario() : null;
-        this.idPedidoFornecedor = movimentacao.getPedidoFornecedor() != null ? 
-                                  movimentacao.getPedidoFornecedor().getIdPedidoFornecedor() : null;
-        this.observacao = movimentacao.getObservacao();
+    public static Builder builder() { return new Builder(); }
+
+    public static class Builder {
+        private final MovimentacaoEstoqueDTO dto = new MovimentacaoEstoqueDTO();
+
+        public Builder idMovimentacao(Long id) { dto.idMovimentacao = id; return this; }
+        public Builder idProduto(Long id) { dto.idProduto = id; return this; }
+        public Builder nomeProduto(String nome) { dto.nomeProduto = nome; return this; }
+        public Builder tipoMovimentacao(TipoMovimentacao tipo) { dto.tipoMovimentacao = tipo; return this; }
+        public Builder quantidade(Integer quantidade) { dto.quantidade = quantidade; return this; }
+        public Builder dataMovimentacao(LocalDateTime data) { dto.dataMovimentacao = data; return this; }
+        public Builder idPedidoUsuario(Long id) { dto.idPedidoUsuario = id; return this; }
+        public Builder idPedidoFornecedor(Long id) { dto.idPedidoFornecedor = id; return this; }
+        public Builder observacao(String obs) { dto.observacao = obs; return this; }
+
+        public MovimentacaoEstoqueDTO build() { return dto; }
     }
 
-    // Getters e Setters
+    // Converter Entity → DTO
+    public static MovimentacaoEstoqueDTO fromEntity(MovimentacaoEstoque m) {
+        return MovimentacaoEstoqueDTO.builder()
+                .idMovimentacao(m.getIdMovimentacao())
+                .idProduto(m.getProduto().getIdProduto())
+                .nomeProduto(m.getProduto().getNomeProduto())
+                .tipoMovimentacao(m.getTipoMovimentacao())
+                .quantidade(m.getQuantidade())
+                .dataMovimentacao(m.getDataMovimentacao())
+                .idPedidoUsuario(m.getPedidoUsuario() != null ? m.getPedidoUsuario().getIdPedidoUsuario() : null)
+                .idPedidoFornecedor(m.getPedidoFornecedor() != null ? m.getPedidoFornecedor().getIdPedidoFornecedor() : null)
+                .observacao(m.getObservacao())
+                .build();
+    }
+
+    // Getters
     public Long getIdMovimentacao() { return idMovimentacao; }
-    public void setIdMovimentacao(Long idMovimentacao) { this.idMovimentacao = idMovimentacao; }
-
     public Long getIdProduto() { return idProduto; }
-    public void setIdProduto(Long idProduto) { this.idProduto = idProduto; }
-
     public String getNomeProduto() { return nomeProduto; }
-    public void setNomeProduto(String nomeProduto) { this.nomeProduto = nomeProduto; }
-
     public TipoMovimentacao getTipoMovimentacao() { return tipoMovimentacao; }
-    public void setTipoMovimentacao(TipoMovimentacao tipoMovimentacao) { this.tipoMovimentacao = tipoMovimentacao; }
-
     public Integer getQuantidade() { return quantidade; }
-    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
-
     public LocalDateTime getDataMovimentacao() { return dataMovimentacao; }
-    public void setDataMovimentacao(LocalDateTime dataMovimentacao) { this.dataMovimentacao = dataMovimentacao; }
-
     public Long getIdPedidoUsuario() { return idPedidoUsuario; }
-    public void setIdPedidoUsuario(Long idPedidoUsuario) { this.idPedidoUsuario = idPedidoUsuario; }
-
     public Long getIdPedidoFornecedor() { return idPedidoFornecedor; }
-    public void setIdPedidoFornecedor(Long idPedidoFornecedor) { this.idPedidoFornecedor = idPedidoFornecedor; }
-
     public String getObservacao() { return observacao; }
-    public void setObservacao(String observacao) { this.observacao = observacao; }
 }

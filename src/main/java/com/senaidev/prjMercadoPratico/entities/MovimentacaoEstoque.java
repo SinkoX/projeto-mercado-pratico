@@ -2,85 +2,85 @@ package com.senaidev.prjMercadoPratico.entities;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.*;
 import com.senaidev.prjMercadoPratico.enums.TipoMovimentacao;
 
-import jakarta.persistence.*;
-
 @Entity
-@Table(name = "tb_movimentacao_estoque")
+@Table(name = "movimentacao_estoque")
 public class MovimentacaoEstoque {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_movimentacao", nullable = false)
     private Long idMovimentacao;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_produto", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
     private Produto produto;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_estoque", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "estoque_id")
     private Estoque estoque;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_movimentacao", nullable = false, length = 10)
     private TipoMovimentacao tipoMovimentacao;
 
-    @Column(name = "quantidade", nullable = false)
     private Integer quantidade;
-
-    @Column(name = "data_movimentacao", nullable = false)
     private LocalDateTime dataMovimentacao;
 
     @ManyToOne
-    @JoinColumn(name = "id_pedido_usuario")
+    @JoinColumn(name = "pedido_usuario_id")
     private PedidoUsuario pedidoUsuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_pedido_fornecedor")
+    @JoinColumn(name = "pedido_fornecedor_id")
     private PedidoFornecedor pedidoFornecedor;
 
-    @Column(name = "observacao", length = 500)
     private String observacao;
 
     protected MovimentacaoEstoque() {}
 
-    // Construtor para SAÍDA (PedidoUsuario)
-    public MovimentacaoEstoque(Produto produto, Estoque estoque, Integer quantidade, 
-                               PedidoUsuario pedidoUsuario, String observacao) {
-        validarCampos(produto, estoque, quantidade);
-        
-        this.produto = produto;
-        this.estoque = estoque;
-        this.quantidade = quantidade;
-        this.tipoMovimentacao = TipoMovimentacao.SAIDA;
-        this.pedidoUsuario = pedidoUsuario;
-        this.dataMovimentacao = LocalDateTime.now();
-        this.observacao = observacao;
+    // Factory method para ENTRADA automática
+    public static MovimentacaoEstoque criarEntrada(Produto produto, Estoque estoque, Integer quantidade,
+                                                   PedidoFornecedor pedidoFornecedor, String observacao) {
+        MovimentacaoEstoque m = new MovimentacaoEstoque();
+        m.produto = produto;
+        m.estoque = estoque;
+        m.quantidade = quantidade;
+        m.tipoMovimentacao = TipoMovimentacao.ENTRADA;
+        m.pedidoFornecedor = pedidoFornecedor;
+        m.dataMovimentacao = LocalDateTime.now();
+        m.observacao = observacao;
+        return m;
     }
 
-    // Construtor para ENTRADA (PedidoFornecedor)
-    public MovimentacaoEstoque(Produto produto, Estoque estoque, Integer quantidade, 
-                               PedidoFornecedor pedidoFornecedor, String observacao) {
-        validarCampos(produto, estoque, quantidade);
-        
-        this.produto = produto;
-        this.estoque = estoque;
-        this.quantidade = quantidade;
-        this.tipoMovimentacao = TipoMovimentacao.ENTRADA;
-        this.pedidoFornecedor = pedidoFornecedor;
-        this.dataMovimentacao = LocalDateTime.now();
-        this.observacao = observacao;
+    // Factory method para SAÍDA automática
+    public static MovimentacaoEstoque criarSaida(Produto produto, Estoque estoque, Integer quantidade,
+                                                 PedidoUsuario pedidoUsuario, String observacao) {
+        MovimentacaoEstoque m = new MovimentacaoEstoque();
+        m.produto = produto;
+        m.estoque = estoque;
+        m.quantidade = quantidade;
+        m.tipoMovimentacao = TipoMovimentacao.SAIDA;
+        m.pedidoUsuario = pedidoUsuario;
+        m.dataMovimentacao = LocalDateTime.now();
+        m.observacao = observacao;
+        return m;
     }
 
-    private void validarCampos(Produto produto, Estoque estoque, Integer quantidade) {
-        if (produto == null) throw new IllegalArgumentException("Produto não pode ser nulo");
-        if (estoque == null) throw new IllegalArgumentException("Estoque não pode ser nulo");
-        if (quantidade == null || quantidade <= 0) throw new IllegalArgumentException("Quantidade inválida");
+    // Factory method para movimentação manual
+    public static MovimentacaoEstoque criarManual(Produto produto, Estoque estoque, Integer quantidade,
+                                                  TipoMovimentacao tipo, String observacao) {
+        MovimentacaoEstoque m = new MovimentacaoEstoque();
+        m.produto = produto;
+        m.estoque = estoque;
+        m.quantidade = quantidade;
+        m.tipoMovimentacao = tipo;
+        m.dataMovimentacao = LocalDateTime.now();
+        m.observacao = observacao;
+        return m;
     }
 
-    // Getters e Setters
+    // Getters
     public Long getIdMovimentacao() { return idMovimentacao; }
     public Produto getProduto() { return produto; }
     public Estoque getEstoque() { return estoque; }
@@ -90,13 +90,4 @@ public class MovimentacaoEstoque {
     public PedidoUsuario getPedidoUsuario() { return pedidoUsuario; }
     public PedidoFornecedor getPedidoFornecedor() { return pedidoFornecedor; }
     public String getObservacao() { return observacao; }
-
-    public void setProduto(Produto produto) { this.produto = produto; }
-    public void setEstoque(Estoque estoque) { this.estoque = estoque; }
-    public void setTipoMovimentacao(TipoMovimentacao tipoMovimentacao) { this.tipoMovimentacao = tipoMovimentacao; }
-    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
-    public void setDataMovimentacao(LocalDateTime dataMovimentacao) { this.dataMovimentacao = dataMovimentacao; }
-    public void setPedidoUsuario(PedidoUsuario pedidoUsuario) { this.pedidoUsuario = pedidoUsuario; }
-    public void setPedidoFornecedor(PedidoFornecedor pedidoFornecedor) { this.pedidoFornecedor = pedidoFornecedor; }
-    public void setObservacao(String observacao) { this.observacao = observacao; }
 }

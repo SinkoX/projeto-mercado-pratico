@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.senaidev.prjMercadoPratico.dto.MovimentacaoEstoqueDTO;
@@ -15,74 +14,49 @@ import com.senaidev.prjMercadoPratico.services.MovimentacaoEstoqueService;
 @RequestMapping("/movimentacoes")
 public class MovimentacaoEstoqueController {
 
-    private final MovimentacaoEstoqueService movimentacaoService;
+    private final MovimentacaoEstoqueService service;
 
-    public MovimentacaoEstoqueController(MovimentacaoEstoqueService movimentacaoService) {
-        this.movimentacaoService = movimentacaoService;
+    public MovimentacaoEstoqueController(MovimentacaoEstoqueService service) {
+        this.service = service;
     }
 
-    // 🔹 Listar todas
     @GetMapping
-    public ResponseEntity<List<MovimentacaoEstoqueDTO>> listarTodas() {
-        return ResponseEntity.ok(movimentacaoService.listarTodas());
+    public List<MovimentacaoEstoqueDTO> listarTodas() {
+        return service.listarTodas();
     }
 
-    // 🔹 Buscar por ID
     @GetMapping("/{id}")
-    public ResponseEntity<MovimentacaoEstoqueDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(movimentacaoService.buscarPorId(id));
+    public MovimentacaoEstoqueDTO buscarPorId(@PathVariable Long id) {
+        return service.buscarPorId(id);
     }
 
-    // 🔹 Buscar por produto
     @GetMapping("/produto/{idProduto}")
-    public ResponseEntity<List<MovimentacaoEstoqueDTO>> buscarPorProduto(@PathVariable Long idProduto) {
-        return ResponseEntity.ok(movimentacaoService.buscarPorProduto(idProduto));
+    public List<MovimentacaoEstoqueDTO> buscarPorProduto(@PathVariable Long idProduto) {
+        return service.buscarPorProduto(idProduto);
     }
 
-    // 🔹 Buscar por tipo
-    @GetMapping("/tipo")
-    public ResponseEntity<List<MovimentacaoEstoqueDTO>> buscarPorTipo(@RequestParam TipoMovimentacao tipo) {
-        return ResponseEntity.ok(movimentacaoService.buscarPorTipo(tipo));
-    }
-    
-    // 🔹 Buscar por entradas de produtos
-    @GetMapping("/entradas")
-    public ResponseEntity<List<MovimentacaoEstoqueDTO>> listarEntradas() {
-        return ResponseEntity.ok(movimentacaoService.buscarPorTipo(TipoMovimentacao.ENTRADA));
+    @GetMapping("/tipo/{tipo}")
+    public List<MovimentacaoEstoqueDTO> buscarPorTipo(@PathVariable TipoMovimentacao tipo) {
+        return service.buscarPorTipo(tipo);
     }
 
-    // 🔹 Buscar por saídas de produtos
-    @GetMapping("/saidas")
-    public ResponseEntity<List<MovimentacaoEstoqueDTO>> listarSaidas() {
-        return ResponseEntity.ok(movimentacaoService.buscarPorTipo(TipoMovimentacao.SAIDA));
-    }
-
-
-    // 🔹 Buscar por período
     @GetMapping("/periodo")
-    public ResponseEntity<List<MovimentacaoEstoqueDTO>> buscarPorPeriodo(
+    public List<MovimentacaoEstoqueDTO> buscarPorPeriodo(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime inicio,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fim) {
-
-        return ResponseEntity.ok(movimentacaoService.buscarPorPeriodo(inicio, fim));
+        return service.buscarPorPeriodo(inicio, fim);
     }
 
-    // 🔹 Registrar movimentação manual
     @PostMapping("/manual")
-    public ResponseEntity<MovimentacaoEstoqueDTO> registrarMovimentacaoManual(
-            @RequestParam Long idProduto,
-            @RequestParam Integer quantidade,
-            @RequestParam TipoMovimentacao tipo,
-            @RequestParam(required = false) String observacao) {
-
-        return ResponseEntity.ok(
-                movimentacaoService.registrarMovimentacaoManual(idProduto, quantidade, tipo, observacao)
-        );
+    public MovimentacaoEstoqueDTO registrarManual(@RequestParam Long idProduto,
+                                                  @RequestParam Integer quantidade,
+                                                  @RequestParam TipoMovimentacao tipo,
+                                                  @RequestParam String observacao) {
+        return service.registrarMovimentacaoManual(idProduto, quantidade, tipo, observacao);
     }
 
-    // 🔹 Últimas movimentações
     @GetMapping("/ultimas")
-    public ResponseEntity<List<MovimentacaoEstoqueDTO>> buscarUltimasMovimentacoes() {
-        return ResponseEntity.ok(movimentacaoService.buscarUltimasMovimentacoes());
+    public List<MovimentacaoEstoqueDTO> ultimasMovimentacoes() {
+        return service.buscarUltimasMovimentacoes();
     }
 }

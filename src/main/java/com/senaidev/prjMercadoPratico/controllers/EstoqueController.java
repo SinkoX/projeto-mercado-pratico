@@ -17,6 +17,18 @@ public class EstoqueController {
     public EstoqueController(EstoqueService estoqueService) {
         this.estoqueService = estoqueService;
     }
+    
+ // 🔹 Criar estoque
+    @PostMapping("/criar")
+    public ResponseEntity<EstoqueDTO> criar(
+            @RequestParam Long idProduto,
+            @RequestParam Integer quantidadeInicial,
+            @RequestParam Integer quantidadeMinima) {
+
+        return ResponseEntity.ok(
+                estoqueService.criar(idProduto, quantidadeInicial, quantidadeMinima)
+        );
+    }
 
     // 🔹 Listar todos
     @GetMapping
@@ -36,17 +48,7 @@ public class EstoqueController {
         return ResponseEntity.ok(estoqueService.buscarPorProduto(idProduto));
     }
 
-    // 🔹 Criar estoque
-    @PostMapping("/criar")
-    public ResponseEntity<EstoqueDTO> criar(
-            @RequestParam Long idProduto,
-            @RequestParam Integer quantidadeInicial,
-            @RequestParam Integer quantidadeMinima) {
-
-        return ResponseEntity.ok(
-                estoqueService.criar(idProduto, quantidadeInicial, quantidadeMinima)
-        );
-    }
+    
 
     // 🔹 Atualizar quantidade mínima
     @PutMapping("/{idEstoque}/minimo")
