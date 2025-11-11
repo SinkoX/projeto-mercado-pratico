@@ -62,14 +62,14 @@ INSERT INTO tb_fornecedor (id_Fornecedor, nome_Fornecedor, email_Fornecedor, cpf
 -- CATEGORIAS
 -- ======================================
 INSERT INTO tb_categoria (nome_Categoria) VALUES
-('hortifruti'),
-('bebidas'),
-('mercearia'),
-('limpeza'),
-('açougue'),
-('higiene'),
-('padaria'),
-('petshop');
+('Hortifruti'),
+('Bebidas'),
+('Mercearia'),
+('Limpeza'),
+('Açougue'),
+('Higiene'),
+('Padaria'),
+('Petshop');
 
 -- ======================================
 -- SUBCATEGORIAS
