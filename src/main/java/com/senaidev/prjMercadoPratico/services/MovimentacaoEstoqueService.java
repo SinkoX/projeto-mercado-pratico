@@ -128,4 +128,32 @@ public class MovimentacaoEstoqueService {
                 .map(MovimentacaoEstoqueDTO::fromEntity)
                 .collect(Collectors.toList());
     }
+    
+    @Transactional
+    public MovimentacaoEstoqueDTO registrarMovimentacaoManual(MovimentacaoEstoqueDTO dto) {
+        Produto produto = produtoRepository.findById(dto.getIdProduto())
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado: " + dto.getIdProduto()));
+
+        Estoque estoque = estoqueRepository.findByProduto(produto)
+                .orElseThrow(() -> new IllegalStateException("Estoque não encontrado: " + produto.getNomeProduto()));
+
+        if (dto.getTipoMovimentacao() == TipoMovimentacao.ENTRADA) {
+            estoque.adicionarQuantidade(dto.getQuantidade());
+        } else {
+            estoque.removerQuantidade(dto.getQuantidade());
+        }
+        estoqueRepository.save(estoque);
+
+        MovimentacaoEstoque m = MovimentacaoEstoque.criarManual(
+                produto,
+                estoque,
+                dto.getQuantidade(),
+                dto.getTipoMovimentacao(),
+                dto.getObservacao()
+        );
+
+        return MovimentacaoEstoqueDTO.fromEntity(movimentacaoRepository.save(m));
+    }
+
+    
 }

@@ -47,12 +47,10 @@ public class MovimentacaoEstoqueController {
         return service.buscarPorPeriodo(inicio, fim);
     }
 
+    // 🔹 Registrar movimentação manual via JSON
     @PostMapping("/manual")
-    public MovimentacaoEstoqueDTO registrarManual(@RequestParam Long idProduto,
-                                                  @RequestParam Integer quantidade,
-                                                  @RequestParam TipoMovimentacao tipo,
-                                                  @RequestParam String observacao) {
-        return service.registrarMovimentacaoManual(idProduto, quantidade, tipo, observacao);
+    public MovimentacaoEstoqueDTO registrarManual(@RequestBody MovimentacaoEstoqueDTO dto) {
+        return service.registrarMovimentacaoManual(dto);
     }
 
     @GetMapping("/ultimas")
