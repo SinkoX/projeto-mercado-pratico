@@ -23,41 +23,37 @@ public class EstoqueService {
         this.produtoRepository = produtoRepository;
     }
 
-    // 🔹 Listar todos os estoques
+    // 🔹 Criar estoque
+    @Transactional
+    public EstoqueDTO criar(Long idProduto, Integer quantidadeInicial, Integer quantidadeMinima) {
+        Produto produto = produtoRepository.findById(idProduto)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado com ID: " + idProduto));
+
+        if (estoqueRepository.findByProduto(produto).isPresent()) {
+            throw new IllegalStateException("Já existe estoque para este produto.");
+        }
+
+        Estoque estoque = new Estoque(produto, quantidadeInicial, quantidadeMinima);
+        return new EstoqueDTO(estoqueRepository.save(estoque));
+    }
+
+    // 🔹 Listar todos
     public List<EstoqueDTO> listarTodos() {
         return estoqueRepository.findAll().stream()
                 .map(EstoqueDTO::new)
                 .collect(Collectors.toList());
     }
 
-    // 🔹 Buscar estoque por ID
+    // 🔹 Buscar por ID
     public EstoqueDTO buscarPorId(Long id) {
-        Estoque estoque = estoqueRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Estoque não encontrado com ID: " + id));
-        return new EstoqueDTO(estoque);
+        return new EstoqueDTO(estoqueRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Estoque não encontrado com ID: " + id)));
     }
 
-    // 🔹 Buscar estoque por produto
+    // 🔹 Buscar por Produto
     public EstoqueDTO buscarPorProduto(Long idProduto) {
-        Estoque estoque = estoqueRepository.findByProdutoIdProduto(idProduto)
-                .orElseThrow(() -> new IllegalArgumentException("Estoque não encontrado para o produto ID: " + idProduto));
-        return new EstoqueDTO(estoque);
-    }
-
-    // 🔹 Criar estoque para um produto
-    @Transactional
-    public EstoqueDTO criar(Long idProduto, Integer quantidadeInicial, Integer quantidadeMinima) {
-        Produto produto = produtoRepository.findById(idProduto)
-                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado com ID: " + idProduto));
-
-        // Verifica se já existe estoque para este produto
-        if (estoqueRepository.findByProduto(produto).isPresent()) {
-            throw new IllegalStateException("Já existe estoque para este produto");
-        }
-
-        Estoque estoque = new Estoque(produto, quantidadeInicial, quantidadeMinima);
-        estoque = estoqueRepository.save(estoque);
-        return new EstoqueDTO(estoque);
+        return new EstoqueDTO(estoqueRepository.findByProdutoIdProduto(idProduto)
+                .orElseThrow(() -> new IllegalArgumentException("Estoque não encontrado para o produto ID: " + idProduto)));
     }
 
     // 🔹 Atualizar quantidade mínima
@@ -67,58 +63,70 @@ public class EstoqueService {
                 .orElseThrow(() -> new IllegalArgumentException("Estoque não encontrado com ID: " + idEstoque));
 
         estoque.setQuantidadeMinima(novaQuantidadeMinima);
-        estoque = estoqueRepository.save(estoque);
-        return new EstoqueDTO(estoque);
+        return new EstoqueDTO(estoqueRepository.save(estoque));
     }
 
-    // 🔹 Adicionar quantidade manualmente
+    // 🔹 Adicionar quantidade
     @Transactional
     public EstoqueDTO adicionarQuantidade(Long idEstoque, Integer quantidade) {
         Estoque estoque = estoqueRepository.findById(idEstoque)
                 .orElseThrow(() -> new IllegalArgumentException("Estoque não encontrado com ID: " + idEstoque));
 
         estoque.adicionarQuantidade(quantidade);
-        estoque = estoqueRepository.save(estoque);
-        return new EstoqueDTO(estoque);
+        return new EstoqueDTO(estoqueRepository.save(estoque));
     }
 
-    // 🔹 Remover quantidade manualmente
+    // 🔹 Remover quantidade
     @Transactional
     public EstoqueDTO removerQuantidade(Long idEstoque, Integer quantidade) {
         Estoque estoque = estoqueRepository.findById(idEstoque)
                 .orElseThrow(() -> new IllegalArgumentException("Estoque não encontrado com ID: " + idEstoque));
 
         estoque.removerQuantidade(quantidade);
-        estoque = estoqueRepository.save(estoque);
-        return new EstoqueDTO(estoque);
+        return new EstoqueDTO(estoqueRepository.save(estoque));
     }
 
-    // 🔹 Buscar produtos com estoque abaixo do mínimo
+    // 🔹 Buscar estoques abaixo do mínimo
     public List<EstoqueDTO> buscarEstoqueAbaixoDoMinimo() {
         return estoqueRepository.findEstoqueAbaixoDoMinimo().stream()
                 .map(EstoqueDTO::new)
                 .collect(Collectors.toList());
     }
 
-    // 🔹 Buscar produtos sem estoque
+    // 🔹 Buscar estoques zerados
     public List<EstoqueDTO> buscarEstoqueZerado() {
         return estoqueRepository.findEstoqueZerado().stream()
                 .map(EstoqueDTO::new)
                 .collect(Collectors.toList());
     }
 
-    // 🔹 Deletar estoque
+    // 🔹 Deletar
     @Transactional
     public void deletar(Long idEstoque) {
-        Estoque estoque = estoqueRepository.findById(idEstoque)
-                .orElseThrow(() -> new IllegalArgumentException("Estoque não encontrado com ID: " + idEstoque));
-        estoqueRepository.delete(estoque);
+        if (!estoqueRepository.existsById(idEstoque)) {
+            throw new IllegalArgumentException("Estoque não encontrado com ID: " + idEstoque);
+        }
+        estoqueRepository.deleteById(idEstoque);
     }
 
-    // 🔹 Método auxiliar para obter entidade (usado internamente)
-    @Transactional
+    // 🔹 Obter entidade (uso interno)
     public Estoque obterEstoquePorProduto(Long idProduto) {
         return estoqueRepository.findByProdutoIdProduto(idProduto)
                 .orElseThrow(() -> new IllegalArgumentException("Estoque não encontrado para o produto ID: " + idProduto));
     }
+    @Transactional
+    public EstoqueDTO criar(EstoqueDTO dto) {
+        Produto produto = produtoRepository.findById(dto.getIdProduto())
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado com ID: " + dto.getIdProduto()));
+
+        if (estoqueRepository.findByProduto(produto).isPresent()) {
+            throw new IllegalStateException("Já existe estoque para este produto.");
+        }
+
+        Estoque estoque = new Estoque(produto, dto.getQuantidade(), dto.getQuantidadeMinima());
+        return new EstoqueDTO(estoqueRepository.save(estoque));
+    }
+
+    
+    
 }
