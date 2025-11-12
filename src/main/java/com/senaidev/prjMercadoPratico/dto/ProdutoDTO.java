@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.Base64;
 
 import com.senaidev.prjMercadoPratico.entities.Produto;
+import com.senaidev.prjMercadoPratico.entities.Categoria;
+import com.senaidev.prjMercadoPratico.entities.Subcategoria;
 
 public class ProdutoDTO {
 
@@ -13,30 +15,35 @@ public class ProdutoDTO {
     private BigDecimal precoProduto;
     private Integer quantidade;
     private LocalDate dataValidade;
-    private Long idCategoria;
-    private String descricaoProduto;  // Nova variável para descrição
-    private String imgUrl; // 🔹 Mantém URL da imagem
-    private String imagemProdutoBase64; // 🔹 Imagem em Base64 (upload opcional)
+    private String descricaoProduto;
+    private String imgUrl;
+    private String imagemProdutoBase64;
+
+    private CategoriaDTO categoria;
+    private SubcategoriaDTO subCategoria;
 
     public ProdutoDTO() {}
 
-    // 🔹 Construtor que converte Entity → DTO
     public ProdutoDTO(Produto produto) {
         this.idProduto = produto.getIdProduto();
         this.nomeProduto = produto.getNomeProduto();
         this.precoProduto = produto.getPrecoProduto();
         this.quantidade = produto.getQuantidade();
         this.dataValidade = produto.getDataValidade();
-        this.idCategoria = produto.getCategoria() != null ? produto.getCategoria().getIdCategoria() : null;
+        this.descricaoProduto = produto.getDescricaoProduto();
+        this.imgUrl = produto.getImgUrl();
 
-        this.descricaoProduto = produto.getDescricaoProduto();  // Copia a descrição para o DTO
-
-        this.imgUrl = produto.getImgUrl(); // Mantém se existir
-
-        // Converte imagem armazenada em bytes para Base64, se existir
         if (produto.getImagemProduto() != null) {
             this.imagemProdutoBase64 = "data:image/png;base64," +
                     Base64.getEncoder().encodeToString(produto.getImagemProduto());
+        }
+
+        if (produto.getCategoria() != null) {
+            this.categoria = new CategoriaDTO(produto.getCategoria());
+        }
+
+        if (produto.getSubCategoria() != null) {
+            this.subCategoria = new SubcategoriaDTO(produto.getSubCategoria());
         }
     }
 
@@ -55,9 +62,6 @@ public class ProdutoDTO {
 
     public LocalDate getDataValidade() { return dataValidade; }
     public void setDataValidade(LocalDate dataValidade) { this.dataValidade = dataValidade; }
-    
-    public Long getIdCategoria() { return idCategoria; }
-    public void setIdCategoria(Long idCategoria) { this.idCategoria = idCategoria; }
 
     public String getDescricaoProduto() { return descricaoProduto; }
     public void setDescricaoProduto(String descricaoProduto) { this.descricaoProduto = descricaoProduto; }
@@ -67,4 +71,41 @@ public class ProdutoDTO {
 
     public String getImagemProdutoBase64() { return imagemProdutoBase64; }
     public void setImagemProdutoBase64(String imagemProdutoBase64) { this.imagemProdutoBase64 = imagemProdutoBase64; }
+
+    public CategoriaDTO getCategoria() { return categoria; }
+    public void setCategoria(CategoriaDTO categoria) { this.categoria = categoria; }
+
+    public SubcategoriaDTO getSubCategoria() { return subCategoria; }
+    public void setSubCategoria(SubcategoriaDTO subCategoria) { this.subCategoria = subCategoria; }
+
+    // DTOs internos
+    public static class CategoriaDTO {
+        private Long idCategoria;
+        private String nomeCategoria;
+
+        public CategoriaDTO() {}
+        
+        public CategoriaDTO(Categoria categoria) {
+            this.idCategoria = categoria.getIdCategoria();
+            this.nomeCategoria = categoria.getNomeCategoria();
+        }
+
+        public Long getIdCategoria() { return idCategoria; }
+        public String getNomeCategoria() { return nomeCategoria; }
+    }
+
+    public static class SubcategoriaDTO {
+        private Long idSubcategoria;
+        private String nomeSubcategoria;
+
+        public SubcategoriaDTO() {}
+        
+        public SubcategoriaDTO(Subcategoria sub) {
+            this.idSubcategoria = sub.getIdSubcategoria();
+            this.nomeSubcategoria = sub.getNomeSubcategoria();
+        }
+
+        public Long getIdSubcategoria() { return idSubcategoria; }
+        public String getNomeSubcategoria() { return nomeSubcategoria; }
+    }
 }

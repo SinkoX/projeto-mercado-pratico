@@ -25,17 +25,18 @@ import com.senaidev.prjMercadoPratico.services.ProdutoService;
 @CrossOrigin(origins = "http://localhost:5173")
 public class ProdutoController {
 
-	 @Autowired
-	    private ProdutoService produtoService;
+	@Autowired
+	private ProdutoService produtoService;
 	
     @Autowired
     private ProdutoRepository produtoRepository;
 
     // Buscar todos os produtos
     @GetMapping
-    public List<Produto> listarTodos() {
-        return produtoRepository.findAll();
+    public List<ProdutoDTO> listarTodos() {
+        return produtoService.findAllDTO();
     }
+
     @GetMapping("/{id}")
     public ProdutoDTO buscarPorId(@PathVariable Long id) {
         return produtoService.findByIdDTO(id);

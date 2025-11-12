@@ -38,7 +38,7 @@ public class CategoriaController {
     }
 
     // Buscar produtos por categoria (retorna DTO para evitar loops infinitos)
-    @GetMapping("/{nomeCategoria}/produtos")
+    @GetMapping("/nome/{nomeCategoria}/produtos")
     public List<ProdutoDTO> listarProdutosPorCategoria(@PathVariable String nomeCategoria) {
         String nome = nomeCategoria.trim().toLowerCase();
 
@@ -53,9 +53,18 @@ public class CategoriaController {
                 .toList();
     }
     
-    @GetMapping("/{nomeCategoria}")
+    @GetMapping("/nome/{nomeCategoria}")
     public List<Subcategoria> listarSubcategorias(@PathVariable String nomeCategoria) {
         Categoria categoria = categoriaRepository.findByNomeCategoriaIgnoreCase(nomeCategoria)
+            .stream()
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        return categoria.getSubcategorias();
+    }
+    
+    @GetMapping("/id/{id}")
+    public List<Subcategoria> listarSubcategoriasById(@PathVariable Long id) {
+        Categoria categoria = categoriaRepository.findById(id)
             .stream()
             .findFirst()
             .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));

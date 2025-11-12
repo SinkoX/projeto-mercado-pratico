@@ -23,10 +23,9 @@ public class Subcategoria {
     @Column(name = "nome_subcategoria", nullable = false, length = 100)
     private String nomeSubcategoria;
 
-    // Muitas subcategorias pertencem a uma categoria
     @ManyToOne
     @JoinColumn(name = "id_categoria", nullable = false)
-    @JsonBackReference // evita serializar a categoria dentro da subcategoria (relação inversa)
+    @JsonBackReference // evita loop ao serializar categoria dentro da subcategoria
     private Categoria categoria;
 
     // Construtores

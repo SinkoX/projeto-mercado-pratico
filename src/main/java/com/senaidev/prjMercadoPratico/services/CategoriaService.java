@@ -39,6 +39,11 @@ public class CategoriaService {
     public List<Categoria> findByNomeCategoriaIgnoreCase(String categoria) {
         return categoriaRepository.findByNomeCategoriaIgnoreCase(categoria);
     }
+
+    // Buscar por nome da subcategoria
+    public Optional<Categoria> findByIdCategoria(Long id) {
+        return categoriaRepository.findById(id);
+    }
     
     // Cadastrar nova subcategoria
     public Categoria save(Categoria categoria) {

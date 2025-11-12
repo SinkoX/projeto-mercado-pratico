@@ -3,6 +3,7 @@ package com.senaidev.prjMercadoPratico.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -27,12 +28,12 @@ public class Categoria {
     private String nomeCategoria;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference  // <<< adicionada aqui
-    private List<Subcategoria> subcategorias = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference // serializa produtos dentro da subcategoria, mas evita loop com @JsonBackReference em Produto
+    @JsonBackReference // evita loop, pois Produto e Subcategoria já mostram Categoria
     private List<Produto> produtos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // permite mostrar subcategorias dentro da categoria
+    private List<Subcategoria> subcategorias = new ArrayList<>();
 
     // Construtores
     public Categoria() {

@@ -53,15 +53,12 @@ public class Produto {
     
     @ManyToOne
     @JoinColumn(name = "id_categoria") 
-    @JsonBackReference
     private Categoria categoria;
     
     @ManyToOne
     @JoinColumn(name = "id_subcategoria")
-    @JsonBackReference
     private Subcategoria subcategoria;
 
-    
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
@@ -185,7 +182,7 @@ public class Produto {
     	return descricaoProduto;
     }
 
-    public void setDescricao(String descricaoProduto) {
+    public void setDescricaoProduto(String descricaoProduto) {
     	this.descricaoProduto = descricaoProduto;
     }
 }
