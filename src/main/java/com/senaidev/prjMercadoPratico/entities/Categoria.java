@@ -26,6 +26,9 @@ public class Categoria {
 
     @Column(name = "nome_categoria", nullable = false, length = 100)
     private String nomeCategoria;
+    
+    @Column(name = "img_url", nullable = false)
+    private String imgUrl;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference // evita loop, pois Produto e Subcategoria já mostram Categoria
@@ -59,6 +62,14 @@ public class Categoria {
 
     public void setNomeCategoria(String nomeCategoria) {
         this.nomeCategoria = nomeCategoria;
+    }
+    
+    public String getImgUrl() {
+    	return imgUrl;
+    }
+    
+    public void setImgUrl(String imgUrl) {
+    	this.imgUrl = imgUrl;
     }
 
     public List<Subcategoria> getSubcategorias() {

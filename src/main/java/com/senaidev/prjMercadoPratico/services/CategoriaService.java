@@ -55,6 +55,7 @@ public class CategoriaService {
         Categoria categoria = categoriaRepository.findById(id).orElse(null); 
         if (categoria != null) {
             categoria.setNomeCategoria(novaCategoria.getNomeCategoria());
+            categoria.setImgUrl(novaCategoria.getImgUrl());
             return categoriaRepository.save(categoria);
         } else {
             throw new RuntimeException("Categoria não encontrada para o ID: " + id);

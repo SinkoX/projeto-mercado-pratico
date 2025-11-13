@@ -61,15 +61,15 @@ INSERT INTO tb_fornecedor (id_Fornecedor, nome_Fornecedor, email_Fornecedor, cpf
 -- ======================================
 -- CATEGORIAS
 -- ======================================
-INSERT INTO tb_categoria (nome_Categoria) VALUES
-('Hortifruti'),
-('Bebidas'),
-('Mercearia'),
-('Limpeza'),
-('Açougue'),
-('Higiene'),
-('Padaria'),
-('Petshop');
+INSERT INTO tb_categoria (nome_Categoria, img_url) VALUES
+('Hortifruti', 'https://i.postimg.cc/PrVKWyHs/categoria-Horti-Fruti.png'),
+('Bebidas', 'https://i.postimg.cc/Vk5GpTgY/categoria-Bebidas.png'),
+('Mercearia', 'https://i.postimg.cc/DZcP8d6H/categoria-Mercearia.png'),
+('Limpeza', 'https://i.postimg.cc/43V5TT9H/categoria-Limpeza.png'),
+('Açougue', 'https://i.postimg.cc/tRxXQSrv/categoria-Acougue.png'),
+('Higiene', 'https://i.postimg.cc/3RQtywTJ/categoria-Higiene.png'),
+('Padaria', 'https://i.postimg.cc/brC0RyKH/categoria-Padaria.png'),
+('Petshop', 'https://i.postimg.cc/hPv1tmmB/categoria-Pet-Shop.png');
 
 -- ======================================
 -- SUBCATEGORIAS
