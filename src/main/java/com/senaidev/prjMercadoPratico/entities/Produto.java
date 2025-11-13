@@ -35,13 +35,13 @@ public class Produto {
     @Column(name = "preco_produto", nullable = false, precision = 10, scale = 2)
     private BigDecimal precoProduto;
     
-    @Column(name = "quantidade", nullable = false)
+    @Column(name = "quantidade", nullable = true)
     private Integer quantidade;
     
-    @Column(name = "data_validade", nullable = false)
+    @Column(name = "data_validade", nullable = true)
     private LocalDate dataValidade;
     
-    @Column(name = "descricao_produto", nullable = false, length = 1000)
+    @Column(name = "descricao_produto", length = 1000)
     private String descricaoProduto;
     
     @Column(name = "img_url", nullable = false)

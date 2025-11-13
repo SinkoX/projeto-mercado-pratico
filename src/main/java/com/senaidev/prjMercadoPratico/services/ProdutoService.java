@@ -40,7 +40,7 @@ public class ProdutoService {
         produto.setQuantidade(dto.getQuantidade());
         produto.setDataValidade(dto.getDataValidade());
         produto.setCategoria(categoria);
-        produto.setSubCategoria(subcategoria); // ✅ Adicionado
+        produto.setSubCategoria(subcategoria); 
         produto.setDescricaoProduto(dto.getDescricaoProduto());
 
         if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
