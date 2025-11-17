@@ -3,6 +3,7 @@ package com.senaidev.prjMercadoPratico.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.senaidev.prjMercadoPratico.entities.Usuario;
@@ -14,6 +15,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
     }
@@ -24,6 +28,8 @@ public class UsuarioService {
     }
 
     public Usuario insert(Usuario usuario) {
+        // 🔥 CRIPTOGRAFA A SENHA ANTES DE SALVAR
+        usuario.setSenhaUsuario(encoder.encode(usuario.getSenhaUsuario()));
         return usuarioRepository.save(usuario);
     }
 
@@ -31,7 +37,10 @@ public class UsuarioService {
         Usuario usuarioExistente = findById(id);
 
         usuarioExistente.setEmailUsuario(novoUsuario.getEmailUsuario());
-        usuarioExistente.setSenhaUsuario(novoUsuario.getSenhaUsuario());
+
+        // Se alterar senha, criptografa novamente
+        usuarioExistente.setSenhaUsuario(encoder.encode(novoUsuario.getSenhaUsuario()));
+
         usuarioExistente.setCpfUsuario(novoUsuario.getCpfUsuario());
         usuarioExistente.setTipoUsuario(novoUsuario.getTipoUsuario());
         usuarioExistente.setTelefoneUsuario(novoUsuario.getTelefoneUsuario());
@@ -54,20 +63,5 @@ public class UsuarioService {
         return usuarioRepository.findByCpfUsuario(cpf);
     }
 
-	public UsuarioRepository getUsuarioRepository() {
-		return usuarioRepository;
-	}
-
-	public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
-		this.usuarioRepository = usuarioRepository;
-	}
-	
-    public Usuario autenticarUsuario(String email, String senha) {
-        Usuario usuario = usuarioRepository.findByEmailUsuario(email);
-
-        if (usuario != null && usuario.getSenhaUsuario().equals(senha)) {
-            return usuario;
-        }
-        return null;
-    }
+  
 }
