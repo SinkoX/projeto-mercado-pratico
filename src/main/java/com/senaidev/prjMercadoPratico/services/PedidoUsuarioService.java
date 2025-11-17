@@ -61,7 +61,7 @@ public class PedidoUsuarioService {
                 desconto,
                 enderecoEntrega
         );
-        pedido.setStatusPedido(StatusPedido.PENDENTE);
+        pedido.setStatusPedido(StatusPedido.CANCELADO);
 
         PedidoUsuario pedidoSalvo = pedidoUsuarioRepository.save(pedido);
 

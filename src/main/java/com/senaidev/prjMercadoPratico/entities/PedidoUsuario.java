@@ -66,7 +66,7 @@ public class PedidoUsuario {
 
         this.usuario = usuario;
         this.itensPedido = List.copyOf(itensPedido);
-        this.statusPedido = StatusPedido.PENDENTE;
+        this.statusPedido = StatusPedido.CANCELADO;
         this.dataPedido = LocalDate.now();
         this.frete = frete != null ? frete : BigDecimal.ZERO;
         this.desconto = desconto != null ? desconto : BigDecimal.ZERO;

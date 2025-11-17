@@ -1,7 +1,7 @@
 package com.senaidev.prjMercadoPratico.enums;
 
 public enum StatusPedido {
-	PENDENTE,
+	CANCELADO,
     PAGO,
-    CANCELADO
+    
 }
