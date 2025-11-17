@@ -56,6 +56,19 @@ public class ProdutoService {
         produto.setFornecedor(fornecedor);
         produto.setDescricaoProduto(dto.getDescricaoProduto());
 
+        // 🔹 Validação: Apenas uma imagem pode ser enviada
+        boolean temImgUrl = dto.getImgUrl() != null && !dto.getImgUrl().isEmpty();
+        boolean temImagemBase64 = dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty();
+
+        if (temImgUrl && temImagemBase64) {
+            throw new IllegalArgumentException("Não é permitido enviar imgUrl e imagemProduto ao mesmo tempo. Escolha apenas uma opção.");
+        }
+
+        if (!temImgUrl && !temImagemBase64) {
+            throw new IllegalArgumentException("É obrigatório enviar uma imagem (imgUrl ou imagemProduto).");
+        }
+
+        
         if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
             produto.setImgUrl(dto.getImgUrl());
         }
