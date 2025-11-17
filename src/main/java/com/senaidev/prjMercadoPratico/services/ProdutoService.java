@@ -36,16 +36,15 @@ public class ProdutoService {
     public ProdutoDTO toDTO(Produto produto) {
         ProdutoDTO dto = new ProdutoDTO(produto);
 
-        // 🔸 Preenche fornecedor no DTO
         if (produto.getFornecedor() != null) {
             dto.setFornecedor(new ProdutoDTO.FornecedorDTO(produto.getFornecedor()));
         }
-
         return dto;
     }
 
-    // 🔹 DTO → Entity
+    // 🔹 DTO → Entity (ALTERADO)
     public Produto toEntity(ProdutoDTO dto, Categoria categoria, Subcategoria subcategoria, Fornecedor fornecedor) {
+
         Produto produto = new Produto();
         produto.setNomeProduto(dto.getNomeProduto());
         produto.setPrecoProduto(dto.getPrecoProduto());
@@ -56,26 +55,29 @@ public class ProdutoService {
         produto.setFornecedor(fornecedor);
         produto.setDescricaoProduto(dto.getDescricaoProduto());
 
-        // 🔹 Validação: Apenas uma imagem pode ser enviada
-        boolean temImgUrl = dto.getImgUrl() != null && !dto.getImgUrl().isEmpty();
-        boolean temImagemBase64 = dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty();
+        // 🔹 Validação correta
+        boolean temImgUrl = dto.getImgUrl() != null && !dto.getImgUrl().isBlank();
+        boolean temImagemBase64 = dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isBlank();
 
         if (temImgUrl && temImagemBase64) {
-            throw new IllegalArgumentException("Não é permitido enviar imgUrl e imagemProduto ao mesmo tempo. Escolha apenas uma opção.");
+            throw new IllegalArgumentException("Envie apenas imgUrl OU imagemBase64, não ambos.");
         }
 
         if (!temImgUrl && !temImagemBase64) {
-            throw new IllegalArgumentException("É obrigatório enviar uma imagem (imgUrl ou imagemProduto).");
+            throw new IllegalArgumentException("É obrigatório enviar imgUrl OU imagemBase64.");
         }
 
-        
-        if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
+        // 🔹 Caso envie URL
+        if (temImgUrl) {
             produto.setImgUrl(dto.getImgUrl());
+            produto.setImagemProduto(null);
         }
 
-        if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
+        // 🔹 Caso envie imagem Base64
+        if (temImagemBase64) {
             String base64Image = dto.getImagemProdutoBase64().split(",")[1];
             produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
+            produto.setImgUrl(null);
         }
 
         return produto;
@@ -103,7 +105,7 @@ public class ProdutoService {
         Subcategoria subcategoria = null;
         Fornecedor fornecedor = null;
 
-        // 🔸 Buscar categoria
+        // Categoria
         if (dto.getCategoria() != null && dto.getCategoria().getIdCategoria() != null) {
             categoria = categoriaRepository.findById(dto.getCategoria().getIdCategoria())
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada com ID: " + dto.getCategoria().getIdCategoria()));
@@ -111,13 +113,13 @@ public class ProdutoService {
             throw new RuntimeException("Categoria é obrigatória ao cadastrar um produto!");
         }
 
-        // 🔸 Buscar subcategoria
+        // Subcategoria
         if (dto.getSubCategoria() != null && dto.getSubCategoria().getIdSubcategoria() != null) {
             subcategoria = subcategoriaRepository.findById(dto.getSubCategoria().getIdSubcategoria())
                 .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getSubCategoria().getIdSubcategoria()));
         }
 
-        // 🔸 Buscar fornecedor
+        // Fornecedor
         if (dto.getFornecedor() != null && dto.getFornecedor().getIdFornecedor() != null) {
             fornecedor = fornecedorRepository.findById(dto.getFornecedor().getIdFornecedor())
                 .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com ID: " + dto.getFornecedor().getIdFornecedor()));
@@ -161,13 +163,23 @@ public class ProdutoService {
         produto.setDataValidade(dto.getDataValidade());
         produto.setDescricaoProduto(dto.getDescricaoProduto());
 
-        if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
-            String base64Image = dto.getImagemProdutoBase64().split(",")[1];
-            produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
+        // Atualização da imagem
+        boolean temImgUrl = dto.getImgUrl() != null && !dto.getImgUrl().isBlank();
+        boolean temImagemBase64 = dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isBlank();
+
+        if (temImgUrl && temImagemBase64) {
+            throw new IllegalArgumentException("Envie apenas imgUrl OU imagemBase64, não ambos.");
         }
 
-        if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
+        if (temImgUrl) {
             produto.setImgUrl(dto.getImgUrl());
+            produto.setImagemProduto(null);
+        }
+
+        if (temImagemBase64) {
+            String base64Image = dto.getImagemProdutoBase64().split(",")[1];
+            produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
+            produto.setImgUrl(null);
         }
 
         produto = produtoRepository.save(produto);

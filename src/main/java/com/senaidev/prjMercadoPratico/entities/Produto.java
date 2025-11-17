@@ -44,11 +44,11 @@ public class Produto {
     @Column(name = "descricao_produto", length = 1000)
     private String descricaoProduto;
     
-    @Column(name = "img_url", nullable = false)
+    @Column(name = "img_url", nullable = true)
     private String imgUrl;
     
     @Lob
-    @Column(name = "imagem_produto", columnDefinition = "LONGBLOB")
+    @Column(name = "imagem_produto", columnDefinition = "LONGBLOB", nullable = true)
     private byte[] imagemProduto;
     
     @ManyToOne
