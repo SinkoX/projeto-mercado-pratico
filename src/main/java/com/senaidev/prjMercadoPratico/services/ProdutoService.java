@@ -25,37 +25,44 @@ public class ProdutoService {
     private CategoriaRepository categoriaRepository;
 
     @Autowired
-    private SubcategoriaRepository subcategoriaRepository; // ✅ Adicionado
+    private SubcategoriaRepository subcategoriaRepository;
 
-    // 🔹 Entity → DTO
+    // -------------------- Entity → DTO --------------------
     public ProdutoDTO toDTO(Produto produto) {
         return new ProdutoDTO(produto);
     }
 
-    // 🔹 DTO → Entity
+    // -------------------- DTO → Entity --------------------
     public Produto toEntity(ProdutoDTO dto, Categoria categoria, Subcategoria subcategoria) {
         Produto produto = new Produto();
+
         produto.setNomeProduto(dto.getNomeProduto());
         produto.setPrecoProduto(dto.getPrecoProduto());
         produto.setQuantidade(dto.getQuantidade());
         produto.setDataValidade(dto.getDataValidade());
         produto.setCategoria(categoria);
-        produto.setSubCategoria(subcategoria); 
+        produto.setSubCategoria(subcategoria);
         produto.setDescricaoProduto(dto.getDescricaoProduto());
 
-        if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
+        // ----- (1) Tratar URL opcional -----
+        if (dto.getImgUrl() != null && !dto.getImgUrl().isBlank()) {
             produto.setImgUrl(dto.getImgUrl());
         }
 
-        if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
-            String base64Image = dto.getImagemProdutoBase64().split(",")[1];
-            produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
+        // ----- (2) Tratar Base64 opcional -----
+        if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isBlank()) {
+            try {
+                String base64Image = dto.getImagemProdutoBase64().split(",")[1];
+                produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
+            } catch (Exception e) {
+                System.out.println("Erro ao converter Base64 da imagem!");
+            }
         }
 
         return produto;
     }
 
-    // 🔹 Buscar todos como DTO
+    // -------------------- Listar --------------------
     public List<ProdutoDTO> findAllDTO() {
         return produtoRepository.findAll()
                 .stream()
@@ -63,30 +70,23 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 
-    // 🔹 Buscar por ID
+    // -------------------- Buscar por Id --------------------
     public ProdutoDTO findByIdDTO(Long id) {
         Produto produto = produtoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + id));
         return toDTO(produto);
     }
 
-    // 🔹 Inserir novo produto
+    // -------------------- Inserir Produto --------------------
     public ProdutoDTO insertDTO(ProdutoDTO dto) {
-        Categoria categoria = null;
+
+        Categoria categoria = categoriaRepository.findById(dto.getCategoria().getIdCategoria())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada!"));
+
         Subcategoria subcategoria = null;
-
-        // 🔸 Buscar categoria
-        if (dto.getCategoria() != null && dto.getCategoria().getIdCategoria() != null) {
-            categoria = categoriaRepository.findById(dto.getCategoria().getIdCategoria())
-                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com ID: " + dto.getCategoria().getIdCategoria()));
-        } else {
-            throw new RuntimeException("Categoria é obrigatória ao cadastrar um produto!");
-        }
-
-        // 🔸 Buscar subcategoria
         if (dto.getSubCategoria() != null && dto.getSubCategoria().getIdSubcategoria() != null) {
             subcategoria = subcategoriaRepository.findById(dto.getSubCategoria().getIdSubcategoria())
-                .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getSubCategoria().getIdSubcategoria()));
+                    .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada!"));
         }
 
         Produto produto = toEntity(dto, categoria, subcategoria);
@@ -94,20 +94,23 @@ public class ProdutoService {
         return toDTO(produto);
     }
 
-    // 🔹 Atualizar produto
+    // -------------------- Atualizar Produto --------------------
     public ProdutoDTO updateDTO(Long id, ProdutoDTO dto) {
-        Produto produto = produtoRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
 
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado!"));
+
+        // Categoria
         if (dto.getCategoria() != null && dto.getCategoria().getIdCategoria() != null) {
             Categoria categoria = categoriaRepository.findById(dto.getCategoria().getIdCategoria())
-                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com ID: " + dto.getCategoria().getIdCategoria()));
+                    .orElseThrow(() -> new RuntimeException("Categoria inválida!"));
             produto.setCategoria(categoria);
         }
 
+        // Subcategoria
         if (dto.getSubCategoria() != null && dto.getSubCategoria().getIdSubcategoria() != null) {
             Subcategoria subcategoria = subcategoriaRepository.findById(dto.getSubCategoria().getIdSubcategoria())
-                .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getSubCategoria().getIdSubcategoria()));
+                    .orElseThrow(() -> new RuntimeException("Subcategoria inválida!"));
             produto.setSubCategoria(subcategoria);
         }
 
@@ -117,12 +120,18 @@ public class ProdutoService {
         produto.setDataValidade(dto.getDataValidade());
         produto.setDescricaoProduto(dto.getDescricaoProduto());
 
-        if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isEmpty()) {
-            String base64Image = dto.getImagemProdutoBase64().split(",")[1];
-            produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
+        // ----- Atualizar imagem Base64 SE vier preenchida -----
+        if (dto.getImagemProdutoBase64() != null && !dto.getImagemProdutoBase64().isBlank()) {
+            try {
+                String base64Image = dto.getImagemProdutoBase64().split(",")[1];
+                produto.setImagemProduto(Base64.getDecoder().decode(base64Image));
+            } catch (Exception e) {
+                System.out.println("Erro ao atualizar imagem Base64");
+            }
         }
 
-        if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
+        // ----- Atualizar URL SE vier preenchida -----
+        if (dto.getImgUrl() != null && !dto.getImgUrl().isBlank()) {
             produto.setImgUrl(dto.getImgUrl());
         }
 
@@ -130,13 +139,8 @@ public class ProdutoService {
         return toDTO(produto);
     }
 
-    // 🔹 Deletar
+    // -------------------- Deletar --------------------
     public void delete(Long id) {
         produtoRepository.deleteById(id);
-    }
-
-    // 🔹 Inserir direto (sem DTO)
-    public Produto insert(Produto produto) {
-        return produtoRepository.save(produto);
     }
 }
