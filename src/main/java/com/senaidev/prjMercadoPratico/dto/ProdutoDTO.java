@@ -14,9 +14,9 @@ public class ProdutoDTO {
     private Long idProduto;
     private String nomeProduto;
     private BigDecimal precoProduto;
-    private Integer quantidade;
     private LocalDate dataValidade;
     private String descricaoProduto;
+    private Integer quantidade;
     private String imgUrl;
     private String imagemProdutoBase64;
 
@@ -30,8 +30,8 @@ public class ProdutoDTO {
         this.idProduto = produto.getIdProduto();
         this.nomeProduto = produto.getNomeProduto();
         this.precoProduto = produto.getPrecoProduto();
-        this.quantidade = produto.getQuantidade();
         this.dataValidade = produto.getDataValidade();
+        this.quantidade = produto.getQuantidade();
         this.descricaoProduto = produto.getDescricaoProduto();
         this.imgUrl = produto.getImgUrl();
 
@@ -62,7 +62,7 @@ public class ProdutoDTO {
 
     public BigDecimal getPrecoProduto() { return precoProduto; }
     public void setPrecoProduto(BigDecimal precoProduto) { this.precoProduto = precoProduto; }
-
+    
     public Integer getQuantidade() { return quantidade; }
     public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
 

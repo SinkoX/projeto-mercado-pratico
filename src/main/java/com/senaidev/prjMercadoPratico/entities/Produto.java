@@ -76,8 +76,8 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Long idProduto, String nomeProduto, BigDecimal precoProduto, Integer quantidade,String descricaoProduto,
-                   LocalDate dataValidade, String imgUrl, byte[] imagemProduto, Categoria categoria, Subcategoria subcategoria,  
+    public Produto(Long idProduto, String nomeProduto, BigDecimal precoProduto, String descricaoProduto,
+                   LocalDate dataValidade, Integer quantidade, String imgUrl, byte[] imagemProduto, Categoria categoria, Subcategoria subcategoria,  
                    List<ItemCarrinho> itensCarrinho, List<ItemPedido> itensPedido) {
         super();
         this.idProduto = idProduto;
@@ -110,6 +110,14 @@ public class Produto {
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
+    
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
 
     public BigDecimal getPrecoProduto() {
         return precoProduto;
@@ -117,14 +125,6 @@ public class Produto {
 
     public void setPrecoProduto(BigDecimal precoProduto) {
         this.precoProduto = precoProduto;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
 
     public LocalDate getDataValidade() {
