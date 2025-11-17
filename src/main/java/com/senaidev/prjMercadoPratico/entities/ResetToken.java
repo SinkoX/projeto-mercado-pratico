@@ -7,9 +7,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "tb_reset_token")
 public class ResetToken {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // única coluna AUTO_INCREMENT
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)

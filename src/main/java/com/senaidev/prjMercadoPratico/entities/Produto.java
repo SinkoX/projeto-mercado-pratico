@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -59,6 +59,11 @@ public class Produto {
     @JoinColumn(name = "id_subcategoria")
     private Subcategoria subcategoria;
 
+    @ManyToOne
+    @JoinColumn(name = "id_fornecedor")
+    @JsonManagedReference
+    private Fornecedor fornecedor;
+    
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ItemCarrinho> itensCarrinho = new ArrayList<>();
@@ -66,7 +71,7 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ItemPedido> itensPedido = new ArrayList<>();
-
+    
     // Construtores
     public Produto() {
     }
@@ -184,5 +189,13 @@ public class Produto {
 
     public void setDescricaoProduto(String descricaoProduto) {
     	this.descricaoProduto = descricaoProduto;
+    }
+    
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 }

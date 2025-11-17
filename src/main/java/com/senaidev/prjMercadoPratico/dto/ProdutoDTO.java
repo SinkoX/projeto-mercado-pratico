@@ -4,8 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Base64;
 
-import com.senaidev.prjMercadoPratico.entities.Produto;
 import com.senaidev.prjMercadoPratico.entities.Categoria;
+import com.senaidev.prjMercadoPratico.entities.Fornecedor;
+import com.senaidev.prjMercadoPratico.entities.Produto;
 import com.senaidev.prjMercadoPratico.entities.Subcategoria;
 
 public class ProdutoDTO {
@@ -21,6 +22,7 @@ public class ProdutoDTO {
 
     private CategoriaDTO categoria;
     private SubcategoriaDTO subCategoria;
+    private FornecedorDTO fornecedor;
 
     public ProdutoDTO() {}
 
@@ -44,6 +46,10 @@ public class ProdutoDTO {
 
         if (produto.getSubCategoria() != null) {
             this.subCategoria = new SubcategoriaDTO(produto.getSubCategoria());
+        }
+        
+        if (produto.getFornecedor() != null) {
+            this.fornecedor = new FornecedorDTO(produto.getFornecedor());
         }
     }
 
@@ -77,6 +83,9 @@ public class ProdutoDTO {
 
     public SubcategoriaDTO getSubCategoria() { return subCategoria; }
     public void setSubCategoria(SubcategoriaDTO subCategoria) { this.subCategoria = subCategoria; }
+    
+    public FornecedorDTO getFornecedor() { return fornecedor; }
+    public void setFornecedor(FornecedorDTO fornecedor) { this.fornecedor = fornecedor; }
 
     // DTOs internos
     public static class CategoriaDTO {
@@ -100,12 +109,33 @@ public class ProdutoDTO {
 
         public SubcategoriaDTO() {}
         
-        public SubcategoriaDTO(Subcategoria sub) {
-            this.idSubcategoria = sub.getIdSubcategoria();
-            this.nomeSubcategoria = sub.getNomeSubcategoria();
+        public SubcategoriaDTO(Subcategoria subcategoria) {
+            this.idSubcategoria = subcategoria.getIdSubcategoria();
+            this.nomeSubcategoria = subcategoria.getNomeSubcategoria();
         }
 
         public Long getIdSubcategoria() { return idSubcategoria; }
         public String getNomeSubcategoria() { return nomeSubcategoria; }
+    }
+    
+    public static class FornecedorDTO {
+        private Long idFornecedor;
+        private String nomeFornecedor;
+        private String emailFornecedor;
+        private String telefoneFornecedor;
+
+        public FornecedorDTO() {}
+
+        public FornecedorDTO(Fornecedor fornecedor) {
+            this.idFornecedor = fornecedor.getIdFornecedor();
+            this.nomeFornecedor = fornecedor.getNomeFornecedor();
+            this.emailFornecedor = fornecedor.getEmailFornecedor();
+            this.telefoneFornecedor = fornecedor.getTelefoneFornecedor();
+        }
+
+        public Long getIdFornecedor() { return idFornecedor; }
+        public String getNomeFornecedor() { return nomeFornecedor; }
+        public String getEmailFornecedor() { return emailFornecedor; }
+        public String getTelefoneFornecedor() { return telefoneFornecedor; }
     }
 }

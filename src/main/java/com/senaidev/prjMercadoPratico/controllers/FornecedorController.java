@@ -73,7 +73,7 @@ public class FornecedorController {
     }
 
     // POST /fornecedores
-    @PostMapping
+    @PostMapping("/cadastro")
     public ResponseEntity<Fornecedor> insert(@RequestBody Fornecedor fornecedor) {
         Fornecedor novo = fornecedorService.insert(fornecedor);
         return ResponseEntity.ok(novo);

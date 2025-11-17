@@ -1,8 +1,18 @@
 package com.senaidev.prjMercadoPratico.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_fornecedor")
@@ -27,6 +37,10 @@ public class Fornecedor {
     
     @Column(name = "telefone_fornecedor", nullable = false, length = 15)
     private String telefoneFornecedor;
+    
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Produto> produtos = new ArrayList<>();
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<PedidoFornecedor> pedidos;
@@ -37,13 +51,14 @@ public class Fornecedor {
 
    
     public Fornecedor(Long idFornecedor, String nomeFornecedor, String emailFornecedor, String cpfFornecedor,
-                      String cnpj, List<PedidoFornecedor> pedidos, String telefoneFornecedor) {
+                      String cnpj, List<PedidoFornecedor> pedidos, List<Produto> produtos, String telefoneFornecedor) {
         this.idFornecedor = idFornecedor;
         this.nomeFornecedor = nomeFornecedor;
         this.emailFornecedor = emailFornecedor;
         this.cpfFornecedor = cpfFornecedor;
         this.cnpj = cnpj;
         this.pedidos = pedidos;
+        this.produtos = produtos;
         this.telefoneFornecedor = telefoneFornecedor;
     }
 
@@ -95,6 +110,14 @@ public class Fornecedor {
 
     public void setPedidos(List<PedidoFornecedor> pedidos) {
         this.pedidos = pedidos;
+    }
+    
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
 	public String getTelefoneFornecedor() {

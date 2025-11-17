@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.senaidev.prjMercadoPratico.dto.ProdutoDTO;
 import com.senaidev.prjMercadoPratico.entities.Categoria;
+import com.senaidev.prjMercadoPratico.entities.Fornecedor;
 import com.senaidev.prjMercadoPratico.entities.Produto;
 import com.senaidev.prjMercadoPratico.entities.Subcategoria;
 import com.senaidev.prjMercadoPratico.repositories.CategoriaRepository;
+import com.senaidev.prjMercadoPratico.repositories.FornecedorRepository;
 import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
 import com.senaidev.prjMercadoPratico.repositories.SubcategoriaRepository;
 
@@ -25,22 +27,33 @@ public class ProdutoService {
     private CategoriaRepository categoriaRepository;
 
     @Autowired
-    private SubcategoriaRepository subcategoriaRepository; // ✅ Adicionado
+    private SubcategoriaRepository subcategoriaRepository;
+
+    @Autowired
+    private FornecedorRepository fornecedorRepository;
 
     // 🔹 Entity → DTO
     public ProdutoDTO toDTO(Produto produto) {
-        return new ProdutoDTO(produto);
+        ProdutoDTO dto = new ProdutoDTO(produto);
+
+        // 🔸 Preenche fornecedor no DTO
+        if (produto.getFornecedor() != null) {
+            dto.setFornecedor(new ProdutoDTO.FornecedorDTO(produto.getFornecedor()));
+        }
+
+        return dto;
     }
 
     // 🔹 DTO → Entity
-    public Produto toEntity(ProdutoDTO dto, Categoria categoria, Subcategoria subcategoria) {
+    public Produto toEntity(ProdutoDTO dto, Categoria categoria, Subcategoria subcategoria, Fornecedor fornecedor) {
         Produto produto = new Produto();
         produto.setNomeProduto(dto.getNomeProduto());
         produto.setPrecoProduto(dto.getPrecoProduto());
         produto.setQuantidade(dto.getQuantidade());
         produto.setDataValidade(dto.getDataValidade());
         produto.setCategoria(categoria);
-        produto.setSubCategoria(subcategoria); 
+        produto.setSubCategoria(subcategoria);
+        produto.setFornecedor(fornecedor);
         produto.setDescricaoProduto(dto.getDescricaoProduto());
 
         if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
@@ -72,8 +85,10 @@ public class ProdutoService {
 
     // 🔹 Inserir novo produto
     public ProdutoDTO insertDTO(ProdutoDTO dto) {
-        Categoria categoria = null;
+
+        Categoria categoria;
         Subcategoria subcategoria = null;
+        Fornecedor fornecedor = null;
 
         // 🔸 Buscar categoria
         if (dto.getCategoria() != null && dto.getCategoria().getIdCategoria() != null) {
@@ -89,8 +104,15 @@ public class ProdutoService {
                 .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getSubCategoria().getIdSubcategoria()));
         }
 
-        Produto produto = toEntity(dto, categoria, subcategoria);
+        // 🔸 Buscar fornecedor
+        if (dto.getFornecedor() != null && dto.getFornecedor().getIdFornecedor() != null) {
+            fornecedor = fornecedorRepository.findById(dto.getFornecedor().getIdFornecedor())
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com ID: " + dto.getFornecedor().getIdFornecedor()));
+        }
+
+        Produto produto = toEntity(dto, categoria, subcategoria, fornecedor);
         produto = produtoRepository.save(produto);
+
         return toDTO(produto);
     }
 
@@ -99,16 +121,25 @@ public class ProdutoService {
         Produto produto = produtoRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Produto não encontrado com ID: " + id));
 
+        // Categoria
         if (dto.getCategoria() != null && dto.getCategoria().getIdCategoria() != null) {
             Categoria categoria = categoriaRepository.findById(dto.getCategoria().getIdCategoria())
-                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com ID: " + dto.getCategoria().getIdCategoria()));
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada."));
             produto.setCategoria(categoria);
         }
 
+        // Subcategoria
         if (dto.getSubCategoria() != null && dto.getSubCategoria().getIdSubcategoria() != null) {
             Subcategoria subcategoria = subcategoriaRepository.findById(dto.getSubCategoria().getIdSubcategoria())
-                .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada com ID: " + dto.getSubCategoria().getIdSubcategoria()));
+                .orElseThrow(() -> new RuntimeException("Subcategoria não encontrada."));
             produto.setSubCategoria(subcategoria);
+        }
+
+        // Fornecedor
+        if (dto.getFornecedor() != null && dto.getFornecedor().getIdFornecedor() != null) {
+            Fornecedor fornecedor = fornecedorRepository.findById(dto.getFornecedor().getIdFornecedor())
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado."));
+            produto.setFornecedor(fornecedor);
         }
 
         produto.setNomeProduto(dto.getNomeProduto());
@@ -135,7 +166,7 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
-    // 🔹 Inserir direto (sem DTO)
+    // 🔹 Inserir direto
     public Produto insert(Produto produto) {
         return produtoRepository.save(produto);
     }
