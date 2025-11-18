@@ -33,10 +33,6 @@ public class Subcategoria {
     @JsonBackReference(value = "categoria-subcategoria")
     private Categoria categoria;
     
-    @OneToMany(mappedBy = "subcategoria", cascade = CascadeType.REMOVE)
-    @JsonManagedReference(value = "subcategoria-produto")
-    private List<Produto> produtos;
-
     // Construtores
     public Subcategoria() {
     }

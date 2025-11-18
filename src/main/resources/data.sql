@@ -167,7 +167,7 @@ INSERT INTO tb_produto
 
 -- LEGUMES
 ('Cenoura 1kg', 4.30, 120, '2025-11-20', 1, 3, 'https://www.bernardaoemcasa.com.br/media/catalog/product/cache/1/image/500x500/9df78eab33525d08d6e5fb8d27136e95/c/n/cn001-cenoura.jpg', 'Cenouras selecionadas e crocantes.', 2),
-('Tomate Italiano 1kg', 6.90, 150, '2025-11-18', 1, 3, 'https://zaffari.vtexassets.com/arquivos/ids/290600/1007601-00.jpg?v=638969319392730000', 'Tomates italianos ideais para molhos e saladas.', 3),
+('Tomate Italiano 1kg', 6.90, 150, '2025-11-18', 1, 3, 'https://zonasul.vtexassets.com/arquivos/ids/3080700/VF4qT-qqCUAAAAAAAAN8UA.jpg?v=637934223605130000', 'Tomates italianos ideais para molhos e saladas.', 3),
 
 -- TEMPEROS E ERVAS
 ('Salsinha Maço', 2.50, 60, '2025-11-08', 1, 4, 'https://giassi.vtexassets.com/arquivos/ids/2756956/Salsinha-Maco.png?v=638627544776070000', 'Salsinha fresca para temperar suas receitas.', 1),
@@ -223,7 +223,7 @@ INSERT INTO tb_produto
 
 -- ARROZ E FEIJÃO
 ('Arroz Tio João Tipo 1 5kg', 24.90, 200, '2026-08-10', 3, 15, 'https://prezunic.vtexassets.com/arquivos/ids/179922/656789b41ef3739680761222.jpg?v=638368810799430000', 'Arroz branco tipo 1, grãos selecionados.', 1),
-('Feijão Carioca Camil 1kg', 9.80, 180, '2026-05-05', 3, 15, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/195175/871281_1.jpg?v=637272434435130000', 'Feijão carioca de alta qualidade, sabor tradicional.', 2),
+('Feijão Carioca Camil 1kg', 9.80, 180, '2026-05-05', 3, 15, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/205951056/871281_1.jpg?v=638977930499330000', 'Feijão carioca de alta qualidade, sabor tradicional.', 2),
 
 -- MASSAS
 ('Macarrão Espaguete Renata 500g', 5.90, 160, '2026-06-15', 3, 16, 'https://carrefourbrfood.vtexassets.com/arquivos/ids/12908693/macarrao-espaguete-renata-com-ovos-n%C2%BA-9-500g-1.jpg?v=637477866363900000', 'Macarrão espaguete Renata, cozimento rápido e textura ideal.', 3),
@@ -320,7 +320,7 @@ INSERT INTO tb_produto
 
 -- CUIDADOS PESSOAIS
 ('Desodorante Rexona Men Aerosol 150ml', 15.90, 150, '2027-07-10', 6, 36, 'https://destro.fbitsstatic.net/img/p/desodorante-rexona-men-clinical-clean-aerossol-150ml-75969/262523-1.jpg?w=500&h=500&v=202501231555&qs=ignore', 'Desodorante masculino com 48h de proteção e fragrância marcante.', 7),
-('Hidratante Corporal Nivea Milk 200ml', 19.90, 90, '2027-08-05', 6, 36, 'https://drogariavenancio.vtexassets.com/arquivos/ids/1227798/92737_z.jpg?v=638723811818900000', 'Hidratante corporal com óleo de amêndoas, ideal para pele seca.', 8),
+('Hidratante Corporal Nivea Milk 200ml', 19.90, 90, '2027-08-05', 6, 36, 'https://img.nivea.com/-/media/miscellaneous/media-center-items/7/9/4/e2df2a9fede042a799bdb1ad0fdf69f9-screen.jpg', 'Hidratante corporal com óleo de amêndoas, ideal para pele seca.', 8),
 
 -- BARBEAR E DEPILAÇÃO
 ('Aparelho de Barbear Gillette Mach3', 39.90, 70, '2028-01-10', 6, 37, 'https://drogariaspacheco.vteximg.com.br/arquivos/ids/1082258/808946---Aparelho-de-Barbear-Gillette-Mach3-Carbono-Recarregavel-1-Unidade-1.jpg?v=638189062979930000', 'Aparelho de barbear com três lâminas e cabo ergonômico.', 9),
@@ -383,12 +383,118 @@ INSERT INTO tb_produto
 ('Antipulgas NexGard 10-25kg', 85.00, 50, '2027-06-15', 8, 49, 'https://images.tcdn.com.br/img/img_prod/1263384/antipulgas_e_carrapatos_nexgard_cao_10_a_25kg_com_1_comprimido_1143_1_132c0f3065a689fe82a461685055d1c8.jpg', 'Tablete mastigável antipulgas e carrapatos para cães.', 1),
 ('Vermífugo Drontal Gatos 4 Comprimidos', 39.90, 70, '2027-05-20', 8, 49, 'https://images.petz.com.br/fotos/1661537404351.jpg', 'Vermífugo completo para gatos adultos.', 2);
 
--- ======================================
--- PEDIDOS DE CLIENTE
--- ======================================
+INSERT INTO tb_estoque (quantidade, quantidade_atual, quantidade_minima, id_produto) VALUES
 
+-- HORTIFRUTI (IDs 1-12)
+(150, 150, 20, 1),  -- Maçã Fuji
+(200, 200, 30, 2),  -- Banana Nanica
+(100, 100, 15, 3),  -- Alface Crespa
+(80, 80, 10, 4),    -- Espinafre
+(120, 120, 20, 5),  -- Cenoura
+(150, 150, 25, 6),  -- Tomate Italiano
+(60, 60, 10, 7),    -- Salsinha
+(50, 50, 8, 8),     -- Manjericão
+(80, 80, 15, 9),    -- Tomate Orgânico
+(70, 70, 12, 10),   -- Alface Americana Orgânica
+(200, 200, 30, 11), -- Batata Inglesa
+(100, 100, 15, 12), -- Beterraba
 
--- ======================================
--- PEDIDOS DE FORNECEDOR
--- ======================================
+-- BEBIDAS (IDs 13-28)
+(300, 300, 50, 13), -- Coca-Cola Lata
+(180, 180, 30, 14), -- Guaraná Antarctica
+(120, 120, 20, 15), -- Suco de Laranja
+(90, 90, 15, 16),   -- Suco de Uva
+(400, 400, 60, 17), -- Água Crystal
+(250, 250, 40, 18), -- Água São Lourenço
+(180, 180, 30, 19), -- Heineken
+(200, 200, 35, 20), -- Budweiser
+(50, 50, 10, 21),   -- Vinho Miolo
+(60, 60, 10, 22),   -- Vinho Salton
+(80, 80, 15, 23),   -- Vodka Smirnoff
+(40, 40, 8, 24),    -- Whisky Johnnie Walker
+(300, 300, 50, 25), -- Red Bull
+(250, 250, 40, 26), -- Monster
+(300, 300, 50, 27), -- Leite Itambé
+(280, 280, 45, 28), -- Leite Piracanjuba
 
+-- MERCEARIA (IDs 29-42)
+(200, 200, 30, 29), -- Arroz Tio João
+(180, 180, 25, 30), -- Feijão Carioca
+(160, 160, 25, 31), -- Macarrão Espaguete
+(140, 140, 20, 32), -- Macarrão Parafuso
+(120, 120, 20, 33), -- Farinha de Trigo
+(100, 100, 15, 34), -- Aveia Quaker
+(150, 150, 25, 35), -- Milho Verde
+(130, 130, 20, 36), -- Ervilha
+(180, 180, 30, 37), -- Molho Pomarola
+(200, 200, 35, 38), -- Tempero Sazón
+(180, 180, 30, 39), -- Óleo Liza
+(100, 100, 15, 40), -- Azeite Gallo
+(250, 250, 40, 41), -- Açúcar União
+(150, 150, 25, 42), -- Café Pilão
+(200, 200, 35, 43), -- Biscoito Trakinas
+(180, 180, 30, 44), -- Batata Ruffles
+
+-- LIMPEZA (IDs 45-58)
+(150, 150, 25, 45), -- Desinfetante Pinho Sol
+(200, 200, 35, 46), -- Multiuso Veja
+(120, 120, 20, 47), -- Sabão Omo
+(140, 140, 25, 48), -- Amaciante Downy
+(250, 250, 40, 49), -- Esponja Scotch-Brite
+(180, 180, 30, 50), -- Pano de Chão
+(160, 160, 25, 51), -- Inseticida Raid
+(120, 120, 20, 52), -- Inseticida SBP
+(200, 200, 35, 53), -- Sacos de Lixo
+(150, 150, 25, 54), -- Luvas Scotch-Brite
+
+-- AÇOUGUE (IDs 55-64)
+(40, 40, 10, 55),   -- Picanha
+(70, 70, 15, 56),   -- Carne Moída
+(60, 60, 12, 57),   -- Bisteca Suína
+(50, 50, 10, 58),   -- Costelinha Suína
+(100, 100, 20, 59), -- Filé de Frango
+(80, 80, 15, 60),   -- Coxa e Sobrecoxa
+(60, 60, 12, 61),   -- Filé de Tilápia
+(50, 50, 10, 62),   -- Camarão
+(90, 90, 18, 63),   -- Linguiça Toscana
+(75, 75, 15, 64),   -- Bacon
+
+-- HIGIENE (IDs 65-78)
+(120, 120, 20, 65), -- Shampoo Seda
+(100, 100, 18, 66), -- Condicionador Dove
+(300, 300, 50, 67), -- Sabonete Dove
+(80, 80, 15, 68),   -- Sabonete Líquido Nivea
+(200, 200, 35, 69), -- Creme Dental Colgate
+(100, 100, 18, 70), -- Enxaguante Listerine
+(150, 150, 25, 71), -- Desodorante Rexona
+(90, 90, 15, 72),   -- Hidratante Nivea
+(70, 70, 12, 73),   -- Aparelho Gillette
+(60, 60, 10, 74),   -- Creme Depilatório Veet
+
+-- PADARIA (IDs 75-84)
+(500, 500, 100, 75), -- Pão Francês
+(120, 120, 20, 76),  -- Pão de Forma
+(40, 40, 8, 77),     -- Bolo de Chocolate
+(30, 30, 6, 78),     -- Torta de Chocolate
+(200, 200, 35, 79),  -- Coxinha
+(180, 180, 30, 80),  -- Empada
+(300, 300, 50, 81),  -- Brigadeiro
+(300, 300, 50, 82),  -- Beijinho
+(100, 100, 18, 83),  -- Biscoito de Polvilho
+(90, 90, 15, 84),    -- Cookie de Chocolate
+(50, 50, 10, 85),    -- Bolo Integral Cenoura
+(80, 80, 15, 86),    -- Cookies Integrais
+
+-- PET SHOP (IDs 87-96)
+(200, 200, 35, 87),  -- Ração Golden
+(150, 150, 25, 88),  -- Ração Whiskas
+(180, 180, 30, 89),  -- Biscoito Pedigree
+(250, 250, 40, 90),  -- Petisco Whiskas
+(100, 100, 18, 91),  -- Bola de Borracha
+(120, 120, 20, 92),  -- Varinha com Pena
+(120, 120, 20, 93),  -- Shampoo Pet Clean
+(130, 130, 22, 94),  -- Lenços Umedecidos
+(80, 80, 15, 95),    -- Coleira Ajustável
+(90, 90, 15, 96),    -- Comedouro Inox
+(50, 50, 10, 97),    -- Antipulgas NexGard
+(70, 70, 12, 98);    -- Vermífugo Drontal
