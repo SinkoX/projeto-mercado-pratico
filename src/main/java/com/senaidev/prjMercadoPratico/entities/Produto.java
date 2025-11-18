@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -52,16 +53,18 @@ public class Produto {
     private byte[] imagemProduto;
     
     @ManyToOne
-    @JoinColumn(name = "id_categoria") 
+    @JoinColumn(name = "id_categoria")
+    @JsonBackReference(value = "categoria-produto")
     private Categoria categoria;
     
     @ManyToOne
     @JoinColumn(name = "id_subcategoria")
+    @JsonBackReference(value = "subcategoria-produto")
     private Subcategoria subcategoria;
 
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
-    @JsonManagedReference
+    @JsonBackReference(value = "fornecedor-produto")
     private Fornecedor fornecedor;
     
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)

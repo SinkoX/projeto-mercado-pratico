@@ -38,7 +38,7 @@ public class Fornecedor {
     private String telefoneFornecedor;
     
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "fornecedor-produto") // <<< mudar para ManagedReference
+    @JsonManagedReference(value = "fornecedor-produto")
     private List<Produto> produtos;
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)

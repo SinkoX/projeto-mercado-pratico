@@ -3,6 +3,7 @@ package com.senaidev.prjMercadoPratico.entities;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,6 +34,7 @@ public class Subcategoria {
     private Categoria categoria;
     
     @OneToMany(mappedBy = "subcategoria", cascade = CascadeType.REMOVE)
+    @JsonManagedReference(value = "subcategoria-produto")
     private List<Produto> produtos;
 
     // Construtores
