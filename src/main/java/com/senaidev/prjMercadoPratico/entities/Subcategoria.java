@@ -1,7 +1,10 @@
 package com.senaidev.prjMercadoPratico.entities;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,9 +28,12 @@ public class Subcategoria {
     private String nomeSubcategoria;
 
     @ManyToOne
-    @JoinColumn(name = "id_categoria", nullable = false)
-    @JsonBackReference // evita loop ao serializar categoria dentro da subcategoria
+    @JoinColumn(name = "id_categoria")
+    @JsonBackReference(value = "categoria-subcategoria")
     private Categoria categoria;
+    
+    @OneToMany(mappedBy = "subcategoria", cascade = CascadeType.REMOVE)
+    private List<Produto> produtos;
 
     // Construtores
     public Subcategoria() {

@@ -31,12 +31,13 @@ public class Categoria {
     private String imgUrl;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference // evita loop, pois Produto e Subcategoria já mostram Categoria
+    @JsonManagedReference(value = "categoria-produto")
     private List<Produto> produtos = new ArrayList<>();
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference // permite mostrar subcategorias dentro da categoria
+    @JsonManagedReference(value = "categoria-subcategoria")
     private List<Subcategoria> subcategorias = new ArrayList<>();
+
 
     // Construtores
     public Categoria() {

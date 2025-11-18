@@ -45,7 +45,7 @@ public class Usuario {
     @JsonIgnore
     private Carrinho carrinho;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> endereco = new ArrayList<>();
     
     @ManyToOne

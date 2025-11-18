@@ -1,9 +1,8 @@
 package com.senaidev.prjMercadoPratico.entities;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -39,8 +38,8 @@ public class Fornecedor {
     private String telefoneFornecedor;
     
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<Produto> produtos = new ArrayList<>();
+    @JsonManagedReference(value = "fornecedor-produto") // <<< mudar para ManagedReference
+    private List<Produto> produtos;
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
     private List<PedidoFornecedor> pedidos;

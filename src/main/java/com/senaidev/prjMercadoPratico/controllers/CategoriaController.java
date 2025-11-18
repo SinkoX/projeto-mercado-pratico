@@ -17,7 +17,6 @@ import com.senaidev.prjMercadoPratico.services.ProdutoService;
 
 @RestController
 @RequestMapping("/categorias")
-@CrossOrigin(origins = "http://localhost:5173")
 public class CategoriaController {
 
     @Autowired

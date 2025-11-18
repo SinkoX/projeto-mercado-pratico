@@ -16,19 +16,52 @@ public class Fornecimento {
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
 
-    @Column(nullable = false)
+    @Column(name = "data_fornecimento", nullable = false)
     private LocalDateTime dataFornecimento = LocalDateTime.now();
-
+    
+    @Column(name = "valor_fornecimento", nullable = false)
+    private double valorFornecimento;
+    
     @OneToMany(mappedBy = "fornecimento", cascade = CascadeType.ALL)
     private List<ItemFornecimento> itens;
+    
+	public Long getIdFornecimento() {
+		return idFornecimento;
+	}
 
-    public Long getIdFornecimento() { return idFornecimento; }
-    public Fornecedor getFornecedor() { return fornecedor; }
-    public LocalDateTime getDataFornecimento() { return dataFornecimento; }
-    public List<ItemFornecimento> getItens() { return itens; }
+	public void setIdFornecimento(Long idFornecimento) {
+		this.idFornecimento = idFornecimento;
+	}
 
-    public void setFornecedor(Fornecedor fornecedor) { this.fornecedor = fornecedor; }
-    public void setItens(List<ItemFornecimento> itens) {
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+	public LocalDateTime getDataFornecimento() {
+		return dataFornecimento;
+	}
+
+	public void setDataFornecimento(LocalDateTime dataFornecimento) {
+		this.dataFornecimento = dataFornecimento;
+	}
+
+	public double getValorFornecimento() {
+		return valorFornecimento;
+	}
+
+	public void setValorFornecimento(double valorFornecimento) {
+		this.valorFornecimento = valorFornecimento;
+	}
+
+	public List<ItemFornecimento> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemFornecimento> itens) {
         this.itens = itens;
         if (itens != null) {
             itens.forEach(i -> i.setFornecimento(this));
