@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.senaidev.prjMercadoPratico.dto.ProdutoDTO;
 import com.senaidev.prjMercadoPratico.entities.Categoria;
@@ -13,6 +14,7 @@ import com.senaidev.prjMercadoPratico.entities.Fornecedor;
 import com.senaidev.prjMercadoPratico.entities.Produto;
 import com.senaidev.prjMercadoPratico.entities.Subcategoria;
 import com.senaidev.prjMercadoPratico.repositories.CategoriaRepository;
+import com.senaidev.prjMercadoPratico.repositories.EstoqueRepository;
 import com.senaidev.prjMercadoPratico.repositories.FornecedorRepository;
 import com.senaidev.prjMercadoPratico.repositories.ProdutoRepository;
 import com.senaidev.prjMercadoPratico.repositories.SubcategoriaRepository;
@@ -31,6 +33,9 @@ public class ProdutoService {
 
     @Autowired
     private FornecedorRepository fornecedorRepository;
+    
+    @Autowired
+    private EstoqueRepository estoqueRepository;
 
     // 🔹 Entity → DTO
     public ProdutoDTO toDTO(Produto produto) {
@@ -186,8 +191,16 @@ public class ProdutoService {
         return toDTO(produto);
     }
 
-    // 🔹 Deletar
+    @Transactional
     public void delete(Long id) {
+        if (!produtoRepository.existsById(id)) {
+            throw new RuntimeException("Produto não encontrado com ID: " + id);
+        }
+
+        // 🔹 1. Deletar estoque relacionado ao produto
+        estoqueRepository.deleteByProdutoId(id);
+
+        // 🔹 2. Deletar o próprio produto
         produtoRepository.deleteById(id);
     }
 

@@ -2,13 +2,24 @@ package com.senaidev.prjMercadoPratico.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import com.senaidev.prjMercadoPratico.enums.StatusPedido;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_pedido_usuario")
@@ -24,7 +35,7 @@ public class PedidoUsuario {
     private Usuario usuario;
 
     @OneToMany(mappedBy = "pedidoUsuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemPedido> itensPedido;
+    private List<ItemPedido> itensPedido = new ArrayList<>();
 
     @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal;
@@ -60,21 +71,26 @@ public class PedidoUsuario {
 
     public PedidoUsuario(Usuario usuario, List<ItemPedido> itensPedido,
                          BigDecimal frete, BigDecimal desconto, Endereco enderecoEntrega) {
+
         if (usuario == null) throw new IllegalArgumentException("Usuário não pode ser nulo");
         if (itensPedido == null || itensPedido.isEmpty())
             throw new IllegalArgumentException("O pedido deve conter ao menos um item");
 
         this.usuario = usuario;
-        this.itensPedido = List.copyOf(itensPedido);
-        this.statusPedido = StatusPedido.CANCELADO;
+
+        // CORREÇÃO: SEMPRE usar lista mutável (evita UnsupportedOperationException)
+        this.itensPedido = new ArrayList<>(itensPedido);
+
+        this.statusPedido = StatusPedido.PENDENTE;
         this.dataPedido = LocalDate.now();
         this.frete = frete != null ? frete : BigDecimal.ZERO;
         this.desconto = desconto != null ? desconto : BigDecimal.ZERO;
         this.enderecoEntrega = enderecoEntrega;
 
-        this.valorTotal = calcularValorTotal(itensPedido);
+        this.valorTotal = calcularValorTotal(this.itensPedido);
         this.valorFinal = valorTotal.add(this.frete).subtract(this.desconto);
 
+        // associa os itens ao pedido
         this.itensPedido.forEach(item -> item.setPedidoUsuario(this));
     }
 
@@ -85,10 +101,16 @@ public class PedidoUsuario {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    // 🔍 Getters e Setters
+    // ================= GETTERS E SETTERS ===================== //
+
     public Long getIdPedidoUsuario() { return idPedidoUsuario; }
     public Usuario getUsuario() { return usuario; }
-    public List<ItemPedido> getItensPedido() { return Collections.unmodifiableList(itensPedido); }
+
+    // CORRIGIDO: agora retornamos lista mutável segura (cópia)
+    public List<ItemPedido> getItensPedido() { 
+        return new ArrayList<>(itensPedido); 
+    }
+
     public BigDecimal getValorTotal() { return valorTotal; }
     public BigDecimal getFrete() { return frete; }
     public BigDecimal getDesconto() { return desconto; }
@@ -100,7 +122,12 @@ public class PedidoUsuario {
     public String getPaymentIntent() { return paymentIntent; }
 
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
-    public void setItensPedido(List<ItemPedido> itensPedido) { this.itensPedido = itensPedido; }
+
+    public void setItensPedido(List<ItemPedido> itensPedido) { 
+        this.itensPedido = new ArrayList<>(itensPedido); 
+        this.itensPedido.forEach(item -> item.setPedidoUsuario(this));
+    }
+
     public void setValorTotal(BigDecimal valorTotal) { this.valorTotal = valorTotal; }
     public void setFrete(BigDecimal frete) { this.frete = frete; }
     public void setDesconto(BigDecimal desconto) { this.desconto = desconto; }
@@ -111,12 +138,5 @@ public class PedidoUsuario {
     public void setEnderecoEntrega(Endereco enderecoEntrega) { this.enderecoEntrega = enderecoEntrega; }
     public void setPaymentIntent(String paymentIntent) { this.paymentIntent = paymentIntent; }
 
-    // Atualiza status
-    public void atualizarStatus(StatusPedido novoStatus) {
-        if (novoStatus == null) throw new IllegalArgumentException("Status não pode ser nulo");
-        if (this.statusPedido == StatusPedido.CANCELADO || this.statusPedido == StatusPedido.PAGO) {
-            throw new IllegalStateException("Pedido já finalizado não pode mudar de status");
-        }
-        this.statusPedido = novoStatus;
-    }
+	
 }

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,18 +24,18 @@ public class PedidoUsuarioService {
     private final PedidoUsuarioRepository pedidoUsuarioRepository;
     private final CarrinhoRepository carrinhoRepository;
     private final CarrinhoService carrinhoService;
-    
-    @Autowired
-    private MovimentacaoEstoqueService movimentacaoEstoqueService;
+    private final MovimentacaoEstoqueService movimentacaoEstoqueService;
 
-    private static final String STRIPE_SECRET_KEY = "sk_test_51SQQVNR8fTgtdP111zzoLofMMkNVE3ce0oHbwwVHlRAQ5p06hd7UuteJI58Fvul9TG7r07JCkua68Y5qPQ6DvdbB00bIaq618A";
+    private static final String STRIPE_SECRET_KEY = "sk_test_51SOSMt1b6fknUuf8Rid6zxVO29KfcQEtzgBVM905EqEmJWWI3jLZZng6jwY29UHV1B9EbFWSQE2u1z9QziKYEw7T00PLL3FvU1";
 
     public PedidoUsuarioService(PedidoUsuarioRepository pedidoUsuarioRepository,
                                 CarrinhoService carrinhoService,
-                                CarrinhoRepository carrinhoRepository) {
+                                CarrinhoRepository carrinhoRepository,
+                                MovimentacaoEstoqueService movimentacaoEstoqueService) {
         this.pedidoUsuarioRepository = pedidoUsuarioRepository;
         this.carrinhoService = carrinhoService;
         this.carrinhoRepository = carrinhoRepository;
+        this.movimentacaoEstoqueService = movimentacaoEstoqueService;
     }
 
     /** Cria pedido e retorna URL do Stripe Checkout */
@@ -61,7 +60,7 @@ public class PedidoUsuarioService {
                 desconto,
                 enderecoEntrega
         );
-        pedido.setStatusPedido(StatusPedido.CANCELADO);
+        pedido.setStatusPedido(StatusPedido.PENDENTE);
 
         PedidoUsuario pedidoSalvo = pedidoUsuarioRepository.save(pedido);
 
@@ -72,7 +71,6 @@ public class PedidoUsuarioService {
     private String criarSessaoStripe(PedidoUsuario pedido) throws Exception {
         Stripe.apiKey = STRIPE_SECRET_KEY;
 
-        // 🛒 Itens principais (produtos)
         List<SessionCreateParams.LineItem> lineItems = pedido.getItensPedido().stream()
                 .map(item -> SessionCreateParams.LineItem.builder()
                         .setQuantity(Long.valueOf(item.getQuantidade()))
@@ -90,7 +88,7 @@ public class PedidoUsuarioService {
                         .build())
                 .collect(Collectors.toList());
 
-        // 🚚 Adiciona o frete, se existir
+        // Frete
         if (pedido.getFrete() != null && pedido.getFrete().compareTo(BigDecimal.ZERO) > 0) {
             SessionCreateParams.LineItem freteItem = SessionCreateParams.LineItem.builder()
                     .setQuantity(1L)
@@ -108,14 +106,13 @@ public class PedidoUsuarioService {
             lineItems.add(freteItem);
         }
 
-        // 💸 Adiciona desconto como valor negativo (representado como item)
+        // Desconto
         if (pedido.getDesconto() != null && pedido.getDesconto().compareTo(BigDecimal.ZERO) > 0) {
             SessionCreateParams.LineItem descontoItem = SessionCreateParams.LineItem.builder()
                     .setQuantity(1L)
                     .setPriceData(
                             SessionCreateParams.LineItem.PriceData.builder()
                                     .setCurrency("brl")
-                                    // valor negativo no Stripe deve ser tratado como desconto no backend
                                     .setUnitAmount(pedido.getDesconto().multiply(BigDecimal.valueOf(-100)).longValue())
                                     .setProductData(
                                             SessionCreateParams.LineItem.PriceData.ProductData.builder()
@@ -127,7 +124,6 @@ public class PedidoUsuarioService {
             lineItems.add(descontoItem);
         }
 
-        // 💰 Cria sessão Stripe
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
                 .addAllLineItem(lineItems)
@@ -137,10 +133,16 @@ public class PedidoUsuarioService {
                 .build();
 
         Session session = Session.create(params);
+
+        // Salvar paymentIntent no pedido
+        pedido.setPaymentIntent(session.getPaymentIntent());
+        pedidoUsuarioRepository.save(pedido);
+
         return session.getUrl();
     }
 
-    // 🔹 CRUD básico
+    // =================== CRUD ===================
+
     public List<PedidoUsuario> listarTodos() {
         return pedidoUsuarioRepository.findAll();
     }
@@ -153,7 +155,7 @@ public class PedidoUsuarioService {
     @Transactional
     public PedidoUsuario atualizarStatus(Long idPedido, StatusPedido novoStatus) {
         PedidoUsuario pedido = buscarPorId(idPedido);
-        pedido.atualizarStatus(novoStatus);
+        pedido.setStatusPedido(novoStatus);
         return pedidoUsuarioRepository.save(pedido);
     }
 
@@ -171,15 +173,22 @@ public class PedidoUsuarioService {
         return pedidoUsuarioRepository.findByPaymentIntent(paymentIntentId).orElse(null);
     }
 
-    /** Atualiza status para PAGO e limpa carrinho e registra saída no estoque*/
+    /** Salva pedido no banco */
+    @Transactional
+    public PedidoUsuario salvarPedido(PedidoUsuario pedido) {
+        return pedidoUsuarioRepository.save(pedido);
+    }
+
+    /** Atualiza status para PAGO e limpa carrinho e registra saída no estoque */
     @Transactional
     public void marcarComoPagoELimparCarrinho(PedidoUsuario pedido) {
-        pedido.atualizarStatus(StatusPedido.PAGO);
+        pedido.setStatusPedido(StatusPedido.PAGO);
         pedidoUsuarioRepository.save(pedido);
 
-        // 🔹 Registra saída no estoque
+        // Registra saída no estoque
         movimentacaoEstoqueService.registrarSaida(pedido);
-        
+
+        // Limpa carrinho
         Carrinho carrinho = pedido.getUsuario().getCarrinho();
         if (carrinho != null && carrinho.getItensCarrinho() != null) {
             carrinho.getItensCarrinho().clear();

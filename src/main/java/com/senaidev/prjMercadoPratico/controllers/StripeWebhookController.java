@@ -71,6 +71,13 @@ public class StripeWebhookController {
         }
 
         if (pedido != null) {
+            // 🔹 Salva paymentIntent caso ainda não esteja no pedido
+            if (paymentIntentId != null && (pedido.getPaymentIntent() == null || pedido.getPaymentIntent().isEmpty())) {
+                pedido.setPaymentIntent(paymentIntentId);
+                pedidoUsuarioService.salvarPedido(pedido); // cria método save no service
+            }
+
+            // 🔹 Atualiza status e limpa carrinho
             pedidoUsuarioService.marcarComoPagoELimparCarrinho(pedido);
             System.out.println("Pedido pago e carrinho limpo: " + pedido.getIdPedidoUsuario());
         } else {
@@ -83,6 +90,12 @@ public class StripeWebhookController {
         PedidoUsuario pedido = pedidoUsuarioService.buscarPorPaymentIntent(paymentIntentId);
 
         if (pedido != null) {
+            // 🔹 Salva paymentIntent caso ainda não esteja
+            if (pedido.getPaymentIntent() == null || pedido.getPaymentIntent().isEmpty()) {
+                pedido.setPaymentIntent(paymentIntentId);
+                pedidoUsuarioService.salvarPedido(pedido);
+            }
+
             pedidoUsuarioService.marcarComoPagoELimparCarrinho(pedido);
             System.out.println("Pedido pago e carrinho limpo via payment_intent: " + pedido.getIdPedidoUsuario());
         } else {
@@ -95,6 +108,12 @@ public class StripeWebhookController {
         PedidoUsuario pedido = pedidoUsuarioService.buscarPorPaymentIntent(paymentIntentId);
 
         if (pedido != null) {
+            // 🔹 Salva paymentIntent caso ainda não esteja
+            if (pedido.getPaymentIntent() == null || pedido.getPaymentIntent().isEmpty()) {
+                pedido.setPaymentIntent(paymentIntentId);
+                pedidoUsuarioService.salvarPedido(pedido);
+            }
+
             pedidoUsuarioService.marcarComoPagoELimparCarrinho(pedido);
             System.out.println("Pedido pago e carrinho limpo via charge: " + pedido.getIdPedidoUsuario());
         } else {

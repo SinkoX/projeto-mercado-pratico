@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.senaidev.prjMercadoPratico.entities.Estoque;
 import com.senaidev.prjMercadoPratico.entities.Produto;
@@ -25,4 +27,9 @@ public interface EstoqueRepository extends JpaRepository<Estoque, Long> {
     // Busca produtos sem estoque
     @Query("SELECT e FROM Estoque e WHERE e.quantidade = 0")
     List<Estoque> findEstoqueZerado();
+    
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Estoque e WHERE e.produto.idProduto = :idProduto")
+    void deleteByProdutoId(Long idProduto);
 }
