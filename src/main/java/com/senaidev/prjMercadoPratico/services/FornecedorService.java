@@ -1,12 +1,14 @@
 package com.senaidev.prjMercadoPratico.services;
 
-import com.senaidev.prjMercadoPratico.entities.Fornecedor;
-import com.senaidev.prjMercadoPratico.repositories.FornecedorRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.senaidev.prjMercadoPratico.entities.Fornecedor;
+import com.senaidev.prjMercadoPratico.repositories.FornecedorRepository;
+import com.senaidev.prjMercadoPratico.repositories.FornecimentoRepository;
 
 @Service
 public class FornecedorService {
@@ -62,7 +64,32 @@ public class FornecedorService {
         return fornecedorRepository.save(fornecedor);
     }
 
+   
+    
+    @Autowired
+    private FornecimentoRepository fornecimentoRepository; //
+
     public void delete(Long id) {
-        fornecedorRepository.deleteById(id);
+        Fornecedor fornecedor = fornecedorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+
+        // Desassociar produtos
+        if(fornecedor.getProdutos() != null) {
+            fornecedor.getProdutos().forEach(produto -> produto.setFornecedor(null));
+        }
+        fornecedorRepository.save(fornecedor);
+
+       
+        fornecedorRepository.delete(fornecedor);
     }
+
+	public FornecimentoRepository getFornecimentoRepository() {
+		return fornecimentoRepository;
+	}
+
+	public void setFornecimentoRepository(FornecimentoRepository fornecimentoRepository) {
+		this.fornecimentoRepository = fornecimentoRepository;
+	}
+
+
 }

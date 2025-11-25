@@ -13,8 +13,9 @@ public class Fornecimento {
     private Long idFornecimento;
 
     @ManyToOne
-    @JoinColumn(name = "id_fornecedor")
+    @JoinColumn(name = "id_fornecedor", nullable = true)
     private Fornecedor fornecedor;
+
 
     @Column(name = "data_fornecimento", nullable = false)
     private LocalDateTime dataFornecimento = LocalDateTime.now();
